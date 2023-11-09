@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  username  String  @id
+  name      String
+  email     String  @unique
+  password  String
+  role      Role    @default(ADMIN)
+}
+
+model Pelanggan {
+  id              Int           @id @default(autoincrement())
+  nama_lengkap    String
+  email           String        @unique
+  pilihan_kelas   Kelas         @relation(fields: [id_kelas], references: [id])
+  tipeKendaraan   TipeKendaraan @relation(fields: [tipe_kendaraan], references: [tipe])
+  umur            Int
+  no_telp         String
+  alamat          String
+  tipe_kendaraan  String
+  id_kelas        Int
+}
+
+model Kendaraan {
+  id              Int           @id @default(autoincrement())
+  nama            String
+  tipeKendaraan   TipeKendaraan @relation(fields: [tipe_kendaraan], references: [tipe])
+  tipe_kendaraan  String 
+  kelas           Kelas?
+}
+
+model TipeKendaraan {
+  tipe          String  @id
+  kendaraan     Kendaraan[]
+  pelanggan     Pelanggan[]
+}
+
+model Kelas {
+  id              Int       @id @default(autoincrement())
+  nama            String    
+  harga           Int
+  total_jam       Int
+  jumlah_sesi     Int
+  kendaraan       Kendaraan @relation(fields: [id_kendaraan], references: [id]) 
+  id_kendaraan    Int       @unique
+  id_instruktur   Int
+  jadwal          Jadwal[]
+  instruktur      Instruktur @relation(fields: [id_instruktur], references: [id])
+  pelanggan       Pelanggan[]
+}
+
+model Instruktur {
+  id              Int   @id @default(autoincrement())
+  nama_lengkap    String
+  nik             String
+  alamat          String
+  no_telp         String
+  kelas           Kelas[]
+}
+
+model Jadwal  {
+  id              Int           @id @default(autoincrement())
+  kelas           Kelas         @relation(fields: [id_kelas], references: [id])
+  tanggal         DateTime      @db.Date
+  start_sesi      DateTime      @db.Time
+  end_sesi        DateTime      @db.Time
+  id_kelas        Int
+}
+
+enum Role {
+  OWNER
+  ADMIN
+}

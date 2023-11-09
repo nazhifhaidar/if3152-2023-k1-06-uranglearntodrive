@@ -9,9 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@prisma/client": "^5.5.2",
+    "@types/bcryptjs": "^2.4.6",
     "@types/scheduler": "^0.16.5",
     "@types/tailwindcss": "^3.1.0",
+    "mongodb": "^6.2.0",
+    "mongoose": "^8.0.0",
     "next": "^14.0.1",
+    "next-auth": "^4.24.4",
     "prisma": "^5.5.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
