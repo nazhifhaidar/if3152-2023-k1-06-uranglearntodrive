@@ -10,6 +10,10 @@ import RoundedBoxContainer from '../components/Containers/RoundedBoxContainer';
 import { Roboto } from 'next/font/google';
 import { Montserrat } from 'next/font/google';
 import PasswordField from '../components/TextField/PasswordField';
+import { signIn } from 'next-auth/react';
+import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation'
+import Provider from '../Provider';
 
 const roboto = Roboto({
   weight: '400',
@@ -18,24 +22,26 @@ const roboto = Roboto({
 })
 
 const montserrat = Montserrat({
-  weight:'400',
-  style:'normal',
-  subsets:['latin'],
+  weight: '400',
+  style: 'normal',
+  subsets: ['latin'],
   variable: '--font montserrat'
 })
 
 const montserratBold = Montserrat({
-  weight:'700',
-  style:'normal',
-  subsets:['latin'],
+  weight: '700',
+  style: 'normal',
+  subsets: ['latin'],
   variable: '--font montserrat'
 })
 
+const url = process.env.NEXTAUTH_URL
 
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
   const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -45,39 +51,23 @@ const LoginPage: React.FC = () => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit= async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     // Create a data object to send in the POST request
     const data = { username, password };
+    const formData = new FormData(event.currentTarget);
+    console.log(formData.get("username"))
+    console.log(formData.get("password"))
+    const response = await signIn('credentials', {
+      username: formData.get("username"),
+      password: formData.get("password"),
+      redirect: true,
+      callbackUrl: `/hello`
 
-    const clickedButtonId = document.activeElement?.id;
-    // console.log(clickedButtonId);
-    if (clickedButtonId !== "submit-button") {
-      return; // Ignore form submission if the clicked button is not "submit-button"
-    }
+    })
 
-    try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (response.ok) {
-        // Login successful, handle the response or redirect to the next page
-        const res = await response.json();
-        console.log(res);
-      } else {
-        // Login failed, handle the error
-        const res = await response.json();
-        console.error(res);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
+    console.log(response);
   };
 
   const handlePasswordVisibilityToggle = () => {
@@ -89,24 +79,23 @@ const LoginPage: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <Provider>
       <Center alignItems='center'>
-      <RoundedBoxContainer warna_latar_belakang = 'lightBlue' lebar={480} tinggi={320} sudut={15} child={
-        <div className={montserrat.className}>
-          <h1 className={montserratBold.className} style={{textAlign:'center', fontSize:'48px'}}>LOGIN</h1>
-          <form onSubmit={handleSubmit}>
-            <TextField1 label="Username" value={username} type="text" onChange={handleUsernameChange} />
-            <PasswordField label="Password" value={password} onChange={handlePasswordChange} onToggleVisibility={handlePasswordVisibilityToggle} style={{marginLeft:'28px', paddingLeft:'4px'}}/>
-            <div style={{maxWidth: '100%' , display:'flex', justifyContent: 'center'}}>
-              <Button1 id="submit-button"  text="Login" textColor="black" bgColor="yellow"/>
-            </div>
-            
-          </form>
-        </div>
-      }/>
-    </Center>
-    
-    </>
+        <RoundedBoxContainer warna_latar_belakang='lightBlue' lebar={480} tinggi={320} sudut={15}>
+          <div className={montserrat.className}>
+            <h1 className={montserratBold.className} style={{ textAlign: 'center', fontSize: '48px' }}>LOGIN</h1>
+            <form onSubmit={handleSubmit} >
+              <TextField1 label="Username" name='username' value={username} type="text" onChange={handleUsernameChange} />
+              <PasswordField label="Password" value={password} onChange={handlePasswordChange} onToggleVisibility={handlePasswordVisibilityToggle} style={{ marginLeft: '28px', paddingLeft: '4px' }} />
+              <div style={{ maxWidth: '100%', display: 'flex', justifyContent: 'center' }}>
+                <Button1 id="submit-button" text="Login" textColor="black" bgColor="yellow" type='submit' />
+              </div>
+
+            </form>
+          </div>
+        </RoundedBoxContainer>
+      </Center>  
+    </Provider>
     
   );
 };

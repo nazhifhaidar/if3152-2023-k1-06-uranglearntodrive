@@ -5,9 +5,10 @@ interface Button1Props {
     text: string;
     textColor: string;
     bgColor: string;
+    type: "button" | "reset" | "submit" | undefined;
 }
 
-const Button1:React.FC<Button1Props> = ({text, textColor, bgColor,id}) => {
+const Button1:React.FC<Button1Props> = ({text, textColor, bgColor,id, type}) => {
     const buttonStyle:React.CSSProperties = {
         color: textColor,
         border: `2px solod ${textColor}`,
@@ -19,7 +20,7 @@ const Button1:React.FC<Button1Props> = ({text, textColor, bgColor,id}) => {
     }
 
     return (
-        <button id={id} style={buttonStyle} >
+        <button id={id} style={buttonStyle} type={type} >
             {text}
         </button>
     );

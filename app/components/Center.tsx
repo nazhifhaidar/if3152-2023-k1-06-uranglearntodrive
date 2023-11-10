@@ -14,7 +14,7 @@ const Center: React.FC<CenterProps> = ({ children, alignItems='center' }) => {
   };
 
   return (
-    <div style={centerStyle}>
+    <div style={centerStyle} >
       {children}
     </div>
   );

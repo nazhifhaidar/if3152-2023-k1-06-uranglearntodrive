@@ -18,6 +18,7 @@
 
 body {
   /* color: rgb(var(--foreground-rgb)); */
-  background-color: #d5dded;
-  padding: 1rem;
+  background-color: '#000';
+  padding: '0px';
+  
 }
