@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '@/lib/prisma'
 import ResponseData from '@/app/utils/Response'
+import bcrypt from 'bcryptjs'
  
 export default async function handler(
     req: NextApiRequest,
@@ -9,16 +10,15 @@ export default async function handler(
     let responseData: ResponseData<any>;
     if (req.method === 'POST') {
       const { username, password} = req.body;
-      
       const user = await prisma.user.findUnique({
         where: { username: username },
       });
-      
       if (!user) {
         responseData = new ResponseData("error", "user not found", null)
         return res.status(401).json(responseData);
       }
-      if (password !== user.password){
+      const matchPassword = await bcrypt.compare(password as string, user.password as string)
+      if (!matchPassword){
         responseData = new ResponseData("error", "invalid password", null)
         return res.status(401).json(responseData);
       }

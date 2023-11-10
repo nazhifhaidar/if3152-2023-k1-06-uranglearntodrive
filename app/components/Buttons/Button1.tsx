@@ -1,3 +1,5 @@
+'use client'
+
 import React, { FormEvent, FormEventHandler } from 'react'
 
 interface Button1Props {
