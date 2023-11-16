@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react'
 import AppBar from '../components/AppBar';
 import LoginLogout from '../utils/loginlogout';
@@ -10,13 +8,14 @@ import { useSession } from 'next-auth/react';
 import SideBar from '../components/SideBar/SideBar';
 import Row from '../components/Row';
 
-const OwnerPage: React.FC = () => {
-  const { data: session } = useSession({
-    required: true,
-    onUnauthenticated() {
-        redirect('/api/auth/signin?callbackUrl=/owner');
-    },
-  });
+const OwnerPage: React.FC = async () => {
+  // const { data: session } = useSession({
+  //   required: true,
+  //   onUnauthenticated() {
+  //       redirect('/api/auth/signin?callbackUrl=/owner');
+  //   },
+  // });
+  const session = await getServerSession(options);
   if (!session) redirect('/api/auth/signin?callbackUrl=/owner');
   if (session?.user.role !== "OWNER"){
     redirect("/hello");
