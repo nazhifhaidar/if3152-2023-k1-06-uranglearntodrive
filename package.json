@@ -6,8 +6,11 @@
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} ./prisma/seed.ts"
   },
   "scripts": {
+    "predev": "npx prisma generate && echo \"Prisma generate before dev\"",
     "dev": "next dev",
+    "prebuild": "npx prisma generate && echo \"Prisma generate before build\"",
     "build": "next build",
+    "prestart": "npx prisma generate && echo \"Prisma generate before start\"",
     "start": "next start",
     "lint": "next lint"
   },

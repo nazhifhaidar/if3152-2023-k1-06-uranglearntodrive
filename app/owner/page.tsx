@@ -7,6 +7,8 @@ import { getServerSession } from 'next-auth';
 import { options } from '../api/auth/[...nextauth]/options';
 import { redirect } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import SideBar from '../components/SideBar/SideBar';
+import Row from '../components/Row';
 
 const OwnerPage: React.FC = () => {
   const { data: session } = useSession({
@@ -22,7 +24,19 @@ const OwnerPage: React.FC = () => {
   return (
     <div>
       <AppBar > <LoginLogout></LoginLogout></AppBar> 
-      Hello, {session?.user.name}
+      <Row>
+        <SideBar width='240px' background_color='orange' border_color='black' margin='-3px 0px 0px 0px'>
+          <h2>Homepage</h2>
+          <h2>Manage Admin</h2>
+          <h2>Manage Kendaraan</h2> 
+          <h2>Manage Instruktur</h2>
+          <h2>Manage Kelas</h2>
+        </SideBar>
+        <div style={{marginLeft: '8px'}}>
+          Hello, {session?.user.name}
+        </div>
+      </Row>
+      
     </div>
   )
 }
