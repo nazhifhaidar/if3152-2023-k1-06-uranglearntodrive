@@ -46,7 +46,7 @@ const LoginPage: React.FC = () => {
   return (
     <Provider>
       <Center alignItems='center'>
-        <RoundedBoxContainer warna_latar_belakang='lightBlue' lebar={480} tinggi={320} sudut={15}>
+        <RoundedBoxContainer warna_latar_belakang='lightBlue'border_color='#80a2ad' lebar={480} tinggi={320} sudut={15}>
           <div className={montserrat.className}>
             <h1 className={montserratBold.className} style={{ textAlign: 'center', fontSize: '48px' }}>LOGIN</h1>
             <LoginForm>

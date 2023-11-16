@@ -13,7 +13,8 @@ interface RoundedBoxContainerProps{
     titik_pusat?: number     //dalam pixel
     sudut: number,          // dalam pixel, menentukan kelengkungan sudut
     children: ReactNode
-    warna_latar_belakang: string;
+    warna_latar_belakang: string,
+    border_color: string,
 }
 
 const RoundedBoxContainer: React.FC<RoundedBoxContainerProps> = ({
@@ -23,18 +24,20 @@ const RoundedBoxContainer: React.FC<RoundedBoxContainerProps> = ({
     sudut,
     warna_latar_belakang,
     children,
+    border_color
   }) => {
     const containerStyle: React.CSSProperties = {
       width: `${lebar}px`,
       height: `${tinggi}px`,
       borderRadius: `${sudut}px`, // Menentukan kelengkungan sudut
-      border: '2px solid #000', 
+      border: `2px solid ${border_color}`, 
       textAlign: 'center', 
       padding: '10px', 
       backgroundColor: `${warna_latar_belakang}`,
       alignItems: 'center',
       display: 'flex',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      boxShadow: '0px 3px 4px rgba(10, 10, 10, 0.4)'
     };
   
     return (
