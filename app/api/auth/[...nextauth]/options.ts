@@ -2,10 +2,12 @@ import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { getToken } from "next-auth/jwt"
 import bcrypt from "bcryptjs"
+import { User } from "@prisma/client";
+import { AdapterUser } from "next-auth/adapters";
+import { redirect } from "next/navigation";
 
 const secret = process.env.NEXTAUTH_SECRET
 const url = process.env.NEXTAUTH_URL
-
 
 export const options: NextAuthOptions = {
     providers: [
@@ -39,19 +41,21 @@ export const options: NextAuthOptions = {
               return null
             }
           })
-    ],
+    ],  
     callbacks: {
       async signIn({user, credentials}){
-        console.log("signIn callbacks", {user, credentials})
-        return true;
+        console.log("signIn callbacks", {user, credentials});
+          return true; // Continue with the default behavior if the role is not admin or owner
       },
-      async session({session, user, token}){
-        console.log("session callback", {session, token, user});
-        return session;
+      async session({session, token}){
+        console.log("session callback", {session, token});
+        if (session?.user) session.user.role = token.role
+          return session;
       },
-      async jwt({token, user, session}){
-        console.log("jwt callback", {token, user, session});
-        return token;
+      async jwt({token, user}){
+        console.log("jwt callback", {token, user});
+        if (user) token.role = user.role
+          return token;
       },
       
       

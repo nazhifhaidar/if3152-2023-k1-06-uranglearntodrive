@@ -9,19 +9,16 @@ import Provider from '../Provider';
 
 const page = async () => {
     const session = await getServerSession(options);
-    if (!session){
-        redirect("/login");
-    }
     return (
-        <Provider>
+        <>
             <AppBar > <LoginLogout></LoginLogout></AppBar> 
             {session ? (
-                    <div> Hello World!! </div>
+                    <div> Hello, {session.user.name}!! </div>
                 ) : (
                     <div> Hello Nigg..</div>
                 )
             }
-        </Provider>
+        </>
     )
 }
 

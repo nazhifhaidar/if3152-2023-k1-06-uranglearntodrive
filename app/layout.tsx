@@ -39,7 +39,10 @@ export default async function RootLayout({
       </head>
       <body className={montserrat.className} style={{padding:'0px'}}>
         <div className={montserrat.className} >
-        {children}
+          <Provider session={session}>
+            {children}
+          </Provider>
+        
         </div>
       </body>
     </html>

@@ -24,7 +24,7 @@ class LoginController{
             responseData = new ResponseData("error", "invalid password", null)
             return res.status(401).json(responseData);
           }
-          responseData = new ResponseData("success", "data retrieved", {username: user?.username, password: user?.password})
+          responseData = new ResponseData("success", "data retrieved", user)
           return res.status(200).json(responseData);
           
         } else {

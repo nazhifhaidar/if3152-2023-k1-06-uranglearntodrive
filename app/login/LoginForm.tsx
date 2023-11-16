@@ -6,6 +6,8 @@ import React, { useState } from 'react'
 import TextField1 from '../components/TextField/TextField1';
 import PasswordField from '../components/TextField/PasswordField';
 import Button1 from '../components/Buttons/Button1';
+import { redirect } from 'next/navigation';
+import prisma from '@/lib/prisma';
 
 const LoginForm:React.FC = () => {
     const [username, setUsername] = useState<string>('');
@@ -31,11 +33,8 @@ const LoginForm:React.FC = () => {
       username: formData.get("username"),
       password: formData.get("password"),
       redirect: true,
-      callbackUrl: `/hello`
-
-    })
-
-    console.log(response);
+      callbackUrl: "/check"
+    });
   };
 
   const handlePasswordVisibilityToggle = () => {
