@@ -7,8 +7,6 @@ npm install
 ```
 to install all the dependencies required
 
-Second, enter [npx prima genereate] to generate the prisma client
-
 Finally, run the development server:
 
 ```bash
