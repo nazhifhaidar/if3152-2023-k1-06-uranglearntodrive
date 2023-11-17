@@ -5,8 +5,17 @@ import { signOut } from "next-auth/react"
 
 
 export default function Logout(){
+    const handleMouseEnter = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.persist();
+        event.currentTarget.style.backgroundColor = "rgba(175, 201, 154, 0.6)";
+      };
+    
+    const handleMouseLeave = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.persist();
+        event.currentTarget.style.backgroundColor = "";
+      };
     return(
-        <button className="border border-black px-4 bg-red-500 text-white hover:bg-red-600" onClick={()=>{
+        <button onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={()=>{
             signOut();
         }}>
             Log Out

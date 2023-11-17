@@ -15,14 +15,14 @@ const SideBar: React.FC<Props> = ({children, background_color, border_color, wid
         width: width,
         height: '100vh',
         backgroundColor: `${background_color}`,
-        borderRight: `2px solid ${border_color}`,
+        borderRight: `1px solid ${border_color}`,
         justifyContent: 'flex-start',
         paddingLeft: '8px',
         margin: margin
     }
 
     const childStyle: React.CSSProperties = {
-        margin: marginElement || '4px 0px 8px 0px', // Default margin if not provided
+        margin: marginElement || '12px 8px 12px 0px', // Default margin if not provided
       };
   return (
     // the children will be the elements of the side bar that contains Link to some pages

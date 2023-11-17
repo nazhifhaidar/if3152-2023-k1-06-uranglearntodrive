@@ -7,6 +7,7 @@ import { redirect } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import SideBar from '../components/SideBar/SideBar';
 import Row from '../components/Row';
+import CurrentPageStyle from '../components/Style/current_page_style';
 
 const OwnerPage: React.FC = async () => {
   // const { data: session } = useSession({
@@ -24,12 +25,12 @@ const OwnerPage: React.FC = async () => {
     <div>
       <AppBar > <LoginLogout></LoginLogout></AppBar> 
       <Row>
-        <SideBar width='240px' background_color='orange' border_color='black' margin='-3px 0px 0px 0px'>
-          <h2>Homepage</h2>
-          <h2>Manage Admin</h2>
-          <h2>Manage Kendaraan</h2> 
-          <h2>Manage Instruktur</h2>
-          <h2>Manage Kelas</h2>
+        <SideBar width='240px' background_color='rgba(113, 251, 111, 0.4)' border_color='black' margin='-3px 0px 0px 0px'>
+          <h2 style={CurrentPageStyle} >Homepage</h2>
+          <h2 style={{paddingLeft:'8px'}}>Manage Admin</h2>
+          <h2 style={{paddingLeft:'8px'}}>Manage Kendaraan</h2> 
+          <h2 style={{paddingLeft:'8px'}}>Manage Instruktur</h2>
+          <h2 style={{paddingLeft:'8px'}}>Manage Kelas</h2>
         </SideBar>
         <div style={{marginLeft: '8px'}}>
           Hello, {session?.user.name}
