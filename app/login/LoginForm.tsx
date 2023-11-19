@@ -45,7 +45,7 @@ const LoginForm:React.FC = () => {
         <TextField1 label="Username" name='username' value={username} type="text" onChange={handleUsernameChange} />
         <PasswordField label="Password" value={password} onChange={handlePasswordChange} onToggleVisibility={handlePasswordVisibilityToggle} style={{ marginLeft: '28px', paddingLeft: '4px' }} />
         <div style={{ maxWidth: '100%', display: 'flex', justifyContent: 'center' }}>
-        <Button1 id="submit-button" text="Login" textColor="black" bgColor="yellow" type='submit' />
+        <Button1 id="submit-button" text="Login" textColor="black" bgColor="yellow" type='submit' style={{margin:'8px'}}/>
         </div>
     </form>
   )

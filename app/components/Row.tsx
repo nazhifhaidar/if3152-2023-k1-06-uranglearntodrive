@@ -12,10 +12,18 @@ const Row:React.FC<Props> = ({ children, justifyContent, alignItems }) => {
       flexDirection: 'row',
       justifyContent: justifyContent || 'flex-start',
       alignItems: alignItems || 'stretch',
-      width: '100%', // You can adjust the width based on your needs
+      width: 'fit-content', // You can adjust the width based on your needs
     };
+
+    const childStyle: React.CSSProperties = {
+      display: 'inline-block', // Make children inline-block
+    };
+
+    const childrenWithStyles = React.Children.map(children, (child) => (
+      <div style={childStyle}>{child}</div>
+    ));
   
-    return <div style={rowStyle}>{children}</div>;
+    return <div style={rowStyle}>{childrenWithStyles}</div>;
   };
   
   export default Row;
