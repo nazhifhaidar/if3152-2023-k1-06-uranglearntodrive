@@ -44,16 +44,16 @@ export const options: NextAuthOptions = {
     ],  
     callbacks: {
       async signIn({user, credentials}){
-        console.log("signIn callbacks", {user, credentials});
+        // console.log("signIn callbacks", {user, credentials});
           return true; // Continue with the default behavior if the role is not admin or owner
       },
       async session({session, token}){
-        console.log("session callback", {session, token});
+        // console.log("session callback", {session, token});
         if (session?.user) session.user.role = token.role
           return session;
       },
       async jwt({token, user}){
-        console.log("jwt callback", {token, user});
+        // console.log("jwt callback", {token, user});
         if (user) token.role = user.role
           return token;
       },
@@ -63,9 +63,7 @@ export const options: NextAuthOptions = {
     secret: secret,
     session: {
       strategy:"jwt",
-    },
-    jwt: {
-      maxAge: 3*60*60 
+      maxAge: 3*60*60
     },
     pages:{
       signIn:"/login"
