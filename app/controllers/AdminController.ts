@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '@/lib/prisma'
 import ResponseData from '@/app/utils/Response'
+import bcrypt from 'bcryptjs'
 
 class AdminController{
     prisma = prisma;
@@ -44,11 +45,46 @@ class AdminController{
         }
         
     }
-    static async handleMembuatAkun(){
-
+    static async handleMembuatAkun(req: NextApiRequest, res:NextApiResponse){
+        let responseData: ResponseData<any>;
+        try{
+            const {username, name, email, password} = req.body;
+            if (!username || !name || !email || !password ){
+                responseData = new ResponseData("error", "Every attribute must be filled", null);
+                return res.status(400).json(responseData)
+            }
+            
+            const existingUser = await prisma.user.findUnique({
+                where: {
+                  username: username,
+                },
+              });
+          
+              if (existingUser) {
+                responseData = new ResponseData('error', 'Username already exists', null);
+                return res.status(400).json(responseData);
+              }
+            
+            const newAdmin = await prisma.user.create({
+                data:{
+                    username:username,
+                    name: name,
+                    email: email,
+                    password: bcrypt.hashSync(password),
+                    role: 'ADMIN'
+                },
+            })
+            
+            responseData = new ResponseData('success', 'Admin created successfully', newAdmin);
+            return res.status(200).json(responseData);
+        }catch(error){
+            console.error('Error creating admin:', error);
+            responseData = new ResponseData('error', 'Internal server error', null);
+            return res.status(500).json(responseData);
+        }
     }
 
-    static async handleHapusAkun(){
+    static async handleHapusAkun(req: NextApiRequest, res:NextApiResponse){
 
     }
 }

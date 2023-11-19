@@ -1,4 +1,6 @@
-import React, { ReactNode } from 'react'
+'use client'
+
+import React, { ReactNode, useState} from 'react'
 
 interface Props{
     children?: ReactNode,
@@ -10,6 +12,10 @@ interface Props{
 }
 
 const SideBar: React.FC<Props> = ({children, background_color, border_color, width, margin, marginElement}) => {
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const toggleSidebar = () => {
+      setSidebarOpen(!isSidebarOpen);
+    };
 
     const style : React.CSSProperties = {
         width: width,
