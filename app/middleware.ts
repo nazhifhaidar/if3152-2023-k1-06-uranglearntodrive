@@ -16,4 +16,4 @@ export default withAuth(
     
 )
 
-export const config = {matcher: ["/owner","/admin"]}
+export const config = {matcher: ["/owner/:path*","/admin/:path*"]}
