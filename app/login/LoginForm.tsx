@@ -6,8 +6,6 @@ import React, { useState } from 'react'
 import TextField1 from '../components/TextField/TextField1';
 import PasswordField from '../components/TextField/PasswordField';
 import Button1 from '../components/Buttons/Button1';
-import { redirect } from 'next/navigation';
-import prisma from '@/lib/prisma';
 
 const LoginForm:React.FC = () => {
     const [username, setUsername] = useState<string>('');

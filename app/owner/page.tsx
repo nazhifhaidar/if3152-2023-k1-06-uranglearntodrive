@@ -30,7 +30,7 @@ const OwnerPage: React.FC = async () => {
         <OpenClosedSideBar width='240px' background_color='rgba(113, 251, 111, 0.1)' border_color='black' margin='-9px 0px 0px 0px'>
           <h2 style={CurrentPageStyle} >Homepage</h2>
           <Link style={{paddingLeft:'8px'}} href={"/owner/manage-admin"}>Manage Admin</Link>
-          <h2 style={{paddingLeft:'8px'}}>Manage Kendaraan</h2> 
+          <Link style={{paddingLeft:'8px'}} href={"/owner/manage-kendaraan"}>Manage Kendaraan</Link>
           <h2 style={{paddingLeft:'8px'}}>Manage Instruktur</h2>
           <h2 style={{paddingLeft:'8px'}}>Manage Kelas</h2>
         </OpenClosedSideBar>

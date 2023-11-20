@@ -58,7 +58,7 @@ interface TableProps {
 
 const Table: React.FC<TableProps> = ({columns, data, onHover}) => {
   return (
-    <table style={{width: '100%',
+    <table style={{width: '120%',
       borderCollapse: 'collapse',
       marginTop: '20px',
       tableLayout: 'auto',}}>
