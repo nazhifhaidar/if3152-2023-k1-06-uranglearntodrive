@@ -15,7 +15,7 @@ interface Button1Props {
 const Button1:React.FC<Button1Props> = ({text, textColor, bgColor,id, type,margin}) => {
     const buttonStyle:React.CSSProperties = {
         color: textColor,
-        border: `2px solod ${textColor}`,
+        border: `1px solid ${textColor}`,
         backgroundColor: bgColor,
         padding: '8px 16px',
         borderRadius: '4px',
