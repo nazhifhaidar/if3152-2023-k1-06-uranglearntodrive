@@ -17,7 +17,7 @@ const CreateKelasForm:React.FC = () => {
   const [no_telp, setNoTelp] = useState<string>('');
 
   const handleNamaLengkapChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setNamaLengkap(event.target.value);
+    setNama(event.target.value);
   };
 
   const handleNIKChange = (event: ChangeEvent<HTMLInputElement>) => {
