@@ -7,7 +7,24 @@ import LoginLogout from '@/app/utils/loginlogout'
 import { getServerSession } from 'next-auth'
 import Link from 'next/link'
 import React from 'react'
-import TableContent from './table-content'
+import Button1 from '@/app/components/Buttons/Button1'
+import CreateInstrukturForm from './createInstrukturForm'
+import BoxContainer from '@/app/components/Containers/BoxContainer'
+import { Montserrat } from 'next/font/google'
+
+const montserrat = Montserrat({
+    weight: '400',
+    style: 'normal',
+    subsets: ['latin'],
+    variable: '--font montserrat'
+  })
+
+const montserratBold = Montserrat({
+  weight: '700',
+  style: 'normal',
+  subsets: ['latin'],
+  variable: '--font montserrat'
+})
 
 const ManageAdminPage: React.FC = async () => {
     const session = await getServerSession(options);
@@ -22,22 +39,31 @@ const ManageAdminPage: React.FC = async () => {
                 </h2>
             </Link>
             <Link href={"/owner/manage-admin"}>
-                <h2 style={CurrentPageStyle}>
+                <h2 style={{paddingLeft:'8px'}}>
                     Manage Admin
                 </h2>
             </Link>
-            <h2 style={{paddingLeft:'8px'}}>Manage Kendaraan</h2> 
+            <h2 style={{paddingLeft:'8px'}}>Manage Kendaraan</h2>
             <Link href={"/owner/manage-instruktur"}>
-                <h2 style={{paddingLeft:'8px'}}>
+                <h2 style={CurrentPageStyle}>
                     Manage Instruktur
                 </h2>
             </Link>
-            <h2 style={{paddingLeft:'8px'}}>Manage Kelas</h2>
+            <Link href={"/owner/manage-kelas"}>
+                <h2 style={{paddingLeft:'8px'}}>
+                    Manage Kelas
+                </h2>
+            </Link>
         </SideBar>
         <div style={{margin: '8px'}}>
           <h2>Hello, {session?.user.name}</h2>
-          <TableContent/>
-        </div>
+          <BoxContainer warna_latar_belakang='white'border_color='white' lebar={550} tinggi={360} sudut={15}>
+            <div className={montserrat.className}>
+              <h1 className={montserratBold.className} style={{ textAlign: 'start', fontSize: '30px' }}>CREATE INSTRUKTUR</h1>
+              <CreateInstrukturForm></CreateInstrukturForm>
+            </div>
+          </BoxContainer>
+        </div>    
       </Row>
     </div>
   )

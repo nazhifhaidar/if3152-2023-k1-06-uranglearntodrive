@@ -22,17 +22,22 @@ const ManageAdminPage: React.FC = async () => {
                 </h2>
             </Link>
             <Link href={"/owner/manage-admin"}>
-                <h2 style={CurrentPageStyle}>
+                <h2 style={{paddingLeft:'8px'}}>
                     Manage Admin
                 </h2>
             </Link>
-            <h2 style={{paddingLeft:'8px'}}>Manage Kendaraan</h2> 
+            <h2 style={{paddingLeft:'8px'}}>Manage Kendaraan</h2>
             <Link href={"/owner/manage-instruktur"}>
                 <h2 style={{paddingLeft:'8px'}}>
                     Manage Instruktur
                 </h2>
             </Link>
-            <h2 style={{paddingLeft:'8px'}}>Manage Kelas</h2>
+            <Link href={"/owner/manage-kelas"}>
+                <h2 style={CurrentPageStyle}>
+                    Manage Kelas
+                </h2>
+            </Link>
+            
         </SideBar>
         <div style={{margin: '8px'}}>
           <h2>Hello, {session?.user.name}</h2>
