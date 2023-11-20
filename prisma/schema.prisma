@@ -38,6 +38,8 @@ model Kendaraan {
   tipeKendaraan   TipeKendaraan @relation(fields: [tipe_kendaraan], references: [tipe])
   tipe_kendaraan  String 
   kelas           Kelas?
+  status_kendaraan  String
+  tanggal_servis  DateTime?     @db.Date
 }
 
 model TipeKendaraan {
