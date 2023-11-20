@@ -33,8 +33,12 @@ const TableContent:React.FC<TableContentProps> = () => {
 
       return (
         <div className='table-content'>
-            <h2>Instructure Table</h2>
-            <Table columns={columns} data={tableData} />
+            <h1>Class Table</h1>
+            {tableData.length === 0 ? (
+                <h1>There is no data. Try to add the data.</h1>
+            ) : (<Table columns={columns} data={tableData} onHover={(index) => [
+              <button style={{paddingLeft:'4px'}} key="delete" onClick={() => console.log('Delete clicked')}>D</button>,
+            ]} />)}
         </div>
       )
 }

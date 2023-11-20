@@ -9,6 +9,7 @@ import Link from 'next/link'
 import React from 'react'
 import TableContent from './table-content'
 import Button1 from '@/app/components/Buttons/Button1'
+import OpenClosedSideBar from '@/app/components/SideBar/OpenClosedSideBar'
 
 const ManageAdminPage: React.FC = async () => {
     const session = await getServerSession(options);
@@ -16,7 +17,7 @@ const ManageAdminPage: React.FC = async () => {
     <div className='owner-content'>
       <AppBar > <LoginLogout></LoginLogout></AppBar> 
       <Row>
-        <SideBar width='240px' background_color='rgba(113, 251, 111, 0.4)' border_color='black' margin='-3px 0px 0px 0px'>
+      <OpenClosedSideBar width='240px' background_color='rgba(113, 251, 111, 0.1)' border_color='black' margin='-9px 0px 0px 0px'>
             <Link href={"/owner"} >
                 <h2 style={{paddingLeft:'8px'}}>
                     Homepage
@@ -38,16 +39,13 @@ const ManageAdminPage: React.FC = async () => {
                     Manage Kelas
                 </h2>
             </Link>
-            
-        </SideBar>
+        </OpenClosedSideBar>
         <div style={{margin: '8px'}}>
-          <h2>Hello, {session?.user.name}</h2>
+          {/* <h2>Hello, {session?.user.name}</h2> */}
           <TableContent/>
-          <div style={{ maxWidth: '100%', display: 'flex', justifyContent: 'center' }}>
-            <Link href={"/owner/manage-instruktur/create-instruktur"}>
+            <Link href={"/owner/manage-instruktur/create-kelas"}>
               <Button1 id="create-button" text="Create New Data" textColor="black" bgColor="yellow" type='button' />
             </Link>
-          </div>
         </div>
       </Row>
     </div>
