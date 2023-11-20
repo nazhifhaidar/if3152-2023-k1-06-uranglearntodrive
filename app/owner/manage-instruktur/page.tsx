@@ -1,5 +1,3 @@
-///owner/manage-admin Page
-
 import { options } from '@/app/api/auth/[...nextauth]/options'
 import AppBar from '@/app/components/AppBar'
 import Row from '@/app/components/Row'
@@ -11,17 +9,10 @@ import Link from 'next/link'
 import React from 'react'
 import TableContent from './table-content'
 import Button1 from '@/app/components/Buttons/Button1'
-import Center from '@/app/components/Center'
 import OpenClosedSideBar from '@/app/components/SideBar/OpenClosedSideBar'
-import Button2 from '@/app/components/Buttons/Button2'
-import { redirect } from 'next/navigation'
-import CreateAdminButton from './CreateAdminButton'
+
 const ManageAdminPage: React.FC = async () => {
     const session = await getServerSession(options);
-
-    const handleClick = () => {
-      return redirect('/create');
-    }
   return (
     <div className='owner-content'>
       <AppBar > <LoginLogout></LoginLogout></AppBar> 
@@ -33,24 +24,28 @@ const ManageAdminPage: React.FC = async () => {
                 </h2>
             </Link>
             <Link href={"/owner/manage-admin"}>
-                <h2 style={CurrentPageStyle}>
+                <h2 style={{paddingLeft:'8px'}}>
                     Manage Admin
                 </h2>
             </Link>
-            <h2 style={{paddingLeft:'8px'}}>Manage Kendaraan</h2> 
+            <h2 style={{paddingLeft:'8px'}}>Manage Kendaraan</h2>
             <Link href={"/owner/manage-instruktur"}>
-                <h2 style={{paddingLeft:'8px'}}>
+                <h2 style={CurrentPageStyle}>
                     Manage Instruktur
                 </h2>
             </Link>
-            <h2 style={{paddingLeft:'8px'}}>Manage Kelas</h2>
+            <Link href={"/owner/manage-kelas"}>
+                <h2 style={{paddingLeft:'8px'}}>
+                    Manage Kelas
+                </h2>
+            </Link>
         </OpenClosedSideBar>
-        <div style={{margin: '16px', flex:'1'}}>
+        <div style={{margin: '8px'}}>
           {/* <h2>Hello, {session?.user.name}</h2> */}
           <TableContent/>
-          <div className='mt-2'>
-            <CreateAdminButton></CreateAdminButton>
-          </div>
+            <Link href={"/owner/manage-instruktur/create-instruktur"}>
+              <Button1 id="create-button" text="Create New Data" textColor="black" bgColor="yellow" type='button' />
+            </Link>
         </div>
       </Row>
     </div>
