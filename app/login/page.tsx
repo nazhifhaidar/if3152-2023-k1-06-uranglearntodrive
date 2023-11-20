@@ -44,7 +44,7 @@ const montserratBold = Montserrat({
 
 const LoginPage: React.FC = () => {
   return (
-      <Center alignItems='center'>
+      <Center alignItems='center' minHeight='100vh'>
         <RoundedBoxContainer warna_latar_belakang='lightBlue'border_color='#80a2ad' lebar={480} tinggi={320} sudut={15}>
           <div className={montserrat.className}>
             <h1 className={montserratBold.className} style={{ textAlign: 'center', fontSize: '48px' }}>LOGIN</h1>

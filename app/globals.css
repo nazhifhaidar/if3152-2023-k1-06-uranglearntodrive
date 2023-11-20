@@ -23,7 +23,7 @@ body {
   
 }
 
-table{
+/* table{
   width: 100%;
   border-collapse: collapse;
   margin-top: '20px';
@@ -36,5 +36,9 @@ th, td{
 }
 
 th{
-  background-color: blanchedalmond;
+  background-color: rgba(206, 255, 165, 1.0);
+} */
+
+h1 {
+  font-size: 2rem;
 }
