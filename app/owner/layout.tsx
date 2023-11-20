@@ -8,7 +8,7 @@ export default async function ownerLayout({children,}: {children: React.ReactNod
     const session = await getServerSession(options);
     if (!session) redirect('/api/auth/signin?callbackUrl=/owner');
     if (session?.user.role !== "OWNER"){
-        redirect("/hello");
+        redirect("/");
     }
     return (
         <>{children}</>
