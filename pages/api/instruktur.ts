@@ -8,4 +8,7 @@ export default async function handler(
     if (req.method === "GET"){
         return InstrukturController.handleInstrukturManager(req, res);
     }
+    else if(req.method =="POST"){
+      return InstrukturController.handleMembuatInstruktur(req,res);
+    }
   }

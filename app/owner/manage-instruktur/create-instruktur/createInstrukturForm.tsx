@@ -64,7 +64,6 @@ const CreateInstrukturForm:React.FC = () => {
             <Link href={"/owner/manage-instruktur"}>
               <Button1 id="submit-button" text="Cancel" textColor="black" bgColor="yellow" type='reset'/>
             </Link>
-            
         </div>
     </form>
   )

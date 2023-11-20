@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '@/lib/prisma'
 import ResponseData from '@/app/utils/Response'
+import bcrypt from 'bcryptjs'
 
 class InstrukturController{
     prisma = prisma;
@@ -38,8 +39,41 @@ class InstrukturController{
         }
         
     }
-    static async handleCreateInstruktur(){
-
+    static async handleMembuatInstruktur(req: NextApiRequest, res:NextApiResponse){
+        let responseData: ResponseData<any>;
+        try{
+            const {nama_lengkap, nik, alamat, no_telp} = req.body;
+            if (!nama_lengkap || !nik || !alamat || !no_telp ){
+                responseData = new ResponseData("error", "Every attribute must be filled", null);
+                return res.status(400).json(responseData)
+            }
+            
+            // const existingUser = await prisma.instruktur.findUnique({
+            //     where: {
+            //       username: username,
+            //     },
+            //   });
+          
+            //   if (existingUser) {
+            //     responseData = new ResponseData('error', 'Username already exists', null);
+            //     return res.status(400).json(responseData);
+            //   }
+            
+            const newInstruktur = await prisma.instruktur.create({
+                data:{
+                    nama_lengkap:nama_lengkap,
+                    nik:nik,
+                    alamat:alamat,
+                    no_telp:no_telp,
+                },
+            })
+            responseData = new ResponseData('success', 'Instructure created successfully', newInstruktur);
+            return res.status(200).json(responseData);
+        }catch(error){
+            console.error('Error creating admin:', error);
+            responseData = new ResponseData('error', 'Internal server error', null);
+            return res.status(500).json(responseData);
+        }
     }
 
     static async handleDeleteInstruktur(){
