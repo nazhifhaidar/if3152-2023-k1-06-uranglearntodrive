@@ -13,9 +13,15 @@ import TableContent from './table-content'
 import Button1 from '@/app/components/Buttons/Button1'
 import Center from '@/app/components/Center'
 import OpenClosedSideBar from '@/app/components/SideBar/OpenClosedSideBar'
-
+import Button2 from '@/app/components/Buttons/Button2'
+import { redirect } from 'next/navigation'
+import CreateAdminButton from './CreateAdminButton'
 const ManageAdminPage: React.FC = async () => {
     const session = await getServerSession(options);
+
+    const handleClick = () => {
+      return redirect('/create');
+    }
   return (
     <div className='owner-content'>
       <AppBar > <LoginLogout></LoginLogout></AppBar> 
@@ -38,7 +44,9 @@ const ManageAdminPage: React.FC = async () => {
         <div style={{margin: '16px', flex:'1'}}>
           {/* <h2>Hello, {session?.user.name}</h2> */}
           <TableContent/>
-          <Button1 text='Buat Akun Baru' textColor='black' bgColor='yellow' type='button' margin='8px 0px 0px 0px'></Button1>
+          <div className='mt-2'>
+            <CreateAdminButton></CreateAdminButton>
+          </div>
         </div>
       </Row>
     </div>
