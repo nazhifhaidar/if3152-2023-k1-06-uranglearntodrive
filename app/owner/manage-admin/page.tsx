@@ -16,6 +16,7 @@ import OpenClosedSideBar from '@/app/components/SideBar/OpenClosedSideBar'
 import Button2 from '@/app/components/Buttons/Button2'
 import { redirect } from 'next/navigation'
 import CreateAdminButton from './CreateAdminButton'
+import AdminList from './AdminList'
 const ManageAdminPage: React.FC = async () => {
     const session = await getServerSession(options);
 
@@ -47,7 +48,7 @@ const ManageAdminPage: React.FC = async () => {
         </OpenClosedSideBar>
         <div style={{margin: '16px', flex:'1'}}>
           {/* <h2>Hello, {session?.user.name}</h2> */}
-          <TableContent/>
+          <AdminList/>
           <div className='mt-2'>
             <CreateAdminButton></CreateAdminButton>
           </div>
