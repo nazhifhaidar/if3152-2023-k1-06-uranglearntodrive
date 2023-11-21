@@ -40,18 +40,20 @@ class PelangganController{
     static async addDataPelanggan(req: NextApiRequest, res:NextApiResponse){
         let responseData: ResponseData<any>;
         try{
-            let cust;
-            const {query} = req.body;
-            console.log(query);
-            // if (!query){
-            //     cust = await prisma.pelanggan.findMany();
-            // }else{
-            //     cust = await prisma.pelanggan.create({
-            //         data:{
-            //             nama_lengkap: query.nama_lengkap
-            //         }
-            //     });
-            // }
+            let cust = async (kelasID: number) => {
+                const response = await fetch(`/api/admin/${kelasID}`, {
+                    method: 'POST',
+                    headers: { "Content-Type": "application/json" }
+                });
+            
+                if (response.ok) {
+                    // MASIH BELUM JALAN NGAB
+                    
+                } else {
+                    // Handle error response
+                    console.error('Error submitting form:', response.statusText);
+                }
+      };
             if (!cust){
                 responseData = new ResponseData("error", "Conflicting data", null);
                 console.log(responseData);
