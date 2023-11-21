@@ -3,9 +3,12 @@
 import React, { useEffect, useState } from 'react';
 import InformationCard from '@/app/components/Cards/InformationCard';
 import Button2 from '@/app/components/Buttons/Button2';
+import ConfirmationPopUp from '@/app/components/pop-ups/ConfirmationPopUp';
 
 const AdminList:React.FC = () => {
     const [admins, setAdmins] = useState<Record<string, any>[]>([]);
+    const [selectedAdminId, setSelectedAdminId] = useState<number | null>(null);
+    const [isConfirmationOpen, setConfirmationOpen] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -30,6 +33,25 @@ const AdminList:React.FC = () => {
         fetchData();
       },[]);
 
+      const handleDeleteClick = (adminId: number) => {
+        setSelectedAdminId(adminId);
+        setConfirmationOpen(true);
+      };
+    
+      const handleConfirmDelete = () => {
+        if (selectedAdminId !== null) {
+          // Call your delete function here
+          handleDelete(selectedAdminId);
+          setConfirmationOpen(false);
+          setSelectedAdminId(null);
+        }
+      };
+    
+      const handleCancelDelete = () => {
+        setConfirmationOpen(false);
+        setSelectedAdminId(null);
+      };
+
       const handleDelete = async (adminId: number) => {
         try {
           const response = await fetch(`/api/admin/${adminId}`, {
@@ -50,9 +72,9 @@ const AdminList:React.FC = () => {
       };
       
       return (
-        <div>
+        <div style={{ maxHeight: '450px', overflowY: 'auto' }}>
             <h1>Admin List</h1>
-            {admins.map((admin, index)=> (
+            {admins.map((admin)=> (
                 <div key={admin.id}>
                     <InformationCard
                     key={admin.id}
@@ -65,14 +87,17 @@ const AdminList:React.FC = () => {
                         </div>
                     }
                     buttons={
-                        <Button2 text='Delete' onClick={() => handleDelete(admin.id)}></Button2>
+                        <Button2 text='Delete' onClick={() => handleDeleteClick(admin.id)}></Button2>
                     }
                     />
 
-                </div>
-                
-                        
+                </div>       
             ))}
+            <ConfirmationPopUp
+                isOpen={isConfirmationOpen}
+                onCancel={handleCancelDelete}
+                onConfirm={handleConfirmDelete}
+            />
         </div>
       );
 };
