@@ -11,7 +11,7 @@ import CurrentPageStyle from '../components/Style/current_page_style';
 import Link from 'next/link';
 import OpenClosedSideBar from '../components/SideBar/OpenClosedSideBar';
 
-const OwnerPage: React.FC = async () => {
+const AdminPage: React.FC = async () => {
   // const { data: session } = useSession({
   //   required: true,
   //   onUnauthenticated() {
@@ -20,19 +20,18 @@ const OwnerPage: React.FC = async () => {
   // });
   const session = await getServerSession(options);
   if (!session) redirect('/api/auth/signin?callbackUrl=/owner');
-  if (session?.user.role !== "OWNER"){
+  if (session?.user.role !== "ADMIN"){
     redirect("/hello");
   }
   return (
-    <div className='owner-content'>
+    <div className='admin-content'>
       <AppBar > <LoginLogout></LoginLogout></AppBar> 
       <Row>
-        <OpenClosedSideBar width='240px' background_color='rgba(113, 251, 111, 0.1)' border_color='black' margin='-9px 0px 0px 0px'>
+        <OpenClosedSideBar width='300px' background_color='rgba(113, 251, 111, 0.1)' border_color='black' margin='-9px 0px 0px 0px'>
           <h2 style={CurrentPageStyle} >Homepage</h2>
-          <Link style={{paddingLeft:'8px'}} href={"/owner/manage-admin"}>Manage Admin</Link>
-          <Link style={{paddingLeft:'8px'}} href={"/owner/manage-kendaraan"}>Manage Kendaraan</Link>
-          <Link style={{paddingLeft:'8px'}} href={"/owner/manage-instruktur"}>Manage Instruktur</Link>
-          <Link style={{paddingLeft:'8px'}} href={"/owner/manage-kelas"}>Manage Kelas</Link>
+          <Link style={{paddingLeft:'8px'}} href={"/admin/manage-status"}>Manage Status Kendaraan</Link> 
+          <Link style={{paddingLeft:'8px'}} href={"/admin/manage-pelanggan"}>Manage Pelanggan</Link> 
+          <h2 style={{paddingLeft:'8px'}}>Manage Jadwal Kelas</h2>
         </OpenClosedSideBar>
         <div style={{marginLeft: '8px'}}>
           Hello, {session?.user.name}
@@ -42,4 +41,4 @@ const OwnerPage: React.FC = async () => {
   )
 }
 
-export default OwnerPage;
+export default AdminPage;
