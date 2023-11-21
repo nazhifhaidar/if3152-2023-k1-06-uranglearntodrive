@@ -3,16 +3,17 @@ import React, { ReactNode } from 'react'
 interface Props{
     children:ReactNode,
     justifyContent?: string,
-    alignItems?: string
+    alignItems?: string,
+    width?:string | number,
 }
 
-const Row:React.FC<Props> = ({ children, justifyContent, alignItems }) => {
+const Row:React.FC<Props> = ({ children, justifyContent, alignItems, width }) => {
     const rowStyle:React.CSSProperties = {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: justifyContent || 'flex-start',
       alignItems: alignItems || 'stretch',
-      width: 'fit-content', // You can adjust the width based on your needs
+      width:  width || 'fit-content', // You can adjust the width based on your needs
     };
 
     const childStyle: React.CSSProperties = {

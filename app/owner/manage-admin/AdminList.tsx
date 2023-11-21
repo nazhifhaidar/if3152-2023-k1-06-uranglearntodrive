@@ -50,9 +50,9 @@ const AdminList:React.FC = () => {
       };
       
       return (
-        <div>
+        <div style={{ maxHeight: '500px', overflowY: 'auto' }}>
             <h1>Admin List</h1>
-            {admins.map((admin, index)=> (
+            {admins.map((admin)=> (
                 <div key={admin.id}>
                     <InformationCard
                     key={admin.id}
