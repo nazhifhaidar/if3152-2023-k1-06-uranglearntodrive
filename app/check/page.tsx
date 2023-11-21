@@ -19,7 +19,7 @@ const MyPage = async () => {
   if (session?.user.role === "OWNER"){
     redirect('/owner')
   }else{
-    redirect('/')
+    redirect('/admin')
   }
 
   return <div>Checking session...</div>;
