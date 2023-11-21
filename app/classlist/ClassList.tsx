@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import InformationCard from '@/app/components/Cards/InformationCard';
 import Button2 from '@/app/components/Buttons/Button2';
 import Link from 'next/link';
+import Grid from '../components/Grid';
 
 const ClassList: React.FC = () => {
     const [kelas, setKelas] = useState<Record<string, any>[]>([]);
@@ -32,6 +33,7 @@ const ClassList: React.FC = () => {
     },[]);
     return (
         <div>
+            <Grid rows={4} columns={3}>
             {kelas.map((kelas)=> (
                 <div key={kelas.id}>
                     <InformationCard 
@@ -50,6 +52,7 @@ const ClassList: React.FC = () => {
                     />
                 </div>
             ))}
+            </Grid>
         </div>
     );
 };
