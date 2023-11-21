@@ -1,14 +1,8 @@
-import { getServerSession } from 'next-auth';
-import Image from 'next/image'
-import { options } from './api/auth/[...nextauth]/options';
-import { ReactNode } from 'react';
-import Logout from './login/logout';
 import Link from 'next/link';
-import AppBar from './components/AppBar';
-import LoginLogout from './utils/loginlogout';
+import AppBar from '@/app/components/AppBar';
+import LoginLogout from '@/app/utils/loginlogout';
 import { Montserrat } from 'next/font/google';
-import Provider from './Provider';
-import Row from './components/Row';
+import Row from '@/app/components/Row';
 
 const montserrat = Montserrat({
   weight: '400',
@@ -17,9 +11,9 @@ const montserrat = Montserrat({
   variable: '--font montserrat'
 })
 
-export default async function Home() {
+const HomePage: React.FC = async () => {
   return (
-    <Provider>
+    <>
       <AppBar>
         <Row>
           <Link href={"/"} >
@@ -27,8 +21,16 @@ export default async function Home() {
               Dashboard
             </h2>
           </Link>
-          <h2 style={{marginRight:'10rem'}}>Daftar Kelas</h2> 
-          <h2 style={{marginRight:'10rem'}}>Tentang Perusahaan</h2>
+          <Link href={"/classlist"} >
+            <h2 style={{marginRight:'10rem'}}>
+              Daftar Kelas
+            </h2>
+          </Link>
+          <Link href={"/about"} >
+            <h2 style={{marginRight:'10rem'}}>
+              Tentang Perusahaan
+            </h2>
+          </Link>
           <LoginLogout></LoginLogout>
         </Row>
       </AppBar>
@@ -42,7 +44,8 @@ export default async function Home() {
           Maecenas accumsan turpis ac hendrerit euismod. Curabitur dapibus felis vitae odio congue aliquam. Morbi aliquam tellus et egestas ullamcorper. Pellentesque condimentum sapien odio, eu hendrerit odio lacinia in. Proin scelerisque lectus id aliquet blandit. Aliquam eleifend neque non nulla iaculis, a vestibulum enim sollicitudin. Integer id dolor aliquet mi posuere rhoncus.
           Morbi auctor arcu vitae tellus placerat, nec ultrices sem dignissim. Vivamus nec turpis neque. Aliquam ut maximus justo. Praesent vehicula faucibus efficitur. Quisque a sem blandit, semper turpis vitae, porta eros. Duis at cursus orci. Nullam dignissim justo metus, ac euismod nunc convallis et. Vivamus vitae nisi elit. Quisque rutrum egestas felis condimentum imperdiet.
           Duis condimentum erat vitae massa fermentum faucibus.</p>
-    </Provider>
-
+    </>
   )
 }
+
+export default HomePage;
