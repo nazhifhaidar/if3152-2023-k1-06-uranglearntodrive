@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import PelangganController from '@/app/controllers/PelangganController';
+import KelasController from '@/app/controllers/KelasController';
 import ResponseData from '@/app/utils/Response';
 
 export default async function handler(
@@ -7,7 +8,7 @@ export default async function handler(
     res: NextApiResponse,
   ) {
     if (req.method === "GET"){
-        return PelangganController.handlePelangganManager(req, res);
+        return KelasController.handleKelasManager(req, res);
     }
     else if (req.method === 'POST'){
         return PelangganController.addDataPelanggan(req,res);
