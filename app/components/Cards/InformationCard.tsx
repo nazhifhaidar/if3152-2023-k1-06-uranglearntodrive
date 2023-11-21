@@ -4,11 +4,12 @@ import Row from '../Row';
 interface InformationCardProperties{
     data?:React.ReactNode;
     buttons?: React.ReactNode;
+    margin?:string;
 }
 
-const InformationCard:React.FC<InformationCardProperties> = ({data, buttons}) => {
+const InformationCard:React.FC<InformationCardProperties> = ({data, buttons, margin}) => {
   return (
-    <div className='information-card p-2 border-2 border-blue-500 inline-block rounded-xl mb-2 w-full'>
+    <div className={`information-card p-2 border-2 border-blue-500 inline-block rounded-xl ${margin} w-full`}>
         <Row justifyContent='space-between' width={'100%'}>
             <div className='all-data mr-2 pr-2'>
                 {data}
