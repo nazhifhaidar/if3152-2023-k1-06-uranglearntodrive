@@ -20,16 +20,16 @@ model User {
 }
 
 model Pelanggan {
-  id              Int           @id @default(autoincrement())
-  nama_lengkap    String
-  email           String        @unique
-  pilihan_kelas   Kelas         @relation(fields: [id_kelas], references: [id])
-  tipeKendaraan   TipeKendaraan @relation(fields: [tipe_kendaraan], references: [tipe])
-  umur            Int
-  no_telp         String
-  alamat          String
-  tipe_kendaraan  String
-  id_kelas        Int
+  nama_lengkap     String          @@id
+  id_kelas         Int             @@id
+  pilihan_kelas    Kelas           @relation(fields: [id_kelas], references: [id])
+  tipeKendaraan    TipeKendaraan   @relation(fields: [tipe_kendaraan], references: [tipe])
+  statusPelanggan  StatusPelanggan @relation(fields: [status_pelanggan], references: [statusPelanggan])
+  umur             Int
+  no_telp          String
+  alamat           String
+  tipe_kendaraan   String
+  status_pelanggan String
 }
 
 model Kendaraan {
