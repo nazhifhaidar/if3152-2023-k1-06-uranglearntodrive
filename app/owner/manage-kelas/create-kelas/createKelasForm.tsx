@@ -1,72 +1,113 @@
 'use client'
-import { ChangeEvent } from 'react';
 
-import { signIn } from 'next-auth/react';
-import React, { useState } from 'react'
-import TextField2 from '@/app/components/TextField/TextField2';
-import PasswordField from '@/app/components/TextField/PasswordField';
-import Button1 from '@/app/components/Buttons/Button1';
-import { redirect } from 'next/navigation';
-import prisma from '@/lib/prisma';
-import Link from 'next/link';
+// "app/owner/manage-admin/create"
+
+import Button1 from "@/app/components/Buttons/Button1";
+import PasswordField from "@/app/components/TextField/PasswordField";
+import TextField1 from "@/app/components/TextField/TextField1";
+import TextField2 from "@/app/components/TextField/TextField2";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useState, ChangeEvent } from "react";
+import Dropdown from "@/app/components/Dropdown/Dropdown";
+import Dropdown2 from "@/app/components/Dropdown/Dropdown";
+
+const url = process.env.NEXTAUTH_URL;
 
 const CreateKelasForm:React.FC = () => {
-  const [nama, setNama] = useState<string>('');
-  const [nik, setNIK] = useState<string>('');
-  const [alamat, setAlamat] = useState<string>('');
-  const [no_telp, setNoTelp] = useState<string>('');
+    const router = useRouter();
+    const [nama, setNama] = useState<string>('');
+    const [harga, setHarga] = useState<string>('');
+    const [total_jam, setTotalJam] = useState<string>('');
+    const [jumlah_sesi, setJumlahSesi] = useState<string>('');
+    const [id_kendaraan, setIdKendaraan] = useState<string>('');
+    const [id_instruktur, setIdInstruktur] = useState<string>('');
+    // const [confirmPassword, setConfirmPassword] = useState<string>('');
+    // const [showPassword, setShowPassword] = useState(false);
+    // const [isShowConfirmPassowrd, setShowConfirmPassword] = useState(false);
 
-  const handleNamaLengkapChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setNama(event.target.value);
-  };
+    const handleNamaChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setNama(event.target.value);
+    };
 
-  const handleNIKChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setNIK(event.target.value);
-  };
+    const handleHargaChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setHarga(event.target.value);
+    }; 
 
-  const handleAlamatChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setAlamat(event.target.value);
-  };
+    const handleTotalJamChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setTotalJam(event.target.value);
+    }
 
-  const handleNoTelpChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setNoTelp(event.target.value);
-  };
+    const handleJumlahSesiChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setJumlahSesi(event.target.value);
+    };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    const handleIdKendaraanChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setIdKendaraan(event.target.value);
+    };
 
-    // Create a data object to send in the POST request
-    const formData = new FormData(event.currentTarget);
-    console.log(formData.get("nama_lengkap"))
-    console.log(formData.get("nik"))
-    console.log(formData.get("alamat"))
-    console.log(formData.get("no_telp"))
-    // console.log(formData.get("password"))
-    // const response = await signIn('credentials', {
-    //   username: formData.get("username"),
-    //   password: formData.get("password"),
-    //   redirect: true,
-    //   callbackUrl: "/check"
-    // });
-  };
+    const handleIdInstrukturChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setIdInstruktur(event.target.value);
+    };
 
-//   const handlePasswordVisibilityToggle = () => {
-//     setShowPassword(!showPassword);
-//   };
-  return (
-    <form onSubmit={handleSubmit} >
-        <TextField2 label="NamaLengkap" name='Nama Lengkap' value={nama_lengkap} type="text" onChange={handleNamaLengkapChange} />
-        <TextField2 label="NIK" name='NIK' value={nik} type="text" onChange={handleNIKChange} />
-        <TextField2 label="Alamat" name='Alamat' value={alamat} type="text" onChange={handleAlamatChange} />
-        <TextField2 label="NomorTelp" name='Nomor Telepon' value={no_telp} type="text" onChange={handleNoTelpChange} />
-        <div style={{ maxWidth: '100%', display: 'flex', justifyContent: 'center' }}>
-            <Button1 id="submit-button" text="Create" textColor="black" bgColor="yellow" type='submit'/>
-            <Link href={"/owner/manage-instruktur"}>
-              <Button1 id="submit-button" text="Cancel" textColor="black" bgColor="yellow" type='reset'/>
-            </Link>
-            
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        // Create a data object to send in the POST request
+        const formData = new FormData(event.currentTarget);
+        // console.log(formData.get("username"))
+        // console.log(formData.get("password"))
+        // console.log(formData.get("username"));
+        // console.log(formData.get("password"));
+        // console.log(formData.get("confirm_password"));
+        const nama = formData.get("nama");
+        const harga = formData.get("harga");
+        const total_jam = formData.get("total_jam");
+        const jumlah_sesi = formData.get("jumlah_sesi");
+        const id_kendaraan = formData.get("id_kendaraan");
+        const id_instruktur = formData.get("id_instruktur"); 
+
+        //cek apakah passwordnya sama
+        const response = await fetch('/api/kelas', {
+            method:'POST',
+            body: JSON.stringify({
+              nama:nama,
+              harga:harga,
+              total_jam: total_jam,
+              jumlah_sesi:jumlah_sesi,
+              id_kendaraan:id_kendaraan,
+              id_instruktur:id_instruktur
+            }),
+            headers: { "Content-Type": "application/json" }
+        })
+        if (response.ok){
+            const data= await response.json();
+            console.log(data);
+            router.push('/owner/manage-kelas');
+        } else{
+            const data= await response.json();
+            console.error(data);
+        }
+    };
+    return (
+        <div style={{width:'max-content'}}>
+            <h1>Create Kelas</h1>
+            <form onSubmit={handleSubmit} >
+                <TextField2 label="Nama" name='nama' value={nama} type="text" onChange={handleNamaChange} />
+                <TextField2 label="Harga" name='harga' value={harga} type="text" onChange={handleHargaChange} />
+                <TextField2 label="Total Jam" name='total_jam' value={total_jam} type="text" onChange={handleTotalJamChange} />
+                <TextField2 label="Jumlah Sesi" name='jumlah_sesi' value={jumlah_sesi} type="text" onChange={handleJumlahSesiChange} />
+                <Dropdown2 apiLink="/api/getIdKendaraan/" label="Id Kendaraan" name='id_kendaraan'></Dropdown2>
+                <Dropdown2 apiLink="/api/getIdInstruktur/" label="Id Instruktur" name='id_instruktur'></Dropdown2>
+                <div style={{ maxWidth: '100%', display: 'flex', justifyContent: 'center', flexDirection:'row' }}>
+                    <Button1 id="submit-button" text="Create Kelas" textColor="black" bgColor="yellow" type='submit' style={{margin:'8px'}}/>
+                    <Link href={"/owner/manage-kelas"}>
+                        <Button1 id="cancel_button" text="Cancel" textColor="black" bgColor="white" type='button' style={{margin:'8px'}}/>
+                    </Link>
+                </div>
+            </form>
         </div>
-    </form>
+       
   )
 }
 

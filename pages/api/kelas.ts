@@ -8,4 +8,7 @@ export default async function handler(
     if (req.method === "GET"){
         return KelasController.handleKelasManager(req, res);
     }
+    else if(req.method === "POST"){
+      return KelasController.handleCreateKelas(req,res);
+    }
   }

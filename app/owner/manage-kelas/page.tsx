@@ -43,7 +43,7 @@ const ManageAdminPage: React.FC = async () => {
         <div style={{margin: '8px'}}>
           {/* <h2>Hello, {session?.user.name}</h2> */}
           <TableContent/>
-            <Link href={"/owner/manage-instruktur/create-kelas"}>
+            <Link href={"/owner/manage-kelas/create-kelas"}>
               <Button1 id="create-button" text="Create New Data" textColor="black" bgColor="yellow" type='button' />
             </Link>
         </div>

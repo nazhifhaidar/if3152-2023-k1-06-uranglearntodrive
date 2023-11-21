@@ -8,7 +8,7 @@ import { getServerSession } from 'next-auth'
 import Link from 'next/link'
 import React from 'react'
 import Button1 from '@/app/components/Buttons/Button1'
-import CreateInstrukturForm from './CreateInstrukturForm'
+import CreateKelasForm from './CreateKelasForm'
 import { Montserrat } from 'next/font/google'
 import OpenClosedSideBar from '@/app/components/SideBar/OpenClosedSideBar'
 
@@ -26,7 +26,7 @@ const montserratBold = Montserrat({
   variable: '--font montserrat'
 })
 
-const CreateInstrukturPage:React.FC = () => {
+const CreateKelasPage:React.FC = () => {
   return (
     <div>
 <AppBar > <LoginLogout></LoginLogout></AppBar> 
@@ -55,11 +55,11 @@ const CreateInstrukturPage:React.FC = () => {
             </Link>
         </OpenClosedSideBar>
           <div className='pl-4'>
-            <CreateInstrukturForm/>
+            <CreateKelasForm/>
           </div>
       </Row>
     </div>
   )
 }
 
-export default CreateInstrukturPage
+export default CreateKelasPage
