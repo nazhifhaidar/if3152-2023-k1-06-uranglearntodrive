@@ -35,8 +35,8 @@ const ClassList: React.FC = () => {
         <div>
             <Grid rows={4} columns={3}>
             {kelas.map((kelas)=> (
-                <div key={kelas.id}>
-                    <InformationCard 
+                <div key={kelas.id} style={{margin: "2rem"}}>
+                    <InformationCard
                         key={kelas.id}
                         data={
                         <div>

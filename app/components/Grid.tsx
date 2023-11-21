@@ -30,7 +30,7 @@ const Grid: React.FC<GridProps> = ({ rows, columns, children }) => {
           childIndex++;
         } else {
           // Handle the case when there are not enough children
-          break;
+          break
         }
       }
     gridItems.push(rowItems);
