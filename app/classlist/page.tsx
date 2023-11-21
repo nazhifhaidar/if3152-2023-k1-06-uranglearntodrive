@@ -31,8 +31,7 @@ const EnrollPage: React.FC = () => {
         </AppBar>
         <br/>
         <br/>
-        <h1> Ayo pilih kelasmu! </h1>
-        <br/>
+        <h1 style={{marginLeft: "2rem"}}> Ayo pilih kelasmu! </h1>
         <Row>
             <ClassList/>
         </Row>
