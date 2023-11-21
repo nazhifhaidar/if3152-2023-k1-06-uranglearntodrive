@@ -17,12 +17,7 @@ import Button2 from '@/app/components/Buttons/Button2'
 import { redirect } from 'next/navigation'
 import CreateAdminButton from './CreateAdminButton'
 import AdminList from './AdminList'
-const ManageAdminPage: React.FC = async () => {
-    const session = await getServerSession(options);
-
-    const handleClick = () => {
-      return redirect('/create');
-    }
+const ManageAdminPage: React.FC = async () => {    
   return (
     <div className='owner-content'>
       <AppBar > <LoginLogout></LoginLogout></AppBar> 
