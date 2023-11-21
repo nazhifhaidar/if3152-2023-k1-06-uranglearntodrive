@@ -1,3 +1,5 @@
+//pages/api/admin.ts
+
 import type { NextApiRequest, NextApiResponse } from 'next';
 import AdminController from '@/app/controllers/AdminController';
 import ResponseData from '@/app/utils/Response';
