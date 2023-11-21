@@ -89,10 +89,10 @@ class AdminController{
     static async handleHapusAkun(req: NextApiRequest, res:NextApiResponse){
         let responseData: ResponseData<any>;
         try{
-            const {id} = req.body;
+            const {id} = req.query;
             const deletedUser = await prisma.user.delete({
                 where:{
-                    id:id
+                    id:parseInt(id as string, 10)
                 }
             });
             responseData = new ResponseData('success', 'Admin deleted successfully', deletedUser);

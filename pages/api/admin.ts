@@ -13,8 +13,6 @@ export default async function handler(
     }
     else if (req.method === 'POST'){
         return AdminController.handleMembuatAkun(req, res);
-    }else if (req.method === 'DELETE'){
-        return AdminController.handleHapusAkun(req, res);
     }else{
       return res.status(405).json(new ResponseData("error", "Method Not Available", null));
     }

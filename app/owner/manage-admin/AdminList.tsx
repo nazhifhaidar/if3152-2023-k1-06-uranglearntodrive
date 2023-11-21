@@ -30,6 +30,25 @@ const AdminList:React.FC = () => {
         fetchData();
       },[]);
 
+      const handleDelete = async (adminId: number) => {
+        try {
+          const response = await fetch(`/api/admin/${adminId}`, {
+            method: 'DELETE',
+            headers: { "Content-Type": "application/json" }
+          });
+    
+          if (response.ok) {
+            // If the deletion is successful, update the state to reflect the changes
+            setAdmins((prevAdmins) => prevAdmins.filter((admin) => admin.id !== adminId));
+          } else {
+            // Handle error response
+            console.error('Error deleting admin:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error deleting admin:', error);
+        }
+      };
+      
       return (
         <div>
             <h1>Admin List</h1>
@@ -46,7 +65,7 @@ const AdminList:React.FC = () => {
                         </div>
                     }
                     buttons={
-                        <Button2 text='Delete'></Button2>
+                        <Button2 text='Delete' onClick={() => handleDelete(admin.id)}></Button2>
                     }
                     />
 
