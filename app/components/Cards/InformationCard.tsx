@@ -9,7 +9,7 @@ interface InformationCardProperties{
 
 const InformationCard:React.FC<InformationCardProperties> = ({data, buttons, margin}) => {
   return (
-    <div className={`information-card p-2 border-2 border-blue-500 inline-block rounded-xl ${margin} w-full`}>
+    <div className={`information-card p-2 border-2 shadow-lg border-gray-200 inline-block rounded-xl bg-blue-50 ${margin} w-full`}>
         <Row justifyContent='space-between' width={'100%'}>
             <div className='all-data mr-2 pr-2'>
                 {data}

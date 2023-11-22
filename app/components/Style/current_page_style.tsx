@@ -7,7 +7,7 @@ const current_page_style = () => {
 }
 
 const CurrentPageStyle: React.CSSProperties = {
-    backgroundColor: 'lightGreen',
+    backgroundColor: 'rgba(96, 165, 250, 1)',
     borderRadius: '4px',
     paddingLeft: '8px',
     fontWeight:'700'
