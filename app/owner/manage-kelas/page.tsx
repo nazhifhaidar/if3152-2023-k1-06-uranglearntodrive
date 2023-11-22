@@ -11,6 +11,7 @@ import TableContent from './table-content'
 import Button1 from '@/app/components/Buttons/Button1'
 import OpenClosedSideBar from '@/app/components/SideBar/OpenClosedSideBar'
 import KelasList from './KelasList'
+import LinkButton from '@/app/components/Buttons/LinkButton'
 
 const ManageKelasPage: React.FC = async () => {
     const session = await getServerSession(options);
@@ -45,9 +46,7 @@ const ManageKelasPage: React.FC = async () => {
           <h1>Kelas List</h1>
           {/* <h2>Hello, {session?.user.name}</h2> */}
           <KelasList/>
-          <Link href={"/owner/manage-instruktur/create-instruktur"}>
-              <Button1 id="create-button" text="Create New Data" textColor="black" bgColor="yellow" type='button' />
-          </Link>
+          <LinkButton route="/owner/manage-kelas/create-kelas" text="Buat Data Baru"/>
         </div>
         {/* <div style={{margin: '8px'}}>
           <h2>Hello, {session?.user.name}</h2>

@@ -40,9 +40,9 @@ const KelasList:React.FC = () => {
         setConfirmationOpen(true);
       };
 
-      const handleEditClick = (kelas: Record<string,any>) => {
-        setSelectedkelasId(kelas.id);
-        router.push(`/owner/manage-kelas/${kelas.id}`);
+      const handleEditClick = (kelasId: number) => {
+        setSelectedkelasId(kelasId);
+        router.push(`/owner/manage-kelas/${kelasId}`);
       };
     
       const handleConfirmDelete = () => {
