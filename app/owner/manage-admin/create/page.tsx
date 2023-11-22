@@ -6,8 +6,20 @@ import LoginLogout from '@/app/utils/loginlogout'
 import Link from 'next/link'
 import React from 'react'
 import CreateAdminForm from './CreateAdminForm'
+import { redirect } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 
 const CreatePage:React.FC = () => {
+    const { data: session} = useSession({
+        onUnauthenticated() {
+            redirect('/api/auth/signin?callbackUrl=/check');
+        },
+        required:true
+    });
+    if (!session) redirect('/api/auth/signin?callbackUrl=/check');
+    if (session?.user.role !== "OWNER"){
+        redirect("/hello");
+    }
   return (
     <div>
 <AppBar > <LoginLogout></LoginLogout></AppBar> 
