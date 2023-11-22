@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '@/lib/prisma'
 import ResponseData from '@/app/utils/Response'
+import { useSearchParams } from 'next/navigation';
 
 class PelangganController{
     prisma = prisma;
@@ -40,20 +41,19 @@ class PelangganController{
     static async addDataPelanggan(req: NextApiRequest, res:NextApiResponse){
         let responseData: ResponseData<any>;
         try{
-            let cust = async (kelasID: number) => {
-                const response = await fetch(`/api/admin/${kelasID}`, {
-                    method: 'POST',
-                    headers: { "Content-Type": "application/json" }
-                });
-            
-                if (response.ok) {
-                    // MASIH BELUM JALAN NGAB
-                    
-                } else {
-                    // Handle error response
-                    console.error('Error submitting form:', response.statusText);
+            let cust;
+            const {nama_lengkap, umur, no_telp, alamat, id, tipe_kendaraan} = req.body;
+            cust = await prisma.pelanggan.create({
+                    data:{
+                        nama_lengkap:nama_lengkap,
+                        umur:umur,
+                        no_telp:no_telp,
+                        alamat:alamat,
+                        id_kelas:parseInt(id as string, 10),
+                        tipe_kendaraan:tipe_kendaraan
+                    }
                 }
-      };
+            );
             if (!cust){
                 responseData = new ResponseData("error", "Conflicting data", null);
                 console.log(responseData);
@@ -64,8 +64,7 @@ class PelangganController{
             }
             console.log(responseData);
             return res.status(200).json(responseData);
-        }
-        catch(e: any){
+        }catch(e: any){
             responseData =  new ResponseData("error", e.message, null);
             console.log(responseData);
             return res.status(500).json(responseData);
