@@ -94,7 +94,7 @@ const CreateAdminForm:React.FC = () => {
     }
     return (
         <div style={{width:'max-content'}}>
-            <h1>Create Admin</h1>
+            <h1 style={{paddingBottom:'8px'}}>Create Admin</h1>
             <form onSubmit={handleSubmit} >
                 <TextField2 label="Username" name='username' value={username} type="text" onChange={handleUsernameChange} loading ={loading}/>
                 <TextField2 label="Nama" name='name' value={name} type="text" onChange={handleNameChange} loading ={loading}/>

@@ -8,7 +8,7 @@ import { getServerSession } from 'next-auth'
 import Link from 'next/link'
 import React from 'react'
 import Button1 from '@/app/components/Buttons/Button1'
-import CreateKelasForm from './CreateKelasForm'
+import CreateKelasForm from './createKelasForm'
 import { Montserrat } from 'next/font/google'
 import OpenClosedSideBar from '@/app/components/SideBar/OpenClosedSideBar'
 
