@@ -10,7 +10,7 @@ import React from 'react'
 import Button1 from '@/app/components/Buttons/Button1'
 import { Montserrat } from 'next/font/google'
 import OpenClosedSideBar from '@/app/components/SideBar/OpenClosedSideBar'
-import CreateInstrukturForm from './CreateInstrukturForm'
+import CreateInstrukturForm from './createInstrukturForm'
 
 const montserrat = Montserrat({
     weight: '400',
@@ -31,7 +31,7 @@ const CreateInstrukturPage:React.FC = () => {
     <div>
 <AppBar > <LoginLogout></LoginLogout></AppBar> 
       <Row>
-        <OpenClosedSideBar width='240px' background_color='rgba(113, 251, 111, 0.1)' border_color='black' margin='-9px 0px 0px 0px'>
+        <OpenClosedSideBar width='240px' background_color='rgba(113, 251, 111, 0.1)' border_color='black' margin='0px 0px 0px 0px'>
             <Link href={"/owner"} >
                 <h2 style={{paddingLeft:'8px'}}>
                     Homepage

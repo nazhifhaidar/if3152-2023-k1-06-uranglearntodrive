@@ -34,7 +34,7 @@ export default function EditKelasPage({
     <div>
 <AppBar > <LoginLogout></LoginLogout></AppBar> 
       <Row>
-        <OpenClosedSideBar width='240px' background_color='rgba(113, 251, 111, 0.1)' border_color='black' margin='-9px 0px 0px 0px'>
+        <OpenClosedSideBar width='240px' background_color='rgba(113, 251, 111, 0.1)' border_color='black' margin='0px 0px 0px 0px'>
             <Link href={"/owner"} >
                 <h2 style={{paddingLeft:'8px'}}>
                     Homepage
@@ -47,12 +47,12 @@ export default function EditKelasPage({
             </Link>
             <h2 style={{paddingLeft:'8px'}}>Manage Kendaraan</h2>
             <Link href={"/owner/manage-instruktur"}>
-                <h2 style={CurrentPageStyle}>
+                <h2 style={{paddingLeft:'8px'}}>
                     Manage Instruktur
                 </h2>
             </Link>
             <Link href={"/owner/manage-kelas"}>
-                <h2 style={{paddingLeft:'8px'}}>
+                <h2 style={CurrentPageStyle}>
                     Manage Kelas
                 </h2>
             </Link>

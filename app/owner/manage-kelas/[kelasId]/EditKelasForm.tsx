@@ -162,7 +162,7 @@ const handleSelectKendaraan = (event: ChangeEvent<HTMLSelectElement>) =>{
   
   return (
       <div style={{width:'max-content'}}>
-        <h1>Edit Instruktur</h1>
+        <h1>Edit Kelas</h1>
         <form onSubmit={handleSubmit} >
         <TextField2 label="Nama" name='nama' value={nama} type="text" onChange={handleNamaChange} loading={loading}/>
                 <TextField2 label="Harga" name='harga' value={harga} type="text" onChange={handleHargaChange} loading={loading}/>
@@ -173,7 +173,7 @@ const handleSelectKendaraan = (event: ChangeEvent<HTMLSelectElement>) =>{
                 <DropdownInputInstruktur Dropdownlabel="Nama Instruktur" Dropdownname="id_instruktur" DropdownValue={id_instruktur} TextLabel="Id Instruktur" TextName="idinstruktur" TextValue={id_instruktur} Loading = {loading} Options={optionsInstruktur} onSelect={handleSelectInstruktur}></DropdownInputInstruktur>
             <div style={{ maxWidth: '100%', display: 'flex', justifyContent: 'center', flexDirection:'row' }}>
               <Button1 id="submit-button" text="Save Instruktur" textColor="black" bgColor="yellow" type='submit' style={{margin:'8px'}}/>
-              <Link href={"/owner/manage-instruktur"}>
+              <Link href={"/owner/manage-kelas"}>
                 <Button1 id="cancel_button" text="Cancel" textColor="black" bgColor="white" type='button' style={{margin:'8px'}}/>
               </Link>
             </div>
