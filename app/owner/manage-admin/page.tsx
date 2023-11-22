@@ -44,6 +44,7 @@ const ManageAdminPage: React.FC = async () => {
             <h2 style={{paddingLeft:'8px'}}>Manage Kelas</h2>
         </OpenClosedSideBar>
         <div style={{margin: '16px', flex:'1'}}>
+          <h1>Admin List</h1>
           {/* <h2>Hello, {session?.user.name}</h2> */}
           <AdminList/>
           <div className='mt-2'>

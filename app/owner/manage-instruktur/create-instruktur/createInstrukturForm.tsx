@@ -19,6 +19,7 @@ const CreateInstrukturForm:React.FC = () => {
   const [nik, setNIK] = useState<string>('');
   const [alamat, setAlamat] = useState<string>('');
   const [no_telp, setNoTelp] = useState<string>('');
+  const [loading,setLoading] = useState(false)
 
   const handleNamaLengkapChange = (event: ChangeEvent<HTMLInputElement>) => {
     setNamaLengkap(event.target.value);
@@ -45,6 +46,7 @@ const CreateInstrukturForm:React.FC = () => {
     const nik = formData.get("nik")
     const alamat = formData.get("alamat")
     const no_telp = formData.get("no_telp")
+    setLoading(true)
     const response = await fetch('/api/instruktur', {
       method:'POST',
       body: JSON.stringify({
@@ -65,17 +67,14 @@ const CreateInstrukturForm:React.FC = () => {
   }
   };
 
-//   const handlePasswordVisibilityToggle = () => {
-//     setShowPassword(!showPassword);
-//   };
   return (
       <div style={{width:'max-content'}}>
         <h1>Create Instruktur</h1>
         <form onSubmit={handleSubmit} >
-            <TextField2 label="NamaLengkap" name='nama_lengkap' value={nama_lengkap} type="text" onChange={handleNamaLengkapChange} />
-            <TextField2 label="NIK" name='nik' value={nik} type="text" onChange={handleNIKChange} />
-            <TextField2 label="Alamat" name='alamat' value={alamat} type="text" onChange={handleAlamatChange} />
-            <TextField2 label="NomorTelp" name='no_telp' value={no_telp} type="text" onChange={handleNoTelpChange} />
+            <TextField2 label="NamaLengkap" name='nama_lengkap' value={nama_lengkap} type="text" onChange={handleNamaLengkapChange} loading={loading}/>
+            <TextField2 label="NIK" name='nik' value={nik} type="text" onChange={handleNIKChange} loading={loading}/>
+            <TextField2 label="Alamat" name='alamat' value={alamat} type="text" onChange={handleAlamatChange} loading={loading}/>
+            <TextField2 label="NomorTelp" name='no_telp' value={no_telp} type="text" onChange={handleNoTelpChange} loading={loading}/>
             <div style={{ maxWidth: '100%', display: 'flex', justifyContent: 'center', flexDirection:'row' }}>
               <Button1 id="submit-button" text="Create Instruktur" textColor="black" bgColor="yellow" type='submit' style={{margin:'8px'}}/>
               <Link href={"/owner/manage-instruktur"}>

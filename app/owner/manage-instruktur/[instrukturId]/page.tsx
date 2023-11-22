@@ -10,7 +10,7 @@ import React from 'react'
 import Button1 from '@/app/components/Buttons/Button1'
 import { Montserrat } from 'next/font/google'
 import OpenClosedSideBar from '@/app/components/SideBar/OpenClosedSideBar'
-import CreateInstrukturForm from './CreateInstrukturForm'
+import EditInstrukturForm from './EditInstrukturForm'
 
 const montserrat = Montserrat({
     weight: '400',
@@ -26,7 +26,10 @@ const montserratBold = Montserrat({
   variable: '--font montserrat'
 })
 
-const CreateInstrukturPage:React.FC = () => {
+export default function EditInstrukturPage({
+    params,
+}:{params: {instrukturId: string};
+}) {
   return (
     <div>
 <AppBar > <LoginLogout></LoginLogout></AppBar> 
@@ -55,11 +58,9 @@ const CreateInstrukturPage:React.FC = () => {
             </Link>
         </OpenClosedSideBar>
           <div className='pl-4'>
-            <CreateInstrukturForm/>
+            <EditInstrukturForm id={params.instrukturId}/>
           </div>
       </Row>
     </div>
   )
 }
-
-export default CreateInstrukturPage

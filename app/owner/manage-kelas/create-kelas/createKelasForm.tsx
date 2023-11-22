@@ -23,6 +23,7 @@ const CreateKelasForm:React.FC = () => {
     const [jumlah_sesi, setJumlahSesi] = useState<string>('');
     const [id_kendaraan, setIdKendaraan] = useState<string>('');
     const [id_instruktur, setIdInstruktur] = useState<string>('');
+    const [loading,setLoading] = useState(false)
     // const [confirmPassword, setConfirmPassword] = useState<string>('');
     // const [showPassword, setShowPassword] = useState(false);
     // const [isShowConfirmPassowrd, setShowConfirmPassword] = useState(false);
@@ -93,10 +94,10 @@ const CreateKelasForm:React.FC = () => {
         <div style={{width:'max-content'}}>
             <h1>Create Kelas</h1>
             <form onSubmit={handleSubmit} >
-                <TextField2 label="Nama" name='nama' value={nama} type="text" onChange={handleNamaChange} />
-                <TextField2 label="Harga" name='harga' value={harga} type="text" onChange={handleHargaChange} />
-                <TextField2 label="Total Jam" name='total_jam' value={total_jam} type="text" onChange={handleTotalJamChange} />
-                <TextField2 label="Jumlah Sesi" name='jumlah_sesi' value={jumlah_sesi} type="text" onChange={handleJumlahSesiChange} />
+                <TextField2 label="Nama" name='nama' value={nama} type="text" onChange={handleNamaChange} loading={loading}/>
+                <TextField2 label="Harga" name='harga' value={harga} type="text" onChange={handleHargaChange} loading={loading}/>
+                <TextField2 label="Total Jam" name='total_jam' value={total_jam} type="text" onChange={handleTotalJamChange} loading={loading}/>
+                <TextField2 label="Jumlah Sesi" name='jumlah_sesi' value={jumlah_sesi} type="text" onChange={handleJumlahSesiChange} loading={loading}/>
                 <Dropdown2 apiLink="/api/getIdKendaraan/" label="Id Kendaraan" name='id_kendaraan'></Dropdown2>
                 <Dropdown2 apiLink="/api/getIdInstruktur/" label="Id Instruktur" name='id_instruktur'></Dropdown2>
                 <div style={{ maxWidth: '100%', display: 'flex', justifyContent: 'center', flexDirection:'row' }}>

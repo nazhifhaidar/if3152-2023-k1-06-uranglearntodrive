@@ -10,7 +10,20 @@ class KelasController{
             const {query} = req.body;
             let classes;
             if (!query){
-                classes = await prisma.kelas.findMany();
+                classes = await prisma.kelas.findMany({
+                    include:{
+                        kendaraan:{
+                            select:{
+                                nama:true
+                            }
+                        },
+                        instruktur:{
+                            select:{
+                                nama_lengkap:true
+                            }
+                        }
+                    }
+                });
             }else{
                 classes = await prisma.kelas.findMany({
                     where:{
