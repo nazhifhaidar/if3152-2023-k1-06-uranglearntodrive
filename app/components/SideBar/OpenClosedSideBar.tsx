@@ -41,7 +41,7 @@ const OpenClosedSideBar:React.FC<OpenClosedSideBarProps> = ({children, backgroun
                 </SideBar>
             )}
             <button onClick={toggleSidebar} style={{marginLeft:'8px', marginTop:'4px', marginRight:'4px', fontSize:'24px', 
-            backgroundColor:'yellowgreen',
+            backgroundColor:'rgba(96, 165, 250, 1)',
             borderColor:'black',
             paddingLeft:'10px',
             paddingRight:'10px',

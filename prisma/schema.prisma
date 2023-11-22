@@ -22,7 +22,6 @@ model User {
 model Pelanggan {
   id              Int           @id @default(autoincrement())
   nama_lengkap    String
-  email           String        @unique
   pilihan_kelas   Kelas         @relation(fields: [id_kelas], references: [id])
   tipeKendaraan   TipeKendaraan @relation(fields: [tipe_kendaraan], references: [tipe])
   umur            Int
@@ -30,6 +29,7 @@ model Pelanggan {
   alamat          String
   tipe_kendaraan  String
   id_kelas        Int
+  status          StatusPelanggan   @default(Calon)
 }
 
 model Kendaraan {
@@ -38,7 +38,7 @@ model Kendaraan {
   tipeKendaraan   TipeKendaraan @relation(fields: [tipe_kendaraan], references: [tipe])
   tipe_kendaraan  String 
   kelas           Kelas?
-  status_kendaraan  String
+  status_kendaraan  StatusKendaraan   @default(Siap)
   tanggal_servis  DateTime?     @db.Date
 }
 
@@ -83,4 +83,16 @@ model Jadwal  {
 enum Role {
   OWNER
   ADMIN
+}
+
+enum StatusPelanggan {
+  Calon
+  Lulus
+  Siswa
+}
+
+enum StatusKendaraan {
+  Dipakai
+  Diperbaiki
+  Siap
 }

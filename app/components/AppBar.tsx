@@ -10,9 +10,7 @@ interface Props{
 
 const AppBar: React.FC<Props> = ({children }) => {
     const appBarStyle: React.CSSProperties = {
-      backgroundColor: '#b9eb94',
       padding: '10px 20px',
-      border: '1px solid #96d665', // Add the outline
       borderBottomLeftRadius: '5px',
       borderBottomRightRadius: '5px',
       display: 'flex',
@@ -23,7 +21,7 @@ const AppBar: React.FC<Props> = ({children }) => {
     };
   
     return (
-      <div style={appBarStyle}>
+      <div style={appBarStyle} className='bg-blue-300 border border-blue-400'>
         <Image src="/ULtD.svg" alt="Logo" width={120} height={50} />
         {children}
       </div>

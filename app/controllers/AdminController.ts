@@ -2,6 +2,8 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '@/lib/prisma'
 import ResponseData from '@/app/utils/Response'
 import bcrypt from 'bcryptjs'
+import { getServerSession } from 'next-auth';
+import { options } from '../api/auth/[...nextauth]/options';
 
 class AdminController{
     prisma = prisma;
@@ -85,7 +87,21 @@ class AdminController{
     }
 
     static async handleHapusAkun(req: NextApiRequest, res:NextApiResponse){
-
+        let responseData: ResponseData<any>;
+        try{
+            const {id} = req.query;
+            const deletedUser = await prisma.user.delete({
+                where:{
+                    id:parseInt(id as string, 10)
+                }
+            });
+            responseData = new ResponseData('success', 'Admin deleted successfully', deletedUser);
+            return res.status(200).json(responseData);
+        }catch(error){
+            console.error('Error deleting admin:', error);
+            responseData = new ResponseData('error', error as string, null);
+            return res.status(500).json(responseData);
+        }
     }
 }
 
