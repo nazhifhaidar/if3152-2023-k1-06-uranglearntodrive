@@ -7,6 +7,8 @@ interface TableContentProps{}
 
 const TableContent:React.FC<TableContentProps> =  () => {
     const [tableData, setTableData] = useState<Record<string, any>[]>([]);
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+    const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
     const url = process.env.NEXTAUTH_URL;
     useEffect(() => {
         const fetchData = async () => {
@@ -45,6 +47,26 @@ const TableContent:React.FC<TableContentProps> =  () => {
     //     console.error('Error fetching data:', error);
     //   }
     //   const tableData = data?.data; 
+      const handleDeleteClick = (itemId: string) => {
+        console.log('Deleting item with ID:', selectedItemId);
+        setShowConfirmationModal(true);
+        setSelectedItemId(itemId);
+      };
+
+      const handleConfirmDelete = () => {
+        // Perform the delete operation here using the selectedItemId
+        console.log('Deleting item with ID:', selectedItemId);
+    
+        // After deletion, close the confirmation modal
+        setShowConfirmationModal(false);
+        setSelectedItemId(null);
+      };
+    
+      const handleCancelDelete = () => {
+        // Cancel the deletion, close the confirmation modal
+        setShowConfirmationModal(false);
+        setSelectedItemId(null);
+      };
 
       const columns = ['id', 'username', 'name', 'email'];
 
@@ -54,7 +76,7 @@ const TableContent:React.FC<TableContentProps> =  () => {
             {tableData.length === 0 ? (
                 <h1>There is no data. Try to add the data.</h1>
             ) : (<Table columns={columns} data={tableData} onHover={(index) => [
-              <button style={{paddingLeft:'4px'}} key="delete" onClick={() => console.log('Delete clicked')}>D</button>,
+              <button style={{paddingLeft:'4px'}} key="delete" onClick={()=>handleDeleteClick(tableData[index].id)}>D</button>,
             ]} />)}
         </div>
       )
