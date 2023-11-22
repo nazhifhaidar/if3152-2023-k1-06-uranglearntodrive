@@ -30,7 +30,7 @@ const SideBar: React.FC<Props> = ({children, background_color, border_color, wid
       };
   return (
     // the children will be the elements of the side bar that contains Link to some pages
-    <div style={style} className='bg-blue-200 bg-opacity-50 border-r-2 border-r-blue-100' >
+    <div style={style} className='bg-blue-200 bg-opacity-50 border-r-2 border-r-blue-100 pt-2' >
         {React.Children.map(children, (child) => (
         <div style={childStyle}>{child}</div>
       ))}      

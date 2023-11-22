@@ -27,7 +27,7 @@ const OwnerPage: React.FC = async () => {
     <div className='owner-content'>
       <AppBar > <LoginLogout></LoginLogout></AppBar> 
       <Row>
-        <OpenClosedSideBar width='240px' background_color='rgba(113, 251, 111, 0.1)' border_color='black' margin='-9px 0px 0px 0px'>
+        <OpenClosedSideBar width='240px' background_color='rgba(113, 251, 111, 0.1)' border_color='black' margin='0px 0px 0px 0px'>
           <h2 style={CurrentPageStyle} >Homepage</h2>
           <Link style={{paddingLeft:'8px'}} href={"/owner/manage-admin"}>Manage Admin</Link>
           <Link style={{paddingLeft:'8px'}} href={"/owner/manage-kendaraan"}>Manage Kendaraan</Link>

@@ -1,35 +1,37 @@
 'use client'
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import InformationCard from '@/app/components/Cards/InformationCard';
-import Button2 from '@/app/components/Buttons/Button2';
 import ConfirmationPopUp from '@/app/components/pop-ups/ConfirmationPopUp';
+import DeleteButton from '@/app/components/Buttons/DeleteButton';
+import { RotateLoader } from 'react-spinners';
 
 const AdminList:React.FC = () => {
     const [admins, setAdmins] = useState<Record<string, any>[]>([]);
     const [selectedAdminId, setSelectedAdminId] = useState<number | null>(null);
     const [isConfirmationOpen, setConfirmationOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/admin/`,
+            {
+                method: 'GET',
+                body: null,
+                headers: { "Content-Type": "application/json" }
+            }
+        );
+        const data = await response.json();
+        setAdmins(data?.data)
+
+        // Assuming data is an array of objects
+      } catch (error) {
+        console.log('Error fetching data:', error);
+        console.error('Error fetching data:', error);
+      }
+    };
 
     useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const response = await fetch(`/api/admin/`,
-                {
-                    method: 'GET',
-                    body: null,
-                    headers: { "Content-Type": "application/json" }
-                }
-            );
-            const data = await response.json();
-            setAdmins(data?.data)
-
-            // Assuming data is an array of objects
-          } catch (error) {
-            console.log('Error fetching data:', error);
-            console.error('Error fetching data:', error);
-          }
-        };
-    
         fetchData();
       },[]);
 
@@ -53,6 +55,7 @@ const AdminList:React.FC = () => {
       };
 
       const handleDelete = async (adminId: number) => {
+        setLoading(true);
         try {
           const response = await fetch(`/api/admin/${adminId}`, {
             method: 'DELETE',
@@ -68,12 +71,16 @@ const AdminList:React.FC = () => {
           }
         } catch (error) {
           console.error('Error deleting admin:', error);
+        }finally {
+          setLoading(false);
         }
       };
       
       return (
-        <div style={{ maxHeight: '450px', overflowY: 'auto', paddingRight:'12px'}}>
-            <h1>Admin List</h1>
+        <div style={{ maxHeight: '360px',  overflowY: 'auto', paddingRight:'12px', width:'100%',maxWidth:'720px'}}>
+            {loading && (
+              <RotateLoader color="#000" loading={loading} size={100} />
+            )}
             {admins.map((admin)=> (
                 <div key={admin.id}>
                     <InformationCard
@@ -88,12 +95,13 @@ const AdminList:React.FC = () => {
                         </div>
                     }
                     buttons={
-                        <Button2 text='Delete' onClick={() => handleDeleteClick(admin.id)}></Button2>
+                        <DeleteButton onClick={() => handleDeleteClick(admin.id)} style={{width:'40px', height:'40px'}}></DeleteButton>
                     }
                     />
 
                 </div>       
             ))}
+            {admins.length === 0 && <h1> </h1>}
             <ConfirmationPopUp
                 isOpen={isConfirmationOpen}
                 onCancel={handleCancelDelete}

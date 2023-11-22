@@ -22,7 +22,7 @@ const ManageAdminPage: React.FC = async () => {
     <div className='owner-content'>
       <AppBar > <LoginLogout></LoginLogout></AppBar> 
       <Row>
-        <OpenClosedSideBar width='240px' background_color='rgba(113, 251, 111, 0.1)' border_color='black' margin='-9px 0px 0px 0px'>
+        <OpenClosedSideBar width='240px' background_color='rgba(113, 251, 111, 0.1)' border_color='black' margin='0px 0px 0px 0px'>
             <Link href={"/owner"} >
                 <h2 style={{paddingLeft:'8px'}}>
                     Homepage
@@ -41,10 +41,13 @@ const ManageAdminPage: React.FC = async () => {
                     Manage Instruktur
                 </h2>
             </Link>
-            <h2 style={{paddingLeft:'8px'}}>Manage Kelas</h2>
+            <Link href={"/owner/manage-kelas"}>
+                <h2 style={{paddingLeft:'8px'}}>Manage Kelas</h2>
+            </Link>
         </OpenClosedSideBar>
         <div style={{margin: '16px', flex:'1'}}>
           {/* <h2>Hello, {session?.user.name}</h2> */}
+          <h1 style={{paddingBottom:'8px'}}>Admin List</h1>
           <AdminList/>
           <div className='mt-2'>
             <CreateAdminButton></CreateAdminButton>
