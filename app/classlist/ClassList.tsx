@@ -47,7 +47,7 @@ const ClassList: React.FC = () => {
                         </div>
                         }
                         buttons={
-                        <Link href={`/enroll/?class=${kelas.id}`}><Button2 text='Daftar'></Button2></Link>
+                        <Link href={`/enroll/?id=${kelas.id}`}><Button2 text='Daftar'></Button2></Link>
                         }
                     />
                 </div>
