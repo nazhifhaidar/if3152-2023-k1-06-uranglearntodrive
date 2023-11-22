@@ -21,7 +21,9 @@ const CreateAdminForm:React.FC = () => {
     const [password, setPassword] = useState<string>('');
     const [confirmPassword, setConfirmPassword] = useState<string>('');
     const [showPassword, setShowPassword] = useState(false);
-    const [isShowConfirmPassowrd, setShowConfirmPassword] = useState(false);
+    const [isShowConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const [loading,setLoading] = useState(false)
 
     const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
         setUsername(event.target.value);
@@ -45,14 +47,11 @@ const CreateAdminForm:React.FC = () => {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        setErrorMessage(null);
 
         // Create a data object to send in the POST request
         const formData = new FormData(event.currentTarget);
-        // console.log(formData.get("username"))
-        // console.log(formData.get("password"))
-        // console.log(formData.get("username"));
-        // console.log(formData.get("password"));
-        // console.log(formData.get("confirm_password"));
+
         const username = formData.get("username");
         const name = formData.get("name");
         const email = formData.get("email");
@@ -62,6 +61,7 @@ const CreateAdminForm:React.FC = () => {
         //cek apakah passwordnya sama
         if (password !== confirm_password){
              console.error("Password harus sama");
+             setErrorMessage("Password harus sama");
              return;
             }
         
@@ -77,11 +77,12 @@ const CreateAdminForm:React.FC = () => {
         })
         if (response.ok){
             const data= await response.json();
-            console.log(data);
+            console.log(data?.data);
             router.push('/owner/manage-admin');
         } else{
             const data= await response.json();
-            console.error(data);
+            console.error(data?.message);
+            setErrorMessage(data?.message || 'An error occurred during submission.');
         }
     };
 
@@ -89,17 +90,18 @@ const CreateAdminForm:React.FC = () => {
         setShowPassword(!showPassword);
     };
     const handleConfirmPasswordVisibility = () => {
-        setShowConfirmPassword(!isShowConfirmPassowrd);
+        setShowConfirmPassword(!isShowConfirmPassword);
     }
     return (
         <div style={{width:'max-content'}}>
-            <h1>Create Admin</h1>
+            <h1 style={{paddingBottom:'8px'}}>Create Admin</h1>
             <form onSubmit={handleSubmit} >
-                <TextField2 label="Username" name='username' value={username} type="text" onChange={handleUsernameChange} />
-                <TextField2 label="Nama" name='name' value={name} type="text" onChange={handleNameChange} />
-                <TextField2 label="Alamat Email" name='email' value={email} type="text" onChange={handleEmailChange} />
+                <TextField2 label="Username" name='username' value={username} type="text" onChange={handleUsernameChange} loading ={loading}/>
+                <TextField2 label="Nama" name='name' value={name} type="text" onChange={handleNameChange} loading ={loading}/>
+                <TextField2 label="Alamat Email" name='email' value={email} type="text" onChange={handleEmailChange} loading = {loading}/>
                 <PasswordField label="Password" name='password' value={password} onChange={handlePasswordChange} onToggleVisibility={handlePasswordVisibilityToggle} style={{border:'2px solid #ccc',paddingLeft: '4px', width:'450px'  }} />
                 <PasswordField label="Confirm Password" name='confirm_password' value={confirmPassword} onChange={handleConfirmPasswordChange} onToggleVisibility={handleConfirmPasswordVisibility} style={{border:'2px solid #ccc',paddingLeft: '4px', width:'450px' }} />
+                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                 <div style={{ maxWidth: '100%', display: 'flex', justifyContent: 'center', flexDirection:'row' }}>
                     <Button1 id="submit-button" text="Create Admin" textColor="black" bgColor="yellow" type='submit' style={{margin:'8px'}}/>
                     <Link href={"/owner/manage-admin"}>

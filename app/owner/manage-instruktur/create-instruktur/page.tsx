@@ -8,10 +8,9 @@ import { getServerSession } from 'next-auth'
 import Link from 'next/link'
 import React from 'react'
 import Button1 from '@/app/components/Buttons/Button1'
-import CreateInstrukturForm from './createInstrukturForm'
-import BoxContainer from '@/app/components/Containers/BoxContainer'
 import { Montserrat } from 'next/font/google'
 import OpenClosedSideBar from '@/app/components/SideBar/OpenClosedSideBar'
+import CreateInstrukturForm from './createInstrukturForm'
 
 const montserrat = Montserrat({
     weight: '400',
@@ -27,13 +26,12 @@ const montserratBold = Montserrat({
   variable: '--font montserrat'
 })
 
-const ManageAdminPage: React.FC = async () => {
-    const session = await getServerSession(options);
+const CreateInstrukturPage:React.FC = () => {
   return (
-    <div className='owner-content'>
-      <AppBar > <LoginLogout></LoginLogout></AppBar> 
+    <div>
+<AppBar > <LoginLogout></LoginLogout></AppBar> 
       <Row>
-        <OpenClosedSideBar width='240px' background_color='rgba(113, 251, 111, 0.1)' border_color='black' margin='-9px 0px 0px 0px'>
+        <OpenClosedSideBar width='240px' background_color='rgba(113, 251, 111, 0.1)' border_color='black' margin='0px 0px 0px 0px'>
             <Link href={"/owner"} >
                 <h2 style={{paddingLeft:'8px'}}>
                     Homepage
@@ -56,18 +54,12 @@ const ManageAdminPage: React.FC = async () => {
                 </h2>
             </Link>
         </OpenClosedSideBar>
-        <div style={{margin: '8px'}}>
-          {/* <h2>Hello, {session?.user.name}</h2> */}
-          <BoxContainer warna_latar_belakang='white'border_color='white' lebar={550} tinggi={360} sudut={15}>
-            <div className={montserrat.className}>
-              <h1 className={montserratBold.className} style={{ textAlign: 'start', fontSize: '30px' }}>CREATE INSTRUKTUR</h1>
-              <CreateInstrukturForm></CreateInstrukturForm>
-            </div>
-          </BoxContainer>
-        </div>    
+          <div className='pl-4'>
+            <CreateInstrukturForm/>
+          </div>
       </Row>
     </div>
   )
 }
 
-export default ManageAdminPage
+export default CreateInstrukturPage
