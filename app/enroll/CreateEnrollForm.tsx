@@ -7,7 +7,9 @@ import TextField2 from '../components/TextField/TextField2';
 import Button1 from '../components/Buttons/Button1';
 
 const CreateEnrollForm:React.FC = () => {
+    const param = useSearchParams();
     const router = useRouter();
+    const id = param?.get('id');
     const [nama, setNama] = useState<string>('');
     const [umur, setUmur] = useState<string>('');
     const [telp, setTelp] = useState<string>('');
@@ -45,46 +47,47 @@ const CreateEnrollForm:React.FC = () => {
         const telp = formData.get("telp");
         const alamat = formData.get("alamat");
         const tipe = formData.get("tipe");
-        const param = useSearchParams();
-        const id = param?.get("id");
 
-        const response = await fetch(`/api/enroll`, {
+        const response = await fetch(`/api/dashboard`, {
             method: 'POST',
             body: JSON.stringify({
-                nama:nama,
+                nama_lengkap:nama,
                 id:parseInt(id as string, 10),
-                umur:umur,
-                telp:telp,
+                umur:parseInt(umur as string, 10),
+                no_telp:telp,
                 alamat:alamat,
-                tipe:tipe
+                tipe_kendaraan:tipe
             }),
             headers: { "Content-Type": "application/json" }
         });
         const data= await response.json();
         if (response.ok) {
             console.log(data);
+            router.push('/classlist');
         }
         else{
             console.error(data);
         }   
     }
     return (
-        <div style={{width:'max-content'}}>
-            <h1>Create Admin</h1>
-            <form onSubmit={handleEnroll} >
-                <TextField2 label="Nama Lengkap" name='nama' value={nama} type="text" onChange={handleNama} />
-                <TextField2 label="Umur" name='umur' value={umur} type="number" onChange={handleUmur} />
-                <TextField2 label="No. Telpon" name='telp' value={telp} type="text" onChange={handleTelp} />
-                <TextField2 label="Alamat" name='alamat' value={alamat} type="text" onChange={handleAlamat} />
-                <TextField2 label="Tipe Kendaraan" name='tipe' value={tipe} onChange={handleTipe} />
+        <>
+          <h1 style={{textAlign:'center', fontWeight:'bolder'}}>Daftar Kelas</h1>
+            <div style={{maxWidth: '100%', display: 'flex', justifyContent: 'center', flexDirection:'row'}}>
+              <form onSubmit={handleEnroll} >
+                <TextField2 label="Nama Lengkap" name='nama' value={nama} type="text" onChange={handleNama} loading={false} />
+                <TextField2 label="Umur" name='umur' value={umur} type="text" onChange={handleUmur} loading={false} />
+                <TextField2 label="No. Telpon" name='telp' value={telp} type="text" onChange={handleTelp} loading={false} />
+                <TextField2 label="Alamat" name='alamat' value={alamat} type="text" onChange={handleAlamat} loading={false} />
+                <TextField2 label="Tipe Kendaraan" name='tipe' value={tipe} onChange={handleTipe} loading={false} />
                 <div style={{ maxWidth: '100%', display: 'flex', justifyContent: 'center', flexDirection:'row' }}>
                     <Button1 id="enroll" text="Enroll!" textColor="black" bgColor="yellow" type='submit' style={{margin:'8px'}}/>
-                    <Link href={"/enroll"}>
+                    <Link href={"/classlist"}>
                         <Button1 id="cancel" text="Cancel" textColor="black" bgColor="white" type='button' style={{margin:'8px'}}/>
                     </Link>
                 </div>
-            </form>
-        </div>
+              </form>
+            </div>
+        </>
        
   )
 }
