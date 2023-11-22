@@ -72,11 +72,12 @@ const AdminList:React.FC = () => {
       };
       
       return (
-        <div style={{ maxHeight: '450px', overflowY: 'auto' }}>
+        <div style={{ maxHeight: '450px', overflowY: 'auto', paddingRight:'12px'}}>
             <h1>Admin List</h1>
             {admins.map((admin)=> (
                 <div key={admin.id}>
                     <InformationCard
+                    margin='mb-4'
                     key={admin.id}
                     data={
                         <div>
