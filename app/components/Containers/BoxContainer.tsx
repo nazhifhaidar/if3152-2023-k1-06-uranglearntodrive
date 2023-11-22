@@ -21,7 +21,7 @@ const BoxContainer: React.FC<BoxContainerProps> = ({
       border: `2px solid #000`, 
       textAlign: 'center', 
       padding: '2rem', 
-      backgroundColor: `#b9eb94`,
+      backgroundColor: 'rgba(147, 197, 253, 1.0)',
       alignItems: 'flex-start',
       display: 'flex',
       justifyContent: 'center',

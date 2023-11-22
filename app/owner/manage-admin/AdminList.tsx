@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import InformationCard from '@/app/components/Cards/InformationCard';
 import Button2 from '@/app/components/Buttons/Button2';
 import ConfirmationPopUp from '@/app/components/pop-ups/ConfirmationPopUp';
+import DeleteButton from '@/app/components/Buttons/DeleteButton';
 
 const AdminList:React.FC = () => {
     const [admins, setAdmins] = useState<Record<string, any>[]>([]);
@@ -88,7 +89,7 @@ const AdminList:React.FC = () => {
                         </div>
                     }
                     buttons={
-                        <Button2 text='Delete' onClick={() => handleDeleteClick(admin.id)}></Button2>
+                        <DeleteButton onClick={() => handleDeleteClick(admin.id)}></DeleteButton>
                     }
                     />
 
