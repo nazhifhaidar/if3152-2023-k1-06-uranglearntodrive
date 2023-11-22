@@ -177,8 +177,7 @@ class InstrukturController{
             console.log(responseData);
             return res.status(500).json(responseData);
         }
-        
-        
+         
     }
 }
 
