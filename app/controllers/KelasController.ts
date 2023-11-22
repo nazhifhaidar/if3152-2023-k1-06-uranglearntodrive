@@ -10,7 +10,20 @@ class KelasController{
             const {query} = req.body;
             let classes;
             if (!query){
-                classes = await prisma.kelas.findMany();
+                classes = await prisma.kelas.findMany({
+                    include:{
+                        kendaraan:{
+                            select:{
+                                nama:true
+                            }
+                        },
+                        instruktur:{
+                            select:{
+                                nama_lengkap:true
+                            }
+                        }
+                    }
+                });
             }else{
                 classes = await prisma.kelas.findMany({
                     where:{
@@ -38,8 +51,31 @@ class KelasController{
         }
         
     }
-    static async handleCreateKelas(){
-
+    static async handleCreateKelas(req: NextApiRequest, res:NextApiResponse){
+        let responseData: ResponseData<any>;
+        try{
+            const {nama, harga, total_jam, jumlah_sesi, id_kendaraan, id_instruktur} = req.body;
+            if (!nama || !harga || !total_jam || !jumlah_sesi || !id_kendaraan|| !id_instruktur){
+                responseData = new ResponseData("error", "Every attribute must be filled", null);
+                return res.status(400).json(responseData)
+            }
+            const newKelas = await prisma.kelas.create({
+                data:{
+                    nama:nama,
+                    harga:harga,
+                    total_jam: total_jam,
+                    jumlah_sesi:jumlah_sesi,
+                    id_kendaraan:id_kendaraan,
+                    id_instruktur:id_instruktur
+                },
+            })
+            responseData = new ResponseData('success', 'Instructure created successfully', newKelas);
+            return res.status(200).json(responseData);
+        }catch(error){
+            console.error('Error creating instructure:', error);
+            responseData = new ResponseData('error', 'Internal server error', null);
+            return res.status(500).json(responseData);
+        }
     }
 
     static async handleHapusKelas(){
