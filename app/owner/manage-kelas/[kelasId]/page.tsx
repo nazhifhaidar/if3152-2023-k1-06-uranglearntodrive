@@ -7,17 +7,32 @@ import LoginLogout from '@/app/utils/loginlogout'
 import { getServerSession } from 'next-auth'
 import Link from 'next/link'
 import React from 'react'
-import TableContent from './table-content'
 import Button1 from '@/app/components/Buttons/Button1'
+import { Montserrat } from 'next/font/google'
 import OpenClosedSideBar from '@/app/components/SideBar/OpenClosedSideBar'
-import InstrukturList from './InstrukturList'
-import LinkButton from '@/app/components/Buttons/LinkButton'
+import EditKelasForm from './EditKelasForm'
 
-const ManageInstrukturPage: React.FC = async () => {
-    const session = await getServerSession(options);
+const montserrat = Montserrat({
+    weight: '400',
+    style: 'normal',
+    subsets: ['latin'],
+    variable: '--font montserrat'
+  })
+
+const montserratBold = Montserrat({
+  weight: '700',
+  style: 'normal',
+  subsets: ['latin'],
+  variable: '--font montserrat'
+})
+
+export default function EditKelasPage({
+    params,
+}:{params: {kelasId: string};
+}) {
   return (
-    <div className='owner-content'>
-      <AppBar > <LoginLogout></LoginLogout></AppBar> 
+    <div>
+<AppBar > <LoginLogout></LoginLogout></AppBar> 
       <Row>
         <OpenClosedSideBar width='240px' background_color='rgba(113, 251, 111, 0.1)' border_color='black' margin='-9px 0px 0px 0px'>
             <Link href={"/owner"} >
@@ -42,25 +57,10 @@ const ManageInstrukturPage: React.FC = async () => {
                 </h2>
             </Link>
         </OpenClosedSideBar>
-        <div style={{margin: '16px', flex:'1'}}>
-          <h1>Instruktur List</h1>
-          {/* <h2>Hello, {session?.user.name}</h2> */}
-          <InstrukturList/>
-          <LinkButton route="/owner/manage-instruktur/create-instruktur" text="Buat Data Baru"/>
-          {/* <Link href={"/owner/manage-instruktur/create-instruktur"}>
-              <Button1 id="create-button" text="Create New Data" textColor="black" bgColor="yellow" type='button' />
-          </Link> */}
-        </div>
-        {/* <div style={{margin: '8px'}}>
-          <h2>Hello, {session?.user.name}</h2>
-          <TableContent/>
-            <Link href={"/owner/manage-instruktur/create-instruktur"}>
-              <Button1 id="create-button" text="Create New Data" textColor="black" bgColor="yellow" type='button' />
-            </Link>
-        </div> */}
+          <div className='pl-4'>
+            <EditKelasForm id={params.kelasId}/>
+          </div>
       </Row>
     </div>
   )
 }
-
-export default ManageInstrukturPage

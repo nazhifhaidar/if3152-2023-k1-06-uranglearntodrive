@@ -146,7 +146,8 @@ class InstrukturController{
             if (!query){
                 idInstruktur = await prisma.instruktur.findMany({
                     select:{
-                        id:true
+                        id:true,
+                        nama_lengkap:true,
                     }
                 });
             }else{
