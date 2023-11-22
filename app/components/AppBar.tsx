@@ -8,6 +8,20 @@ interface Props{
 
 }
 
+/**
+ * Komponen `AppBar` digunakan untuk membuat baris atas (app bar) pada tampilan aplikasi.
+ * @component
+ *
+ * @param {Object} props - Properti komponen `AppBar`.
+ * @param {ReactNode} [props.children] - Anak-anak dari komponen `AppBar`.
+ *
+ * @example
+ * // Penggunaan Komponen `AppBar` dengan anak-anak.
+ * <AppBar>
+ *   <Element />
+ *   <Element />
+ * </AppBar>
+ */
 const AppBar: React.FC<Props> = ({children }) => {
     const appBarStyle: React.CSSProperties = {
       padding: '10px 20px',

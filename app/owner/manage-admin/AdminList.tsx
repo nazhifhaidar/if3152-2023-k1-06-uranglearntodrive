@@ -76,7 +76,7 @@ const AdminList:React.FC = () => {
       };
       
       return (
-        <div style={{ maxHeight: '450px', overflowY: 'auto', paddingRight:'12px'}}>
+        <div style={{ maxHeight: '360px',  overflowY: 'auto', paddingRight:'12px', width:'100%',maxWidth:'720px'}}>
             {admins.map((admin)=> (
                 <div key={admin.id}>
                     <InformationCard
@@ -91,12 +91,13 @@ const AdminList:React.FC = () => {
                         </div>
                     }
                     buttons={
-                        <DeleteButton onClick={() => handleDeleteClick(admin.id)}></DeleteButton>
+                        <DeleteButton onClick={() => handleDeleteClick(admin.id)} style={{width:'40px', height:'40px'}}></DeleteButton>
                     }
                     />
 
                 </div>       
             ))}
+            {admins.length === 0 && <h1>No admins available</h1>}
             <ConfirmationPopUp
                 isOpen={isConfirmationOpen}
                 onCancel={handleCancelDelete}
