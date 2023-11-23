@@ -167,49 +167,48 @@ class KendaraanController{
             return res.status(500).json(responseData);
         }
     }
-    
 
-    // static async getIdKendaraan(req: NextApiRequest, res: NextApiResponse){
-    //     let responseData: ResponseData<any>;
-    //     try{
-    //         const {query} = req.body;
-    //         let idKendaraan;
-    //         if (!query){
-    //             idKendaraan = await prisma.kendaraan.findMany({
-    //                 select:{
-    //                     id:true,
-    //                 }
-    //             });
-    //         }else{
-    //             idKendaraan = await prisma.kendaraan.findMany({
-    //                 where:{
-    //                     nama: {
-    //                       contains: query  
-    //                     }
-    //                 },
-    //                 select:{
-    //                     id:true
-    //                 }
-    //             });
-    //         }
+    static async getIdKendaraan(req: NextApiRequest, res: NextApiResponse){
+        let responseData: ResponseData<any>;
+        try{
+            const {query} = req.body;
+            let idKendaraan;
+            if (!query){
+                idKendaraan = await prisma.kendaraan.findMany({
+                    select:{
+                        id:true,
+                    }
+                });
+            }else{
+                idKendaraan = await prisma.kendaraan.findMany({
+                    where:{
+                        nama: {
+                          contains: query  
+                        }
+                    },
+                    select:{
+                        id:true
+                    }
+                });
+            }
             
-    //         if (!idKendaraan || idKendaraan.length === 0){
-    //             responseData = new ResponseData("error", "Can't read data", null);
-    //             console.log(responseData);
-    //             return res.status(404).json(responseData);
-    //         }
-    //         else{
-    //             responseData = new ResponseData("success", 'data retreived', idKendaraan)
-    //         }
-    //         console.log(responseData);
-    //         return res.status(200).json(responseData);
-    //     }catch(e: any){
-    //         responseData =  new ResponseData("error", e.message, null);
-    //         console.log(responseData);
-    //         return res.status(500).json(responseData);
-    //     }
+            if (!idKendaraan || idKendaraan.length === 0){
+                responseData = new ResponseData("error", "Can't read data", null);
+                console.log(responseData);
+                return res.status(404).json(responseData);
+            }
+            else{
+                responseData = new ResponseData("success", 'data retreived', idKendaraan)
+            }
+            console.log(responseData);
+            return res.status(200).json(responseData);
+        }catch(e: any){
+            responseData =  new ResponseData("error", e.message, null);
+            console.log(responseData);
+            return res.status(500).json(responseData);
+        }
          
-    // }
+    }
     static async handleUbahKendaraan(req: NextApiRequest, res:NextApiResponse){
         let responseData: ResponseData<any>;
         try{
