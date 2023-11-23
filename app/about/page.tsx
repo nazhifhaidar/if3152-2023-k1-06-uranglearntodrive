@@ -31,7 +31,7 @@ const About: React.FC = async () => {
       </AppBar>
       <br/>
       <br/>
-      <h1 style={{textAlign:'center', fontSize:'72px', fontWeight:'bolder', fontStyle:'italic'}}> Apa itu Urang Learn to Drive? </h1>
+      <h1 style={{textAlign:'center', fontSize:'72px', fontWeight:'bolder'}}> Apa itu Urang Learn to Drive? </h1>
       <br/>
       <p style={{paddingLeft:'4rem', paddingRight:'4rem'}}> Urang Learn to Drive adalah perusahaan kursus mengemudi asal Kota Bandung yang didirikan pada tahun 2022. Urang Learn to Drive menjadi pionir dalam lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam purus neque, consequat nec condimentum ac, sagittis ut tortor. Nam malesuada luctus neque vitae euismod. In at scelerisque risus, in sodales mi. Pellentesque ultrices maximus consequat.
           Nunc vel finibus magna. Nulla vel convallis dui. Duis molestie nunc eu quam ultrices, vel laoreet lorem elementum. Quisque commodo, felis a ultricies lacinia, lectus tortor placerat purus, non scelerisque arcu magna sit amet purus. Nunc pharetra dolor vel pellentesque vestibulum. Nunc a diam feugiat, tincidunt velit quis, mollis libero. Aliquam dignissim et augue quis consectetur.
