@@ -9,12 +9,15 @@ import Button1 from '../components/Buttons/Button1';
 import Row from '../components/Row';
 import Link from 'next/link';
 import { useMessageContext } from '../components/Providers/MessageProvider';
+import { useRouter } from 'next/navigation';
 
 const LoginForm: React.FC = () => {
   const {showMessage} = useMessageContext();
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState(false);
+
+  const router = useRouter();
 
   const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -31,15 +34,22 @@ const LoginForm: React.FC = () => {
     const formData = new FormData(event.currentTarget);
     console.log(formData.get("username"))
     console.log(formData.get("password"))
-    const response = await signIn('credentials', {
-      username: formData.get("username"),
-      password: formData.get("password"),
-      redirect: true,
-      callbackUrl: "/check"
-    });
+    try {
+      const response = await signIn('credentials', {
+        username: formData.get("username"),
+        password: formData.get("password"),
+        redirect: false
+      });
 
-    if (!response?.ok) {
-        showMessage(`${response?.error}`, "error")
+      if (!response?.error) {
+        // Login successful
+        router.push("/check");
+      } else {
+        // Login failed
+        showMessage(response.error, "error"); // Display the error message
+      }
+    } catch (error) {
+      showMessage("An error occurred during login.", "error");
     }
   };
 

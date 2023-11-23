@@ -35,28 +35,29 @@ const montserratBold = Montserrat({
 
 const LoginPage: React.FC = () => {
   return (
-    
-      <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
-        <Image
+
+    <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
+      <Image
         src="/bg-lalin.jpg"
         alt="Background Image"
         layout="fill"
         objectFit="cover"
-        />
-        <div style={{position: 'relative', zIndex: 1 }}>
-            <div className='pt-16 justify-center flex'>
-              <Center alignItems='center'>
-                <RoundedBoxContainer warna_latar_belakang='rgba(239, 246, 255,1.0)'border_color='#80a2ad' lebar={400} tinggi={480} sudut={10}>
-                  <div className={montserrat.className}>
-                    <h1 className={montserratBold.className} style={{ textAlign: 'center', fontSize: '48px' }}>LOGIN</h1>
-                    <LoginForm></LoginForm>
-                  </div>
-                </RoundedBoxContainer>
-              </Center>
-            </div>
+      />
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <div className='pt-16 justify-center flex'>
+          <Center alignItems='center'>
+            <RoundedBoxContainer warna_latar_belakang='rgba(239, 246, 255,1.0)' border_color='#80a2ad' lebar={400} tinggi={480} sudut={10}>
+              <div className={montserrat.className}>
+                <h1 className={montserratBold.className} style={{ textAlign: 'center', fontSize: '48px' }}>LOGIN</h1>
+                <LoginForm></LoginForm>
+              </div>
+            </RoundedBoxContainer>
+          </Center>
         </div>
-      </div>  
-    
+      </div>
+      <Toast/>
+    </div>
+
   );
 };
 
