@@ -12,7 +12,7 @@ const MyPage = async () => {
 
   const session = await getServerSession(options);
   if (!session){
-    redirect('/api/login');
+    redirect('/login');
   }
 
   if (session?.user.role === "OWNER"){
