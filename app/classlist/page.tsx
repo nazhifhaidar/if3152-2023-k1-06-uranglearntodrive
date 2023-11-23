@@ -4,6 +4,7 @@ import LoginLogout from '@/app/utils/loginlogout';
 import Link from 'next/link';
 import Row from '@/app/components/Row';
 import ClassList from './ClassList';
+import SessionLink from '../utils/SessionLink';
 
 const EnrollPage: React.FC = () => {
 
@@ -26,6 +27,7 @@ const EnrollPage: React.FC = () => {
                 Tentang Perusahaan
                 </h2>
             </Link>
+            <SessionLink/>
             <LoginLogout></LoginLogout>
             </Row>
         </AppBar>

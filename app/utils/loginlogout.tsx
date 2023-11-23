@@ -12,10 +12,11 @@ const LoginLogout: React.FC = async () => {
 
   return (
     <nav>
-      {!!session ? (
-        <Logout />
-      ) : (
+      {!session ? (
         <LoginLogoutLink />
+        
+      ) : (
+        <Logout />
       )}
     </nav>
   );

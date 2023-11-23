@@ -2,6 +2,7 @@
 
 import React, { ReactNode } from 'react'
 import Image from "next/image"
+import Link from 'next/link';
 
 interface Props{
     children?: ReactNode;
@@ -36,7 +37,7 @@ const AppBar: React.FC<Props> = ({children }) => {
   
     return (
       <div style={appBarStyle} className='bg-blue-300 border border-blue-400'>
-        <Image src="/ULtD.svg" alt="Logo" width={120} height={50} />
+        <Link href={"/"}><Image src="/ULtD.svg" alt="Logo" width={120} height={50} /></Link>
         {children}
       </div>
     );

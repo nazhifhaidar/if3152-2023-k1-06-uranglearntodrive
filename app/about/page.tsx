@@ -3,6 +3,7 @@ import AppBar from '../components/AppBar';
 import LoginLogout from '../utils/loginlogout';
 import Link from 'next/link';
 import Row from '../components/Row';
+import SessionLink from '../utils/SessionLink';
 
 const About: React.FC = async () => {
   return (
@@ -24,6 +25,7 @@ const About: React.FC = async () => {
               Tentang Perusahaan
             </h2>
           </Link>
+          <SessionLink/>
           <LoginLogout></LoginLogout>
         </Row>
       </AppBar>

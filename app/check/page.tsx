@@ -1,5 +1,4 @@
 import { getServerSession } from 'next-auth';
-import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { options } from '../api/auth/[...nextauth]/options';
 
@@ -13,7 +12,7 @@ const MyPage = async () => {
 
   const session = await getServerSession(options);
   if (!session){
-    redirect('/api/auth/signin?callbackUrl=/check');
+    redirect('/login');
   }
 
   if (session?.user.role === "OWNER"){

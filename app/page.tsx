@@ -4,6 +4,8 @@ import AppBar from '@/app/components/AppBar';
 import LoginLogout from '@/app/utils/loginlogout';
 import { Montserrat } from 'next/font/google';
 import Row from '@/app/components/Row';
+import { getServerSession } from 'next-auth';
+import { options } from './api/auth/[...nextauth]/options';
 import Button2 from './components/Buttons/Button2';
 import SectionContainer from './components/Containers/SectionContainer';
 
@@ -14,26 +16,35 @@ const montserrat = Montserrat({
   variable: '--font montserrat'
 })
 
+
 const HomePage: React.FC = async () => {
+  const session = await getServerSession(options);
   return (
     <>
       <AppBar>
         <Row>
           <Link href={"/"} >
-            <h2 style={{marginRight:'10rem'}}>
+            <h2 style={{ marginRight: '10rem' }}>
               Dashboard
             </h2>
           </Link>
           <Link href={"/classlist"} >
-            <h2 style={{marginRight:'10rem'}}>
+            <h2 style={{ marginRight: '10rem' }}>
               Daftar Kelas
             </h2>
           </Link>
           <Link href={"/about"} >
-            <h2 style={{marginRight:'10rem'}}>
+            <h2 style={{ marginRight: '10rem' }}>
               Tentang Perusahaan
             </h2>
           </Link>
+          {session && (
+            <Link href={session.user.role === 'OWNER' ? '/owner' : '/admin'}>
+              <h2 style={{ marginRight: '10rem' }}>
+                {session.user.role === 'OWNER' ? 'Owner' : 'Admin'}
+              </h2>
+            </Link>
+          )}
           <LoginLogout></LoginLogout>
         </Row>
       </AppBar>
