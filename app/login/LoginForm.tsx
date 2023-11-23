@@ -41,12 +41,12 @@ const LoginForm: React.FC = () => {
         redirect: false
       });
 
-      if (!response?.error) {
+      if (response?.ok) {
         // Login successful
         router.push("/check");
       } else {
         // Login failed
-        showMessage(response.error, "error"); // Display the error message
+        showMessage(response?.error as string, "error"); // Display the error message
       }
     } catch (error) {
       showMessage("An error occurred during login.", "error");
