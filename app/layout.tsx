@@ -9,6 +9,7 @@ import { options } from './api/auth/[...nextauth]/options'
 import Logout from './login/logout'
 import AppBar from './components/AppBar'
 import { useRouter } from 'next/navigation'
+import { MessageProvider } from './components/Providers/MessageProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 const montserrat = Montserrat({
@@ -39,9 +40,12 @@ export default async function RootLayout({
       </head>
       <body className={montserrat.className} style={{padding:'0px'}}>
         <div className={montserrat.className} >
-          <Provider session={session}>
-            {children}
-          </Provider>
+          <MessageProvider>
+            <Provider session={session}>
+              {children}
+            </Provider>
+          </MessageProvider>
+          
         
         </div>
       </body>

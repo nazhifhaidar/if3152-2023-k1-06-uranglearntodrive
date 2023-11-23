@@ -6,6 +6,8 @@ import LoginLogout from '@/app/utils/loginlogout'
 import Link from 'next/link'
 import React from 'react'
 import CreateAdminForm from './CreateAdminForm'
+import {useContext} from 'react';
+import Toast from '@/app/components/Toast/Toast'
 
 const CreatePage:React.FC = () => {
   return (
@@ -39,6 +41,7 @@ const CreatePage:React.FC = () => {
         </div>
         
       </Row>
+      <Toast></Toast>
     </div>
   )
 }

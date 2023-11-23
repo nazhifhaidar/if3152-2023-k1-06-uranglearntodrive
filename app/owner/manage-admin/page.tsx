@@ -1,23 +1,18 @@
-///owner/manage-admin Page
+// /owner/manage-admin Page
 
-import { options } from '@/app/api/auth/[...nextauth]/options'
 import AppBar from '@/app/components/AppBar'
 import Row from '@/app/components/Row'
-import SideBar from '@/app/components/SideBar/SideBar'
 import CurrentPageStyle from '@/app/components/Style/current_page_style'
 import LoginLogout from '@/app/utils/loginlogout'
-import { getServerSession } from 'next-auth'
 import Link from 'next/link'
 import React from 'react'
-import TableContent from './table-content'
-import Button1 from '@/app/components/Buttons/Button1'
-import Center from '@/app/components/Center'
 import OpenClosedSideBar from '@/app/components/SideBar/OpenClosedSideBar'
-import Button2 from '@/app/components/Buttons/Button2'
-import { redirect } from 'next/navigation'
 import CreateAdminButton from './CreateAdminButton'
 import AdminList from './AdminList'
-const ManageAdminPage: React.FC = async () => {    
+import Toast from '@/app/components/Toast/Toast'
+
+const ManageAdminPage: React.FC = async () => {   
+
   return (
     <div className='owner-content'>
       <AppBar > <LoginLogout></LoginLogout></AppBar> 
@@ -52,6 +47,9 @@ const ManageAdminPage: React.FC = async () => {
           <div className='mt-2'>
             <CreateAdminButton></CreateAdminButton>
           </div>
+
+            <Toast
+            />
         </div>
       </Row>
     </div>
