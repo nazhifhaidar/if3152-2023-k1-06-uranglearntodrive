@@ -9,9 +9,9 @@ export default async function handler(
     if (req.method === "GET"){
         return KendaraanController.handleKendaraanManager(req, res);
     }
-    // else if (req.method === 'POST'){
-    //     return KendaraanController.handleCreateKendaraan(req, res);
-    else{
+    else if (req.method === 'POST'){
+        return KendaraanController.handleCreateKendaraan(req, res);
+    }else{
       return res.status(405).json(new ResponseData("error", "Method Not Available", null));
     }
   }
