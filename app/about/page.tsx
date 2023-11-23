@@ -1,17 +1,10 @@
+import React from 'react'
+import AppBar from '../components/AppBar';
+import LoginLogout from '../utils/loginlogout';
 import Link from 'next/link';
-import AppBar from '@/app/components/AppBar';
-import LoginLogout from '@/app/utils/loginlogout';
-import { Montserrat } from 'next/font/google';
-import Row from '@/app/components/Row';
+import Row from '../components/Row';
 
-const montserrat = Montserrat({
-  weight: '400',
-  style: 'normal',
-  subsets: ['latin'],
-  variable: '--font montserrat'
-})
-
-const HomePage: React.FC = async () => {
+const About: React.FC = async () => {
   return (
     <>
       <AppBar>
@@ -48,4 +41,4 @@ const HomePage: React.FC = async () => {
   )
 }
 
-export default HomePage;
+export default About;

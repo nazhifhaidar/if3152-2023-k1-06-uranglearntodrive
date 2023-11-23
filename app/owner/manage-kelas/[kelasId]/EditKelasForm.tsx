@@ -172,7 +172,7 @@ const handleSelectKendaraan = (event: ChangeEvent<HTMLSelectElement>) =>{
                 <DropdownInputKendaraan Dropdownlabel="Nama Kendaraan" Dropdownname="id_kendaraan" DropdownValue = {id_kendaraan} TextLabel="Id Kendaraan" TextName="idkendaraan" TextValue={id_kendaraan} Loading = {loading} Options={optionsKendaraan} onSelect={handleSelectKendaraan} ></DropdownInputKendaraan>
                 <DropdownInputInstruktur Dropdownlabel="Nama Instruktur" Dropdownname="id_instruktur" DropdownValue={id_instruktur} TextLabel="Id Instruktur" TextName="idinstruktur" TextValue={id_instruktur} Loading = {loading} Options={optionsInstruktur} onSelect={handleSelectInstruktur}></DropdownInputInstruktur>
             <div style={{ maxWidth: '100%', display: 'flex', justifyContent: 'center', flexDirection:'row' }}>
-              <Button1 id="submit-button" text="Save Instruktur" textColor="black" bgColor="yellow" type='submit' style={{margin:'8px'}}/>
+              <Button1 id="submit-button" text="Save Kelas" textColor="black" bgColor="yellow" type='submit' style={{margin:'8px'}}/>
               <Link href={"/owner/manage-kelas"}>
                 <Button1 id="cancel_button" text="Cancel" textColor="black" bgColor="white" type='button' style={{margin:'8px'}}/>
               </Link>

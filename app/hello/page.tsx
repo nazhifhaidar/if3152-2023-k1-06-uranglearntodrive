@@ -1,10 +1,11 @@
 import { getServerSession } from 'next-auth'
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { options } from '../api/auth/[...nextauth]/options'
 import AppBar from '../components/AppBar';
 import LoginLogout from '../utils/loginlogout';
 import InformationCard from '../components/Cards/InformationCard';
 import Button2 from '../components/Buttons/Button2';
+import Grid from '../components/Grid';
 
 const page = async () => {
     const session = await getServerSession(options);
@@ -24,6 +25,13 @@ const page = async () => {
             <Button2 text='Delete'></Button2>
         </>
     );
+
+    const grid =
+    (
+        <>
+            <Grid rows={5} columns={5}/>
+        </>
+    )
     return (
         <>
             <AppBar > <LoginLogout></LoginLogout></AppBar> 
@@ -34,6 +42,7 @@ const page = async () => {
                 )
             }
             <InformationCard data={data} buttons={buttons} ></InformationCard>
+            {grid}
         </>
     )
 }
