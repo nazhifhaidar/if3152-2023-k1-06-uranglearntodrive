@@ -8,10 +8,11 @@ export default async function handler(
   ) {
     if (req.method === "GET"){
         return KelasController.handleKelasManager(req, res);
-    }else{
-      return res.status(405).json(new ResponseData("error", "Method Not Available", null));
     }
     else if(req.method === "POST"){
-      return KelasController.handleCreateKelas(req,res);
+        return KelasController.handleCreateKelas(req,res);
+      }
+    else{
+      return res.status(405).json(new ResponseData("error", "Method Not Available", null));
     }
   }
