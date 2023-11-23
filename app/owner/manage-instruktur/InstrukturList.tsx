@@ -5,6 +5,7 @@ import InformationCard from '@/app/components/Cards/InformationCard';
 import Button2 from '@/app/components/Buttons/Button2';
 import ConfirmationPopUp from '@/app/components/pop-ups/ConfirmationPopUp';
 import { useRouter } from "next/navigation";
+import DeleteButton from '@/app/components/Buttons/DeleteButton';
 
 const InstrukturList:React.FC = () => {
     const router = useRouter();
@@ -98,7 +99,7 @@ const InstrukturList:React.FC = () => {
                     }
                     buttons={
                         <div style={{flexDirection : 'column' , display: 'flex'}}>
-                            <Button2 text='Delete' onClick={() => handleDeleteClick(instruktur.id)}></Button2>
+                            <DeleteButton onClick={() => handleDeleteClick(instruktur.id)}></DeleteButton>
                             <Button2 text='Edit' onClick={() => handleEditClick(instruktur)}></Button2>
                         </div>
                     }

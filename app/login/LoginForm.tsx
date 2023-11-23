@@ -6,9 +6,13 @@ import React, { useState } from 'react'
 import TextField1 from '../components/TextField/TextField1';
 import PasswordField from '../components/TextField/PasswordField';
 import Button1 from '../components/Buttons/Button1';
+import Row from '../components/Row';
+import Link from 'next/link';
+import { useMessageContext } from '../components/Providers/MessageProvider';
 
-const LoginForm:React.FC = () => {
-    const [username, setUsername] = useState<string>('');
+const LoginForm: React.FC = () => {
+  const {showMessage} = useMessageContext();
+  const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState(false);
 
@@ -33,6 +37,10 @@ const LoginForm:React.FC = () => {
       redirect: true,
       callbackUrl: "/check"
     });
+
+    if (!response?.ok) {
+        showMessage(`${response?.error}`, "error")
+    }
   };
 
   const handlePasswordVisibilityToggle = () => {
@@ -40,11 +48,15 @@ const LoginForm:React.FC = () => {
   };
   return (
     <form onSubmit={handleSubmit} >
-        <TextField1 label="Username" name='username' value={username} type="text" onChange={handleUsernameChange} />
-        <PasswordField label="Password" value={password} onChange={handlePasswordChange} onToggleVisibility={handlePasswordVisibilityToggle} style={{ marginLeft: '28px', paddingLeft: '4px' }} />
-        <div style={{ maxWidth: '100%', display: 'flex', justifyContent: 'center' }}>
-        <Button1 id="submit-button" text="Login" textColor="black" bgColor="yellow" type='submit' style={{margin:'8px'}}/>
-        </div>
+      <TextField1 label="Username" name='username' value={username} type="text" onChange={handleUsernameChange} />
+      <PasswordField label="Password" value={password} onChange={handlePasswordChange} onToggleVisibility={handlePasswordVisibilityToggle} style={{ marginLeft: '33px', paddingLeft: '4px', border: '1px solid rgba(191, 219, 254,1)' }} />
+      <div style={{ maxWidth: '100%', display: 'flex', justifyContent: 'center' }}>
+        <Row>
+          <Button1 id="submit-button" text="Login" textColor="black" bgColor="yellow" type='submit' style={{ margin: '8px' }} />
+          <Link href={'/'}><Button1 id="back-button" text="Kembali" textColor="black" bgColor="rgba(191, 219, 254, 1)" type='button' style={{ margin: '8px' }} /></Link>
+        </Row>
+
+      </div>
     </form>
   )
 }

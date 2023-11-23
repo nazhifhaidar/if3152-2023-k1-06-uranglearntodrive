@@ -8,7 +8,7 @@ interface DeleteButtonProps {
 
 const DeleteButton:React.FC<DeleteButtonProps> = ({onClick, style}) => {
   return (
-    <button type="button" onClick={onClick} style={style}>
+    <button type="button" onClick={onClick} style={style ?? {width:'40px', height:'40px'}}>
         <Image src='/delete_icon.svg' alt='Delete Icon' width={32} height={32} style={{borderRadius:'8px'}} >
 
         </Image>

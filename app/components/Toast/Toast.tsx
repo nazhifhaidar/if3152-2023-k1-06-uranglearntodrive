@@ -38,8 +38,8 @@ const Toast: React.FC = () => {
         width: 'fit-content',
         height: 'fit-content',
         display: 'flex',
-        justifyContent: 'space-between', // Align close button to the right
-        alignItems: 'center', // Center vertically
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
       }}
     >
       <span style={{margin:'8px'}}>{message}</span>
