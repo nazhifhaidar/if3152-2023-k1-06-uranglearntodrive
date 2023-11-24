@@ -24,6 +24,7 @@ const DatePickerInput:React.FC<DatePickerProps> = ({name, selectedDate, onDateCh
       // {(date) => setSelectedDate(date)}
       dateFormat="yyyy-MM-dd"
       customInput = {<CustomInput/>}
+      minDate={new Date()}
       isClearable
     />
     </div>
