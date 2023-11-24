@@ -6,6 +6,7 @@ import Button2 from '@/app/components/Buttons/Button2';
 import DateTimePicker from '@/app/components/DateTimePicker';
 import ConfirmationPopUp from '@/app/components/pop-ups/ConfirmationPopUp';
 import { useRouter } from "next/navigation";
+import { useMessageContext } from '@/app/components/Providers/MessageProvider';
 
 
 const KendaraanList:React.FC = () => {
@@ -14,6 +15,8 @@ const KendaraanList:React.FC = () => {
     const [selectedKendaraan, setSelectedKendaraan] = useState<Record<string, any>>([]);
     const [selectedKendaraanId, setSelectedKendaraanId] = useState<number | null>(null);
     const [isConfirmationOpen, setConfirmationOpen] = useState(false);
+
+    const {showMessage} =  useMessageContext();
 
 
     useEffect(() => {
@@ -31,7 +34,7 @@ const KendaraanList:React.FC = () => {
 
             // Assuming data is an array of objects
           } catch (error) {
-            console.log('Error fetching data:', error);
+            showMessage(`Error fetching data: ${error as string}`, "error");
             console.error('Error fetching data:', error);
           }
         };
@@ -70,15 +73,20 @@ const KendaraanList:React.FC = () => {
             method: 'DELETE',
             headers: { "Content-Type": "application/json" }
           });
+
+          const result = await response.json();
     
           if (response.ok) {
             // If the deletion is successful, update the state to reflect the changes
             setKendaraans((prevKendaraans) => prevKendaraans.filter((kendaraan) => kendaraan.id !== kendaraanId));
+            showMessage(result.message as string, "success");
           } else {
             // Handle error response
-            console.error('Error deleting kendaraan:', response.statusText);
+            console.error('Error deleting kendaraan:', result.message);
+            showMessage(result.message as string, "error");
           }
         } catch (error) {
+          showMessage(error as string, "error");
           console.error('Error deleting kendaraan:', error);
         }
       };

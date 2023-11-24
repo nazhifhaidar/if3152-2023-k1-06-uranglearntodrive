@@ -41,7 +41,6 @@ const CreatePage:React.FC = () => {
         </div>
         
       </Row>
-      <Toast></Toast>
     </div>
   )
 }
