@@ -8,8 +8,20 @@ import React from 'react'
 import CreateAdminForm from './CreateAdminForm'
 import {useContext} from 'react';
 import Toast from '@/app/components/Toast/Toast'
+import { useSession } from 'next-auth/react'
+import { redirect } from 'next/navigation'
 
 const CreatePage:React.FC = () => {
+    const { data: session} = useSession({
+        onUnauthenticated() {
+            redirect('/api/auth/signin?callbackUrl=/check');
+        },
+        required:true
+    });
+    if (!session) redirect('/api/auth/signin?callbackUrl=/check');
+    if (session?.user.role !== "OWNER"){
+        redirect("/");
+    }
   return (
     <div>
 <AppBar > <LoginLogout></LoginLogout></AppBar> 
@@ -41,7 +53,6 @@ const CreatePage:React.FC = () => {
         </div>
         
       </Row>
-      <Toast></Toast>
     </div>
   )
 }

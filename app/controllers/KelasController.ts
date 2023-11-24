@@ -166,6 +166,49 @@ class KelasController{
         }
     }
 
+    static async getIdKelas(req: NextApiRequest, res: NextApiResponse){
+        let responseData: ResponseData<any>;
+        try{
+            const {query} = req.body;
+            let idkelas;
+            if (!query){
+                idkelas = await prisma.kelas.findMany({
+                    select:{
+                        id:true,
+                        nama:true,
+                    }
+                });
+            }else{
+                idkelas = await prisma.kelas.findMany({
+                    where:{
+                        nama: {
+                          contains: query  
+                        }
+                    },
+                    select:{
+                        id:true
+                    }
+                });
+            }
+            
+            if (!idkelas || idkelas.length === 0){
+                responseData = new ResponseData("error", "Can't read data", null);
+                console.log(responseData);
+                return res.status(404).json(responseData);
+            }
+            else{
+                responseData = new ResponseData("success", 'data retreived', idkelas)
+            }
+            console.log(responseData);
+            return res.status(200).json(responseData);
+        }catch(e: any){
+            responseData =  new ResponseData("error", e.message, null);
+            console.log(responseData);
+            return res.status(500).json(responseData);
+        }
+        
+    }
+
     static async getTipebyId(req: NextApiRequest, res:NextApiResponse){
         let responseData: ResponseData<any>;
         try{

@@ -3,7 +3,7 @@ import React, {ChangeEvent} from 'react'
 
 interface TextFieldProps {
   label: string;
-  value: string;
+  value?: string;
   name: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   type?: string;
@@ -20,7 +20,7 @@ const TextField2:React.FC<TextFieldProps> = ({ label, name, value, onChange , ty
         name={name}
         value={value}
         onChange={onChange}
-        disabled={loading}
+        readOnly={loading}
       />
     </div>
   );
