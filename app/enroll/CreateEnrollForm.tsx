@@ -27,7 +27,7 @@ const CreateEnrollForm:React.FC = () => {
                   headers: { "Content-Type": "application/json" }
               });
               const dataTipe = await fetchedOptionsTipe.json();
-              setTipe(dataTipe?.data);
+              setTipe(dataTipe.data);
             } catch (error) {
                 console.error('Error fetching options:', error);
                 setLoading(false);
@@ -57,22 +57,16 @@ const CreateEnrollForm:React.FC = () => {
 
         // Create a data object to send in the POST request
         const formData = new FormData(event.currentTarget);
-        // console.log(formData.get("username"))
-        // console.log(formData.get("password"))
-        // console.log(formData.get("username"));
-        // console.log(formData.get("password"));
-        // console.log(formData.get("confirm_password"));
         const nama = formData.get("nama");
         const umur = formData.get("umur");
         const telp = formData.get("telp");
         const alamat = formData.get("alamat");
-        const tipe = formData.get("tipe");
 
         const response = await fetch(`/api/dashboard`, {
             method: 'POST',
             body: JSON.stringify({
                 nama_lengkap:nama,
-                id:parseInt(id as string, 10),
+                id_kelas:parseInt(id as string, 10),
                 umur:parseInt(umur as string, 10),
                 no_telp:telp,
                 alamat:alamat,
