@@ -26,7 +26,7 @@ class LoginController{
           }
           responseData = new ResponseData("success", "data retrieved", user)
           return res.status(200).json(responseData);
-          
+
         } else {
             return res.status(405).json(null);
         }

@@ -1,10 +1,5 @@
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { getToken } from "next-auth/jwt"
-import bcrypt from "bcryptjs"
-import { User } from "@prisma/client";
-import { AdapterUser } from "next-auth/adapters";
-import { redirect } from "next/navigation";
 
 const secret = process.env.NEXTAUTH_SECRET
 const url = process.env.NEXTAUTH_URL
@@ -38,14 +33,14 @@ export const options: NextAuthOptions = {
                 return user;
               }
               // Return null if user data could not be retrieved
-              return null
+              throw new Error(response.message);
             }
           })
     ],  
     callbacks: {
       async signIn({user, credentials}){
         // console.log("signIn callbacks", {user, credentials});
-          return true; // Continue with the default behavior if the role is not admin or owner
+        return true; // Continue with the default behavior if the role is not admin or owner
       },
       async session({session, token}){
         // console.log("session callback", {session, token});

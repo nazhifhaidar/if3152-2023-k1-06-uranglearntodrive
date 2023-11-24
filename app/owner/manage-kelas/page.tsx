@@ -10,8 +10,10 @@ import React from 'react'
 import TableContent from './table-content'
 import Button1 from '@/app/components/Buttons/Button1'
 import OpenClosedSideBar from '@/app/components/SideBar/OpenClosedSideBar'
+import KelasList from './KelasList'
+import LinkButton from '@/app/components/Buttons/LinkButton'
 
-const ManageAdminPage: React.FC = async () => {
+const ManageKelasPage: React.FC = async () => {
     const session = await getServerSession(options);
   return (
     <div className='owner-content'>
@@ -40,16 +42,22 @@ const ManageAdminPage: React.FC = async () => {
                 </h2>
             </Link>
         </OpenClosedSideBar>
-        <div style={{margin: '8px'}}>
+        <div style={{margin: '16px', flex:'1'}}>
+          <h1>Kelas List</h1>
           {/* <h2>Hello, {session?.user.name}</h2> */}
+          <KelasList/>
+          <LinkButton route="/owner/manage-kelas/create-kelas" text="Buat Data Baru"/>
+        </div>
+        {/* <div style={{margin: '8px'}}>
+          <h2>Hello, {session?.user.name}</h2>
           <TableContent/>
-            <Link href={"/owner/manage-instruktur/create-kelas"}>
+            <Link href={"/owner/manage-kelas/create-kelas"}>
               <Button1 id="create-button" text="Create New Data" textColor="black" bgColor="yellow" type='button' />
             </Link>
-        </div>
+        </div> */}
       </Row>
     </div>
   )
 }
 
-export default ManageAdminPage
+export default ManageKelasPage

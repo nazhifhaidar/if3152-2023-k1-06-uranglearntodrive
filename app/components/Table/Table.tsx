@@ -70,15 +70,15 @@ const Table: React.FC<TableProps> = ({columns, data, onHover}) => {
             </tr>
         </thead>
         <tbody>
-        {data.map((row, index) => (
-          <TableRow 
-          key={index}
-          onHover={onHover}
-          rowIndex={index}
-          columns={columns}
-          rowData={row}
-          />
-        ))}
+          {data.map((row, index) => (
+            <TableRow 
+              key={index}
+              onHover={onHover}
+              rowIndex={index}
+              columns={columns}
+              rowData={row}
+            />
+            ))}
       </tbody>
     </table>
   );

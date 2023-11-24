@@ -8,6 +8,8 @@ interface TableContentProps{}
 
 const TableContent:React.FC<TableContentProps> = () => {
     const [tableData, setTableData] = useState<Record<string, any>[]>([]);
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+    const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
     const url = process.env.NEXTAUTH_URL;
     useEffect(() => {
         const fetchData = async () => {
@@ -29,6 +31,28 @@ const TableContent:React.FC<TableContentProps> = () => {
     
         fetchData();
       },[]); 
+
+      const handleDeleteClick = (itemId: string) => {
+        console.log('Deleting item with ID:', selectedItemId);
+        setShowConfirmationModal(true);
+        setSelectedItemId(itemId);
+      };
+
+      const handleConfirmDelete = () => {
+        // Perform the delete operation here using the selectedItemId
+        console.log('Deleting item with ID:', selectedItemId);
+    
+        // After deletion, close the confirmation modal
+        setShowConfirmationModal(false);
+        setSelectedItemId(null);
+      };
+    
+      const handleCancelDelete = () => {
+        // Cancel the deletion, close the confirmation modal
+        setShowConfirmationModal(false);
+        setSelectedItemId(null);
+      };
+
 
       const columns = ['id', 'nama', 'tipe_kendaraan', 'status_kendaraan','tanggal_servis'];
 

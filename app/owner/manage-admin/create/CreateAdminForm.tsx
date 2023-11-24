@@ -3,6 +3,7 @@
 // "app/owner/manage-admin/create"
 
 import Button1 from "@/app/components/Buttons/Button1";
+import { useMessageContext } from '@/app/components/Providers/MessageProvider';
 import PasswordField from "@/app/components/TextField/PasswordField";
 import TextField1 from "@/app/components/TextField/TextField1";
 import TextField2 from "@/app/components/TextField/TextField2";
@@ -23,6 +24,9 @@ const CreateAdminForm:React.FC = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [isShowConfirmPassword, setShowConfirmPassword] = useState(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const [loading,setLoading] = useState(false);
+
+    const { showMessage } = useMessageContext();
 
     const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
         setUsername(event.target.value);
@@ -61,6 +65,7 @@ const CreateAdminForm:React.FC = () => {
         if (password !== confirm_password){
              console.error("Password harus sama");
              setErrorMessage("Password harus sama");
+             showMessage("Password harus sama", "error");
              return;
             }
         
@@ -77,10 +82,12 @@ const CreateAdminForm:React.FC = () => {
         if (response.ok){
             const data= await response.json();
             console.log(data?.data);
+            showMessage("Admin created successfully!", "success");
             router.push('/owner/manage-admin');
         } else{
             const data= await response.json();
             console.error(data?.message);
+            showMessage(data?.message || 'An error occurred during submission.', "error");
             setErrorMessage(data?.message || 'An error occurred during submission.');
         }
     };
@@ -93,14 +100,13 @@ const CreateAdminForm:React.FC = () => {
     }
     return (
         <div style={{width:'max-content'}}>
-            <h1>Create Admin</h1>
+            <h1 style={{paddingBottom:'8px'}}>Create Admin</h1>
             <form onSubmit={handleSubmit} >
-                <TextField2 label="Username" name='username' value={username} type="text" onChange={handleUsernameChange} />
-                <TextField2 label="Nama" name='name' value={name} type="text" onChange={handleNameChange} />
-                <TextField2 label="Alamat Email" name='email' value={email} type="text" onChange={handleEmailChange} />
+                <TextField2 label="Username" name='username' value={username} type="text" onChange={handleUsernameChange} loading ={loading}/>
+                <TextField2 label="Nama" name='name' value={name} type="text" onChange={handleNameChange} loading ={loading}/>
+                <TextField2 label="Alamat Email" name='email' value={email} type="text" onChange={handleEmailChange} loading = {loading}/>
                 <PasswordField label="Password" name='password' value={password} onChange={handlePasswordChange} onToggleVisibility={handlePasswordVisibilityToggle} style={{border:'2px solid #ccc',paddingLeft: '4px', width:'450px'  }} />
                 <PasswordField label="Confirm Password" name='confirm_password' value={confirmPassword} onChange={handleConfirmPasswordChange} onToggleVisibility={handleConfirmPasswordVisibility} style={{border:'2px solid #ccc',paddingLeft: '4px', width:'450px' }} />
-                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                 <div style={{ maxWidth: '100%', display: 'flex', justifyContent: 'center', flexDirection:'row' }}>
                     <Button1 id="submit-button" text="Create Admin" textColor="black" bgColor="yellow" type='submit' style={{margin:'8px'}}/>
                     <Link href={"/owner/manage-admin"}>

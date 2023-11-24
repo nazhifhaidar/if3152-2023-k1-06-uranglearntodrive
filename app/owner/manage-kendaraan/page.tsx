@@ -14,8 +14,13 @@ import Button1 from '@/app/components/Buttons/Button1'
 import Center from '@/app/components/Center'
 import OpenClosedSideBar from '@/app/components/SideBar/OpenClosedSideBar'
 
+import Button2 from '@/app/components/Buttons/Button2'
+import { redirect } from 'next/navigation'
+import CreateKendaraanButton from './CreateKendaraanButton'
+import KendaraanList from './KendaraanList'
+
 const ManageAdminPage: React.FC = async () => {
-    const session = await getServerSession(options);
+    // const session = await getServerSession(options);
   return (
     <div className='owner-content'>
       <AppBar > <LoginLogout></LoginLogout></AppBar> 
@@ -27,7 +32,9 @@ const ManageAdminPage: React.FC = async () => {
                 </h2>
             </Link>
             <Link href={"/owner/manage-admin"}>
-            <h2 style={{paddingLeft:'8px'}}>Manage Admin</h2>
+              <h2 style={{paddingLeft:'8px'}}>
+                Manage Admin
+              </h2>
             </Link>
             <Link href={"/owner/manage-kendaraan"}>
               <h2 style={CurrentPageStyle}>
@@ -47,8 +54,10 @@ const ManageAdminPage: React.FC = async () => {
         </OpenClosedSideBar>
         <div style={{margin: '16px', flex:'1'}}>
           {/* <h2>Hello, {session?.user.name}</h2> */}
-          <TableContent/>
-          <Button1 text='Buat Akun Baru' textColor='black' bgColor='yellow' type='button' margin='8px 0px 0px 0px'></Button1>
+          <KendaraanList/>
+          <div className='mt-2'>
+            <CreateKendaraanButton></CreateKendaraanButton>
+          </div>
         </div>
       </Row>
     </div>

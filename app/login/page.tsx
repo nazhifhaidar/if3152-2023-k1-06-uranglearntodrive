@@ -1,24 +1,15 @@
 //login page
 'use client'
 
-import React, { ChangeEvent } from 'react';
-import Button1 from '../components/Buttons/Button1';
-import TextField1 from '../components/TextField/TextField1';
+import React from 'react';
 import Center from '../components/Center';
 import RoundedBoxContainer from '../components/Containers/RoundedBoxContainer';
 import { Roboto } from 'next/font/google';
 import { Montserrat } from 'next/font/google';
-import PasswordField from '../components/TextField/PasswordField';
-import { signIn } from 'next-auth/react';
-import { redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth';
-import { useSession } from 'next-auth/react';
-import { options } from '../api/auth/[...nextauth]/options';
+import Image from 'next/image';
 
-import Provider from '../Provider';
-import { getServerSideProps } from './get_server_props';
-import Logout from './logout';
 import LoginForm from './LoginForm';
+import Toast from '../components/Toast/Toast';
 
 const roboto = Roboto({
   weight: '400',
@@ -44,15 +35,29 @@ const montserratBold = Montserrat({
 
 const LoginPage: React.FC = () => {
   return (
-      <Center alignItems='center' minHeight='100vh'>
-        <RoundedBoxContainer warna_latar_belakang='lightBlue'border_color='#80a2ad' lebar={480} tinggi={320} sudut={15}>
-          <div className={montserrat.className}>
-            <h1 className={montserratBold.className} style={{ textAlign: 'center', fontSize: '48px' }}>LOGIN</h1>
-            <LoginForm></LoginForm>
-          </div>
-        </RoundedBoxContainer>
-      </Center>  
-    
+
+    <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
+      <Image
+        src="/bg-lalin.jpg"
+        alt="Background Image"
+        layout="fill"
+        objectFit="cover"
+      />
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <div className='pt-16 justify-center flex'>
+          <Center alignItems='center'>
+            <RoundedBoxContainer warna_latar_belakang='rgba(239, 246, 255,1.0)' border_color='#80a2ad' lebar={400} tinggi={480} sudut={10}>
+              <div className={montserrat.className}>
+                <h1 className={montserratBold.className} style={{ textAlign: 'center', fontSize: '48px' }}>LOGIN</h1>
+                <LoginForm></LoginForm>
+              </div>
+            </RoundedBoxContainer>
+          </Center>
+        </div>
+      </div>
+      <Toast/>
+    </div>
+
   );
 };
 

@@ -3,13 +3,14 @@ import React, {ChangeEvent} from 'react'
 
 interface TextFieldProps {
   label: string;
-  value: string;
+  value?: string;
   name: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   type?: string;
+  loading:boolean;
 }
 
-const TextField2:React.FC<TextFieldProps> = ({ label, name, value, onChange , type}) => {
+const TextField2:React.FC<TextFieldProps> = ({ label, name, value, onChange , type, loading}) => {
 
   return (
     <div style={{paddingBottom:'4px'}}>
@@ -19,6 +20,7 @@ const TextField2:React.FC<TextFieldProps> = ({ label, name, value, onChange , ty
         name={name}
         value={value}
         onChange={onChange}
+        readOnly={loading}
       />
     </div>
   );
