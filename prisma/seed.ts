@@ -28,22 +28,18 @@ async function main() {
             role: 'ADMIN'
         }
     })
-    const matic = await prisma.tipeKendaraan.upsert({
-        where: {tipe: "Matic"},
-        update: {},
-        create: {
-            tipe: "Matic"
-        }
+
+    const tipe_kendaraan = await prisma.tipeKendaraan.createMany({
+        data: [
+            {
+                tipe: "Matic"
+            },
+            {
+                tipe: "Manual"
+            }
+        ]
     });
 
-    const manual = await prisma.tipeKendaraan.upsert({
-        where: {tipe: "Manual"},
-        update: {},
-        create: {
-            tipe: "Manual"
-        }
-    });
-    const tipe_kendaraan = [matic, manual]
     const rubicon = await prisma.kendaraan.upsert({
         where: { id: 1 },
         update: {
@@ -57,7 +53,7 @@ async function main() {
             nama: "Rubicon",
             tipe_kendaraan: "Manual",
             status_kendaraan: "Siap",
-            tanggal_servis: new Date('2023-11-24T00:00:00')
+            tanggal_servis: new Date().toISOString()
         }
     });
 
@@ -74,7 +70,7 @@ async function main() {
             nama: "Brio",
             tipe_kendaraan: "Matic",
             status_kendaraan: "Diperbaiki",
-            tanggal_servis: new Date('2023-11-24T00:00:00')
+            tanggal_servis: new Date().toDateString()
         }
     });
 
@@ -126,7 +122,7 @@ async function main() {
             harga: 69000,
             total_jam: 23,
             jumlah_sesi: 8,
-            id_kendaraan: 2,
+            id_kendaraan: 1,
             id_instruktur: 1
         },
         create: {
@@ -146,9 +142,9 @@ async function main() {
         update: {},
         create: {
             id:1,
-            tanggal: new Date('2023-11-24T00:00:00'),
-            start_sesi: new Date('2023-11-24T08:00:00'),
-            end_sesi:   new Date('2023-11-24T10:00:00'),
+            tanggal: new Date().toDateString(),
+            start_sesi: '08:00',
+            end_sesi:   '10:00',
             id_kelas: 1
         }
     });
@@ -158,9 +154,9 @@ async function main() {
         update: {},
         create: {
             id:2,
-            tanggal: new Date('2023-11-24T00:00:00'),
-            start_sesi: new Date('2023-11-24T13:00:00'),
-            end_sesi:   new Date('2023-11-24T15:00:00'),
+            tanggal: new Date().toDateString(),
+            start_sesi: '13:00',
+            end_sesi:   '15:00',
             id_kelas: 2
         }
     });
@@ -170,9 +166,9 @@ async function main() {
         update: {},
         create: {
             id:3,
-            tanggal: new Date('2023-11-24T00:00:00'),
-            start_sesi: new Date('2023-11-24T15:00:00'),
-            end_sesi:   new Date('2023-11-24T17:00:00'),
+            tanggal: new Date().toDateString(),
+            start_sesi: '15:00',
+            end_sesi:   '17:00',
             id_kelas: 2
         }
     });
@@ -195,7 +191,7 @@ async function main() {
 
     const pelanggan = [toper]
 
-    console.log({ owner, hugo, tipe_kendaraan, kendaraan, instruktur, kelas, jadwal, toper });
+    console.log({ owner, hugo, tipe_kendaraan, kendaraan, instruktur, kelas, toper });
 }
 main()
     .then(async () => {
