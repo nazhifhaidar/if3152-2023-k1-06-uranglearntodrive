@@ -13,7 +13,7 @@ const TextField1:React.FC<TextFieldProps> = ({ label, name, value, onChange , ty
 
   return (
     <div style={{paddingBottom:'4px'}}>
-      <label className='pb[8px]' style={{display: 'block'}}>{label}</label>
+      <label className='pb[8px]' htmlFor={label} style={{display: 'block'}}>{label}</label>
       <input style={{paddingLeft:'4px', border:'1px solid rgba(191, 219, 254,1)'}}
         type={type? type:'text'}
         name={name}

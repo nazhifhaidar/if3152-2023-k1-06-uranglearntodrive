@@ -1,13 +1,11 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import AppBar from '@/app/components/AppBar';
 import LoginLogout from '@/app/utils/loginlogout';
 import { Montserrat } from 'next/font/google';
 import Row from '@/app/components/Row';
 import { getServerSession } from 'next-auth';
 import { options } from './api/auth/[...nextauth]/options';
-import Button2 from './components/Buttons/Button2';
-import SectionContainer from './components/Containers/SectionContainer';
+import SessionLink from './utils/SessionLink';
 
 const montserrat = Montserrat({
   weight: '400',
