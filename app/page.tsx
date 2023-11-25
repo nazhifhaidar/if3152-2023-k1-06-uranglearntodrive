@@ -21,90 +21,69 @@ const HomePage: React.FC = async () => {
   const session = await getServerSession(options);
   return (
     <>
-      <div style={{position:'sticky', top:'0px'}}>
-        <AppBar>
-          <Row>
-            <Link href={"/"} >
+      <AppBar>
+        <Row>
+          <Link href={"/"} >
+            <h2 style={{ marginRight: '10rem' }}>
+              Dashboard
+            </h2>
+          </Link>
+          <Link href={"/classlist"} >
+            <h2 style={{ marginRight: '10rem' }}>
+              Daftar Kelas
+            </h2>
+          </Link>
+          <Link href={"/about"} >
+            <h2 style={{ marginRight: '10rem' }}>
+              Tentang Perusahaan
+            </h2>
+          </Link>
+          {session && (
+            <Link href={session.user.role === 'OWNER' ? '/owner' : '/admin'}>
               <h2 style={{ marginRight: '10rem' }}>
-                Dashboard
+                {session.user.role === 'OWNER' ? 'Owner' : 'Admin'}
               </h2>
             </Link>
-            <Link href={"/classlist"} >
-              <h2 style={{ marginRight: '10rem' }}>
-                Daftar Kelas
-              </h2>
-            </Link>
-            <Link href={"/about"} >
-              <h2 style={{ marginRight: '10rem' }}>
-                Tentang Perusahaan
-              </h2>
-            </Link>
-            {session && (
-              <Link href={session.user.role === 'OWNER' ? '/owner' : '/admin'}>
-                <h2 style={{ marginRight: '10rem' }}>
-                  {session.user.role === 'OWNER' ? 'Owner' : 'Admin'}
-                </h2>
-              </Link>
-            )}
-            <LoginLogout></LoginLogout>
-          </Row>
-        </AppBar>
-      </div>
-      <div style={{position:'relative', zIndex: -1}}>
-        <div className='bg-gradient-to-t from-white to-transparent h-full w-full' style={{position:'absolute', zIndex: -2}}></div>
-        <Image
-          src='/D.jpg'
-          width={1520}
-          height={900}
-          alt='resing'
-          style={{position:'relative', marginTop:'-60px', zIndex: -10}}>
-        </Image>
-        <h1 style={{marginTop:'-14rem', paddingBottom:'8rem', fontSize:'68px', textAlign:'center', fontWeight:'bolder', fontStyle:'italic'}}> Mengemudi bersama Urang Learn to Drive </h1>
+          )}
+          <LoginLogout></LoginLogout>
+        </Row>
+      </AppBar>
+      <br/>
+      <br/>
+      <div style={{display:'flex', flexDirection:'row'}}>
+        <h1 style={{paddingLeft:'4rem', fontSize:'72px', display:'flex', flexDirection:'row', maxWidth:'60%', fontStyle:'italic'}}> Mengemudi bersama Urang Learn to Drive </h1>
+        <Image src='/D.jpg' width={720} height={540} alt="resing" style={{marginTop:'1rem', paddingRight:'4rem'}}></Image>
       </div>
       <div style={{display:'flex', marginTop:'2rem', flexDirection:'row'}}>
-        <div style={{marginLeft:'2rem', marginRight:'2rem', marginTop:'-4rem', display:'flex', flexDirection:'row'}}>
-          <div style={{margin:'8px'}}>
-            <SectionContainer w={100} bg_col='azure' bdr_col='' children={
-              <>
-                <div style={{display:'flex', flexDirection:'column'}}>
-                  <h1> Cepat Mendapatkan SIM </h1>
-                  <p style={{textAlign:'left'}}> Urang Learn to Drive unggul dalam memberikan pengajaran kemampuan mengemudi lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam purus neque, consequat nec condimentum ac, sagittis ut tortor. Nam malesuada luctus neque vitae euismod. In at scelerisque risus, in sodales mi. Pellentesque ultrices maximus consequat.</p>
-                </div>
-              </>
-            }></SectionContainer>
-          </div>
-          <div style={{margin:'8px'}}>
-            <SectionContainer w={100} bg_col='azure' bdr_col='' children={
-              <>
-                <div style={{display:'flex', flexDirection:'column'}}>
-                  <h1> Jadwal Kelas Fleksibel </h1>
-                  <p style={{textAlign:'left'}}> Urang Learn to Drive unggul dalam memberikan pengajaran kemampuan mengemudi lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam purus neque, consequat nec condimentum ac, sagittis ut tortor. Nam malesuada luctus neque vitae euismod. In at scelerisque risus, in sodales mi. Pellentesque ultrices maximus consequat.</p>
-                </div>
-              </>
-            }></SectionContainer>
-          </div>
-          <div style={{margin:'8px'}}>
-            <SectionContainer w={100} bg_col='azure' bdr_col='' children={
-              <>
-                <div style={{display:'flex', flexDirection:'column'}}>
-                  <h1> Harga Lebih Murah </h1>
-                  <p style={{textAlign:'left'}}> Urang Learn to Drive unggul dalam memberikan pengajaran kemampuan mengemudi lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam purus neque, consequat nec condimentum ac, sagittis ut tortor. Nam malesuada luctus neque vitae euismod. In at scelerisque risus, in sodales mi. Pellentesque ultrices maximus consequat.</p>
-                </div>
-              </>
-            }></SectionContainer>
-          </div>
+        <div style={{paddingLeft:'4rem', maxWidth:'35%'}}>
+          <p> Urang Learn to Drive menyediakan layanan kelas kursus mengemudi mobil manual maupun matic. Terdapat lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam purus neque, consequat nec condimentum ac, sagittis ut tortor. Nam malesuada luctus neque vitae euismod. In at scelerisque risus, in sodales mi. Pellentesque ultrices maximus consequat.
+              Nunc vel finibus magna. Nulla vel convallis dui. Duis molestie nunc eu quam ultrices, vel laoreet lorem elementum. Quisque commodo, felis a ultricies lacinia, lectus tortor placerat purus, non scelerisque arcu magna sit amet purus.</p>
+          <Link href='/classlist' style={{marginLeft:'-8px'}}>
+            <Button2 text='Cari Kelas' type='button'></Button2>
+          </Link>
+        </div>
+        <div style={{marginLeft:'2rem', marginRight:'4rem'}}>
+          <SectionContainer w={100} bg_col='azure' bdr_col='' children={
+            <>
+              <div style={{display:'flex', flexDirection:'column'}}>
+                <h1> Panduan sebelum mulai mendaftar... </h1>
+                <p style={{textAlign:'left'}}> 1. Pastikan bahwa lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam purus neque, consequat nec condimentum ac, sagittis ut tortor. Nam malesuada luctus neque vitae euismod. In at scelerisque risus, in sodales mi. Pellentesque ultrices maximus consequat.
+                Nunc vel finibus magna. Nulla vel convallis dui. Duis molestie nunc eu quam ultrices, vel laoreet lorem elementum. Quisque commodo, felis a ultricies lacinia, lectus tortor placerat purus, non scelerisque arcu magna sit amet purus.</p>
+                <p style={{textAlign:'left'}}> 2. Siapkan terlebih dahulu lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam purus neque, consequat nec condimentum ac, sagittis ut tortor. Nam malesuada luctus neque vitae euismod. In at scelerisque risus, in sodales mi. Pellentesque ultrices maximus consequat.
+                Nunc vel finibus magna. Nulla vel convallis dui. Duis molestie nunc eu quam ultrices, vel laoreet lorem elementum. Quisque commodo, felis a ultricies lacinia, lectus tortor placerat purus, non scelerisque arcu magna sit amet purus.</p>
+                <p style={{textAlign:'left'}}> 3. Rata-rata waktu yang diperlukan adalah lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam purus neque, consequat nec condimentum ac, sagittis ut tortor. Nam malesuada luctus neque vitae euismod. In at scelerisque risus, in sodales mi. Pellentesque ultrices maximus consequat.
+                Nunc vel finibus magna. Nulla vel convallis dui. Duis molestie nunc eu quam ultrices, vel laoreet lorem elementum. Quisque commodo, felis a ultricies lacinia, lectus tortor placerat purus, non scelerisque arcu magna sit amet purus.</p>
+                <p style={{textAlign:'left'}}> 4. Setelah selesai, anda akan lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam purus neque, consequat nec condimentum ac, sagittis ut tortor. Nam malesuada luctus neque vitae euismod. In at scelerisque risus, in sodales mi. Pellentesque ultrices maximus consequat.
+                Nunc vel finibus magna. Nulla vel convallis dui. Duis molestie nunc eu quam ultrices, vel laoreet lorem elementum. Quisque commodo, felis a ultricies lacinia, lectus tortor placerat purus, non scelerisque arcu magna sit amet purus.</p>
+              </div>
+            </>
+          }></SectionContainer>
         </div>
       </div>
-      <div style={{alignItems:'center', maxWidth:'100%', display:'flex', flexDirection:'column'}}>
-        <h1 style={{fontWeight:'bolder', fontSize:'36px'}}> Mulai Pilih Kelasmu Sekarang. </h1>
-        <Link href='/classlist'>
-          <Button2 text='Cari Kelas' type='button'></Button2>
-        </Link>
-      </div>
       <br/>
+      
     </>
   )
 }
 
 export default HomePage;
-
