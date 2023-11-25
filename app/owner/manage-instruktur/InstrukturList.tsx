@@ -6,9 +6,11 @@ import Button2 from '@/app/components/Buttons/Button2';
 import ConfirmationPopUp from '@/app/components/pop-ups/ConfirmationPopUp';
 import { useRouter } from "next/navigation";
 import DeleteButton from '@/app/components/Buttons/DeleteButton';
+import { useMessageContext } from '@/app/components/Providers/MessageProvider';
 
 const InstrukturList:React.FC = () => {
     const router = useRouter();
+    const {showMessage} = useMessageContext();
     const [instrukturs, setInstrukturs] = useState<Record<string, any>[]>([]);
     const [selectedInstruktur, setSelectedInstruktur] = useState<Record<string, any>>([]);
     const [selectedInstrukturId, setSelectedInstrukturId] = useState<number | null>(null);
@@ -29,7 +31,7 @@ const InstrukturList:React.FC = () => {
 
             // Assuming data is an array of objects
           } catch (error) {
-            console.log('Error fetching data:', error);
+            showMessage(`Error fetching data: ${error}`, "error");
             console.error('Error fetching data:', error);
           }
         };
@@ -68,16 +70,23 @@ const InstrukturList:React.FC = () => {
             method: 'DELETE',
             headers: { "Content-Type": "application/json" }
           });
-    
+          
+          const res = await response.json();
+
           if (response.ok) {
             // If the deletion is successful, update the state to reflect the changes
+            const {data} = res;
             setInstrukturs((prevInstruktur) => prevInstruktur.filter((instruktur) => instruktur.id !== instrukturId));
+            showMessage(`Instruktur ${data.nama_lengkap} berhasil dihapus`, "success");
           } else {
             // Handle error response
-            console.error('Error deleting instruktur:', response.statusText);
+            const {message} = res;
+            console.error('Error deleting instruktur:', message);
+            showMessage(`Error deleting instruktur: ${message}`, "error");
           }
         } catch (error) {
           console.error('Error deleting instruktur:', error);
+          showMessage(`Error deleting instruktur: ${error}`, "error");
         }
       };
       

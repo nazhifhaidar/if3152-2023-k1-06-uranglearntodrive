@@ -14,10 +14,12 @@ import Dropdown from "@/app/components/Dropdown/Dropdown";
 import Dropdown2 from "@/app/components/Dropdown/Dropdown";
 import DropdownInputKendaraan from "@/app/components/Dropdown/DropdownInputKendaraan";
 import DropdownInputInstruktur from "@/app/components/Dropdown/DropdownInputInstruktur";
+import { useMessageContext } from "@/app/components/Providers/MessageProvider";
 
 const url = process.env.NEXTAUTH_URL;
 
 const CreateKelasForm:React.FC = () => {
+    const {showMessage} = useMessageContext();
     const router = useRouter();
     const [nama, setNama] = useState<string>('');
     const [harga, setHarga] = useState<string>('');
@@ -56,6 +58,7 @@ const CreateKelasForm:React.FC = () => {
               setLoading(false);
             } catch (error) {
                 console.error('Error fetching options:', error);
+                showMessage(`${error as string}`, "error");
                 setLoading(false);
             }
         };
@@ -127,10 +130,12 @@ const CreateKelasForm:React.FC = () => {
         })
         if (response.ok){
             const data= await response.json();
+            showMessage(data.message as string, "success");
             console.log(data);
             router.push('/owner/manage-kelas');
         } else{
             const data= await response.json();
+            showMessage(data.message as string, "error");
             console.error(data);
         }
     };
