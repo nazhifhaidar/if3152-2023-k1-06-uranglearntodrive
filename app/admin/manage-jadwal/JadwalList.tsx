@@ -5,8 +5,6 @@ import InformationCard from '@/app/components/Cards/InformationCard';
 import Button2 from '@/app/components/Buttons/Button2';
 import ConfirmationPopUp from '@/app/components/pop-ups/ConfirmationPopUp';
 import { useRouter } from "next/navigation";
-import DeleteButton from '@/app/components/Buttons/DeleteButton';
-import EditButton from '@/app/components/Buttons/EditButton';
 
 const JadwalList:React.FC = () => {
     const router = useRouter();
@@ -97,8 +95,8 @@ const JadwalList:React.FC = () => {
                     }
                     buttons={
                         <div style={{flexDirection : 'column' , display: 'flex'}}>
-                            <DeleteButton onClick={() => handleDeleteClick(jadwal.id)}></DeleteButton>
-                            <EditButton  onClick={() => handleEditClick(jadwal.id)}></EditButton>
+                            <Button2 text='Delete' onClick={() => handleDeleteClick(jadwal.id)}></Button2>
+                            <Button2 text='Edit' onClick={() => handleEditClick(jadwal.id)}></Button2>
                         </div>
                     }
                     />
