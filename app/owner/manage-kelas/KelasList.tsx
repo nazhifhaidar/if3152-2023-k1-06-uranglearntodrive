@@ -104,7 +104,7 @@ const KelasList:React.FC = () => {
                             <p>Total Jam: {kelas.total_jam}</p>
                             <p>Jumlah Sesi: {kelas.jumlah_sesi}</p>
                             <p>Nama Kendaraan: {kelas.kendaraan.nama}</p>
-                            <p>Nama kelas: {kelas.instruktur.nama_lengkap}</p>
+                            <p>Nama Instruktur: {kelas.instruktur.nama_lengkap}</p>
                         </div>
                     }
                     buttons={
