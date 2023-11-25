@@ -22,7 +22,6 @@ model User {
 model Pelanggan {
   id              Int           @id @default(autoincrement())
   nama_lengkap    String
-  pilihan_kelas   Kelas         @relation(fields: [id_kelas], references: [id])
   umur            Int
   no_telp         String
   alamat          String

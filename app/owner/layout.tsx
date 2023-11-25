@@ -12,7 +12,10 @@ export default async function ownerLayout({children,}: {children: React.ReactNod
         redirect("/");
     }
     return (
+        <>
         {children}
+        </>
+        
         
     )
 }
