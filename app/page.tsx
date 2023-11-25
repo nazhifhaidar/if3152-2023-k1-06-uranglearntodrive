@@ -24,17 +24,17 @@ const HomePage: React.FC = async () => {
       <div style={{ position: 'sticky', top: '0px' }}>
         <AppBar>
           <Row>
-            <Link href={"/"} >
+            <Link href="/" >
               <h2 style={{ marginRight: '10rem' }}>
                 Dashboard
               </h2>
             </Link>
-            <Link href={"/classlist"} >
+            <Link href="/classlist" >
               <h2 style={{ marginRight: '10rem' }}>
                 Daftar Kelas
               </h2>
             </Link>
-            <Link href={"/about"} >
+            <Link href="/about" >
               <h2 style={{ marginRight: '10rem' }}>
                 Tentang Perusahaan
               </h2>
@@ -74,16 +74,20 @@ const HomePage: React.FC = async () => {
             </SectionContainer>
           </div>
           <div style={{ margin: '8px' }}>
-            <SectionContainer w={100} bg_col='azure' bdr_col='' ><div style={{ display: 'flex', flexDirection: 'column' }}>
-              <h1> Jadwal Kelas Fleksibel </h1>
-              <p style={{ textAlign: 'left' }}> Urang Learn to Drive unggul dalam memberikan pengajaran kemampuan mengemudi lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam purus neque, consequat nec condimentum ac, sagittis ut tortor. Nam malesuada luctus neque vitae euismod. In at scelerisque risus, in sodales mi. Pellentesque ultrices maximus consequat.</p>
-            </div></SectionContainer>
+            <SectionContainer w={100} bg_col='azure' bdr_col='' >
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <h1> Jadwal Kelas Fleksibel </h1>
+                <p style={{ textAlign: 'left' }}> Urang Learn to Drive unggul dalam memberikan pengajaran kemampuan mengemudi lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam purus neque, consequat nec condimentum ac, sagittis ut tortor. Nam malesuada luctus neque vitae euismod. In at scelerisque risus, in sodales mi. Pellentesque ultrices maximus consequat.</p>
+              </div>
+            </SectionContainer>
           </div>
           <div style={{ margin: '8px' }}>
-            <SectionContainer w={100} bg_col='azure' bdr_col='' ><div style={{ display: 'flex', flexDirection: 'column' }}>
-              <h1> Harga Lebih Murah </h1>
-              <p style={{ textAlign: 'left' }}> Urang Learn to Drive unggul dalam memberikan pengajaran kemampuan mengemudi lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam purus neque, consequat nec condimentum ac, sagittis ut tortor. Nam malesuada luctus neque vitae euismod. In at scelerisque risus, in sodales mi. Pellentesque ultrices maximus consequat.</p>
-            </div></SectionContainer>
+            <SectionContainer w={100} bg_col='azure' bdr_col='' >
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <h1> Harga Lebih Murah </h1>
+                <p style={{ textAlign: 'left' }}> Urang Learn to Drive unggul dalam memberikan pengajaran kemampuan mengemudi lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam purus neque, consequat nec condimentum ac, sagittis ut tortor. Nam malesuada luctus neque vitae euismod. In at scelerisque risus, in sodales mi. Pellentesque ultrices maximus consequat.</p>
+              </div>
+            </SectionContainer>
           </div>
         </div>
       </div>
