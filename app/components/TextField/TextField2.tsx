@@ -14,7 +14,7 @@ const TextField2:React.FC<TextFieldProps> = ({ label, name, value, onChange , ty
 
   return (
     <div style={{paddingBottom:'4px'}}>
-      <label className='pb[8px]' htmlFor={label} style={{display: 'flex'}}>{label}</label>
+      <label className='pb[8px]' style={{display: 'flex'}}>{label}</label>
       <input style={{width:'450px', paddingLeft: '4px', border: '2px solid #ccc'}}
         type={type? type:'text'}
         name={name}

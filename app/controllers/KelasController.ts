@@ -10,21 +10,7 @@ class KelasController{
             const {query} = req.body;
             let classes;
             if (!query){
-                classes = await prisma.kelas.findMany({
-                    include:{
-                        kendaraan:{
-                            select:{
-                                nama:true,
-                                tipe_kendaraan: true
-                            }
-                        },
-                        instruktur:{
-                            select:{
-                                nama_lengkap:true
-                            }
-                        }
-                    }
-                });
+                classes = await prisma.kelas.findMany();
             }else{
                 classes = await prisma.kelas.findMany({
                     where:{
@@ -208,6 +194,38 @@ class KelasController{
             return res.status(500).json(responseData);
         }
         
+    }
+
+    static async getTipebyId(req: NextApiRequest, res:NextApiResponse){
+        let responseData: ResponseData<any>;
+        try{
+            const {id} = req.query;
+            let kelas;
+            kelas = await prisma.kelas.findUnique({
+                where:{
+                    id: parseInt(id as string, 10)
+                },
+                select:{
+                    tipe_kendaraan: true,
+                }
+            });
+            let tipe;
+            tipe = kelas?.tipe_kendaraan;
+            if (!kelas){
+                responseData = new ResponseData("error", "Can't read data", null);
+                console.log(responseData);
+                return res.status(404).json(responseData);
+            }
+            else{
+                responseData = new ResponseData("success", 'data retreived', tipe)
+            }
+            console.log(responseData);
+            return res.status(200).json(responseData);
+        }catch(e: any){
+            responseData =  new ResponseData("error", e.message, null);
+            console.log(responseData);
+            return res.status(500).json(responseData);
+        }   
     }
 }
 

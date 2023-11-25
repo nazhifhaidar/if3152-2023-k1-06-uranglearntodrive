@@ -29,7 +29,7 @@ const PasswordField:React.FC<TextFieldProps> = ({ label, value, onChange, onTogg
 
     return (
         <div >
-        <label className='pb[4px]' htmlFor={label} style={{display: 'block'}}>{label}</label>
+        <label className='pb[4px]' style={{display: 'block'}}>{label}</label>
         <Row>
           <input className={montserrat.className}
             id="password-input" // Add an 'id' attribute 

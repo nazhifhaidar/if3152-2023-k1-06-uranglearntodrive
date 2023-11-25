@@ -7,7 +7,6 @@ import ConfirmationPopUp from '@/app/components/pop-ups/ConfirmationPopUp';
 import { useRouter } from "next/navigation";
 import DeleteButton from '@/app/components/Buttons/DeleteButton';
 import { useMessageContext } from '@/app/components/Providers/MessageProvider';
-import EditButton from '@/app/components/Buttons/EditButton';
 
 const KelasList:React.FC = () => {
     const router = useRouter();
@@ -110,7 +109,7 @@ const KelasList:React.FC = () => {
                     buttons={
                         <div style={{flexDirection : 'column' , display: 'flex'}}>
                             <DeleteButton onClick={() => handleDeleteClick(kelas.id)}></DeleteButton>
-                            <EditButton onClick={() => handleEditClick(kelas.id)}></EditButton>
+                            <Button2 text='Edit' onClick={() => handleEditClick(kelas.id)}></Button2>
                         </div>
                     }
                     />

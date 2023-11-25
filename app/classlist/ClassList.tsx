@@ -44,12 +44,10 @@ const ClassList: React.FC = () => {
                             <p>Harga:       {kelas.harga}</p>
                             <p>Total Jam:   {kelas.total_jam}</p>
                             <p>Jumlah Sesi: {kelas.jumlah_sesi}</p>
-                            <p>Kendaraan: {kelas.kendaraan.nama}</p>
-                            <p>Tipe Kendaraan: {kelas.kendaraan.tipe_kendaraan}</p>
                         </div>
                         }
                         buttons={
-                        <Link href={`/enroll/?id=${kelas.id}`}><Button2 text='Daftar'></Button2></Link>
+                        <Link href={`/enroll?id=${kelas.id}`}><Button2 text='Daftar'></Button2></Link>
                         }
                     />
                 </div>
