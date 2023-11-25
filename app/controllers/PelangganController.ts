@@ -42,14 +42,14 @@ class PelangganController{
         let responseData: ResponseData<any>;
         try{
             let cust;
-            const {nama_lengkap, umur, no_telp, alamat, id_kelas, tipe_kendaraan} = req.body;
+            const {nama_lengkap, umur, no_telp, alamat, id, tipe_kendaraan} = req.body;
             cust = await prisma.pelanggan.create({
                     data:{
                         nama_lengkap:nama_lengkap,
                         umur:umur,
                         no_telp:no_telp,
                         alamat:alamat,
-                        id_kelas:id_kelas,
+                        id_kelas:id,
                         tipe_kendaraan:tipe_kendaraan
                     }
                 }

@@ -10,6 +10,7 @@ import Logout from './login/logout'
 import AppBar from './components/AppBar'
 import { useRouter } from 'next/navigation'
 import { MessageProvider } from './components/Providers/MessageProvider'
+import Toast from './components/Toast/Toast'
 
 const inter = Inter({ subsets: ['latin'] })
 const montserrat = Montserrat({
@@ -43,6 +44,7 @@ export default async function RootLayout({
           <MessageProvider>
             <Provider session={session}>
               {children}
+              <Toast/>
             </Provider>
           </MessageProvider>
           
