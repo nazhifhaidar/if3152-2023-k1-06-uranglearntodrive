@@ -23,11 +23,9 @@ model Pelanggan {
   id              Int           @id @default(autoincrement())
   nama_lengkap    String
   pilihan_kelas   Kelas         @relation(fields: [id_kelas], references: [id])
-  tipeKendaraan   TipeKendaraan @relation(fields: [tipe_kendaraan], references: [tipe])
   umur            Int
   no_telp         String
   alamat          String
-  tipe_kendaraan  String
   id_kelas        Int
   status          StatusPelanggan   @default(Calon)
 }
@@ -45,7 +43,6 @@ model Kendaraan {
 model TipeKendaraan {
   tipe          String  @id
   kendaraan     Kendaraan[]
-  pelanggan     Pelanggan[]
 }
 
 model Kelas {

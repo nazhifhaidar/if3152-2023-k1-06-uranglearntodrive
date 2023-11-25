@@ -14,7 +14,8 @@ class KelasController{
                     include:{
                         kendaraan:{
                             select:{
-                                nama:true
+                                nama:true,
+                                tipe_kendaraan: true
                             }
                         },
                         instruktur:{

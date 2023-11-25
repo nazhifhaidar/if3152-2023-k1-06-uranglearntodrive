@@ -5,6 +5,7 @@ import { Montserrat } from 'next/font/google';
 import Row from '@/app/components/Row';
 import { getServerSession } from 'next-auth';
 import { options } from './api/auth/[...nextauth]/options';
+import SessionLink from './utils/SessionLink';
 
 const montserrat = Montserrat({
   weight: '400',
@@ -18,13 +19,19 @@ const HomePage: React.FC = async () => {
   const session = await getServerSession(options);
   return (
     <>
-        <AppBar>
-          <Row>
-            <Link href="/" >
-              <h2 style={{ marginRight: '10rem' }}>
-                {session?.user.role === 'OWNER' ? 'Owner' : 'Admin'}
-              </h2>
-            </Link>
+      <AppBar>
+        <Row>
+          <Link href="/classlist" >
+            <h2 style={{ marginRight: '10rem' }}>
+              Daftar Kelas
+            </h2>
+          </Link>
+          <Link href="/about" >
+            <h2 style={{ marginRight: '10rem' }}>
+              Tentang Perusahaan
+            </h2>
+          </Link>
+          <SessionLink></SessionLink>
           <LoginLogout></LoginLogout>
         </Row>
       </AppBar>
