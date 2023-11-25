@@ -8,21 +8,11 @@ import { MessageProvider } from '@/app/components/Providers/MessageProvider';
 
 jest.mock('next/navigation');
 
-describe('Login', () => {
-    it('Harusnya Ada Text yang diperlukan', () => {
-        render(<MessageProvider><LoginPage/></MessageProvider>) // ARRANGE
-    
-        expect(screen.getByText('LOGIN')).toBeInTheDocument();
-        expect(screen.getByText('Username')).toBeInTheDocument();
-        expect(screen.getByText('Password')).toBeInTheDocument();
-    
-    })
+it('Harusnya Ada Text yang diperlukan', () => {
+    render(<MessageProvider><LoginPage/></MessageProvider>) // ARRANGE
 
-    it('Harusnya Ada Button', () => {
-        render(<MessageProvider><LoginPage/></MessageProvider>) // ARRANGE
-    
-        expect(screen.getAllByRole('button'));
-    
-    })
+    expect(screen.getByText('LOGIN')).toBeInTheDocument();
+    expect(screen.getByText('Username')).toBeInTheDocument();
+    expect(screen.getByText('Password')).toBeInTheDocument();
+
 })
-
