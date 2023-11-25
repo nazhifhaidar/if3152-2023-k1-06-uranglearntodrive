@@ -21,7 +21,7 @@ const HomePage: React.FC = async () => {
   const session = await getServerSession(options);
   return (
     <>
-      <div style={{position:'sticky', top:'0px'}}>
+      <div style={{ position: 'sticky', top: '0px' }}>
         <AppBar>
           <Row>
             <Link href={"/"} >
@@ -50,58 +50,50 @@ const HomePage: React.FC = async () => {
           </Row>
         </AppBar>
       </div>
-      <div style={{position:'relative', zIndex: -1}}>
-        <div className='bg-gradient-to-t from-white to-transparent h-full w-full' style={{position:'absolute', zIndex: -2}}></div>
+      <div style={{ position: 'relative', zIndex: -1 }}>
+        <div className='bg-gradient-to-t from-white to-transparent h-full w-full' style={{ position: 'absolute', zIndex: -2 }}></div>
         <Image
           src='/D.jpg'
           width={1520}
           height={900}
           alt='resing'
-          style={{position:'relative', marginTop:'-60px', zIndex: -10}}>
+          style={{ position: 'relative', marginTop: '-60px', zIndex: -10 }}>
         </Image>
-        <h1 style={{marginTop:'-14rem', paddingBottom:'8rem', fontSize:'68px', textAlign:'center', fontWeight:'bolder', fontStyle:'italic'}}> Mengemudi bersama Urang Learn to Drive </h1>
+        <h1 style={{ marginTop: '-14rem', paddingBottom: '8rem', fontSize: '68px', textAlign: 'center', fontWeight: 'bolder', fontStyle: 'italic' }}> Mengemudi bersama Urang Learn to Drive </h1>
       </div>
-      <div style={{display:'flex', marginTop:'2rem', flexDirection:'row'}}>
-        <div style={{marginLeft:'2rem', marginRight:'2rem', marginTop:'-4rem', display:'flex', flexDirection:'row'}}>
-          <div style={{margin:'8px'}}>
-            <SectionContainer w={100} bg_col='azure' bdr_col='' children={
+      <div style={{ display: 'flex', marginTop: '2rem', flexDirection: 'row' }}>
+        <div style={{ marginLeft: '2rem', marginRight: '2rem', marginTop: '-4rem', display: 'flex', flexDirection: 'row' }}>
+          <div style={{ margin: '8px' }}>
+            <SectionContainer w={100} bg_col='azure' bdr_col=''>
               <>
-                <div style={{display:'flex', flexDirection:'column'}}>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
                   <h1> Cepat Mendapatkan SIM </h1>
-                  <p style={{textAlign:'left'}}> Urang Learn to Drive unggul dalam memberikan pengajaran kemampuan mengemudi lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam purus neque, consequat nec condimentum ac, sagittis ut tortor. Nam malesuada luctus neque vitae euismod. In at scelerisque risus, in sodales mi. Pellentesque ultrices maximus consequat.</p>
+                  <p style={{ textAlign: 'left' }}> Urang Learn to Drive unggul dalam memberikan pengajaran kemampuan mengemudi lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam purus neque, consequat nec condimentum ac, sagittis ut tortor. Nam malesuada luctus neque vitae euismod. In at scelerisque risus, in sodales mi. Pellentesque ultrices maximus consequat.</p>
                 </div>
               </>
-            }></SectionContainer>
+            </SectionContainer>
           </div>
-          <div style={{margin:'8px'}}>
-            <SectionContainer w={100} bg_col='azure' bdr_col='' children={
-              <>
-                <div style={{display:'flex', flexDirection:'column'}}>
-                  <h1> Jadwal Kelas Fleksibel </h1>
-                  <p style={{textAlign:'left'}}> Urang Learn to Drive unggul dalam memberikan pengajaran kemampuan mengemudi lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam purus neque, consequat nec condimentum ac, sagittis ut tortor. Nam malesuada luctus neque vitae euismod. In at scelerisque risus, in sodales mi. Pellentesque ultrices maximus consequat.</p>
-                </div>
-              </>
-            }></SectionContainer>
+          <div style={{ margin: '8px' }}>
+            <SectionContainer w={100} bg_col='azure' bdr_col='' ><div style={{ display: 'flex', flexDirection: 'column' }}>
+              <h1> Jadwal Kelas Fleksibel </h1>
+              <p style={{ textAlign: 'left' }}> Urang Learn to Drive unggul dalam memberikan pengajaran kemampuan mengemudi lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam purus neque, consequat nec condimentum ac, sagittis ut tortor. Nam malesuada luctus neque vitae euismod. In at scelerisque risus, in sodales mi. Pellentesque ultrices maximus consequat.</p>
+            </div></SectionContainer>
           </div>
-          <div style={{margin:'8px'}}>
-            <SectionContainer w={100} bg_col='azure' bdr_col='' children={
-              <>
-                <div style={{display:'flex', flexDirection:'column'}}>
-                  <h1> Harga Lebih Murah </h1>
-                  <p style={{textAlign:'left'}}> Urang Learn to Drive unggul dalam memberikan pengajaran kemampuan mengemudi lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam purus neque, consequat nec condimentum ac, sagittis ut tortor. Nam malesuada luctus neque vitae euismod. In at scelerisque risus, in sodales mi. Pellentesque ultrices maximus consequat.</p>
-                </div>
-              </>
-            }></SectionContainer>
+          <div style={{ margin: '8px' }}>
+            <SectionContainer w={100} bg_col='azure' bdr_col='' ><div style={{ display: 'flex', flexDirection: 'column' }}>
+              <h1> Harga Lebih Murah </h1>
+              <p style={{ textAlign: 'left' }}> Urang Learn to Drive unggul dalam memberikan pengajaran kemampuan mengemudi lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam purus neque, consequat nec condimentum ac, sagittis ut tortor. Nam malesuada luctus neque vitae euismod. In at scelerisque risus, in sodales mi. Pellentesque ultrices maximus consequat.</p>
+            </div></SectionContainer>
           </div>
         </div>
       </div>
-      <div style={{alignItems:'center', maxWidth:'100%', display:'flex', flexDirection:'column'}}>
-        <h1 style={{fontWeight:'bolder', fontSize:'36px'}}> Mulai Pilih Kelasmu Sekarang. </h1>
+      <div style={{ alignItems: 'center', maxWidth: '100%', display: 'flex', flexDirection: 'column' }}>
+        <h1 style={{ fontWeight: 'bolder', fontSize: '36px' }}> Mulai Pilih Kelasmu Sekarang. </h1>
         <Link href='/classlist'>
           <Button2 text='Cari Kelas' type='button'></Button2>
         </Link>
       </div>
-      <br/>
+      <br />
     </>
   )
 }
