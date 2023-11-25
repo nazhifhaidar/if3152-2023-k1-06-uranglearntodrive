@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import KendaraanController from '@/app/controllers/KendaraanController';
+import AdminController from '@/app/controllers/AdminController';
+import JadwalController from '@/app/controllers/JadwalController';
 import ResponseData from '@/app/utils/Response';
 
 export default async function handler(
@@ -7,10 +8,10 @@ export default async function handler(
     res: NextApiResponse,
   ) {
     if (req.method === "GET"){
-        return KendaraanController.handleKendaraanManager(req, res);
+        return JadwalController.handleJadwalManager(req, res);
     }
     else if (req.method === 'POST'){
-        return KendaraanController.handleCreateKendaraan(req, res);
+        return JadwalController.handleMembuatJadwal(req, res);
     }else{
       return res.status(405).json(new ResponseData("error", "Method Not Available", null));
     }
