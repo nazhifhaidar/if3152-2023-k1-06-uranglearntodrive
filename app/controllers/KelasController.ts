@@ -208,6 +208,42 @@ class KelasController{
         }
         
     }
+
+    static async getTipebyId(req: NextApiRequest, res:NextApiResponse){
+        let responseData: ResponseData<any>;
+        try{
+            const {id} = req.query;
+            let kelas;
+            kelas = await prisma.kelas.findUnique({
+                include:{
+                    kendaraan:{
+                        select:{
+                            tipe_kendaraan: true,
+                        }
+                    }
+                },
+                where:{
+                    id: parseInt(id as string, 10)
+                },
+            });
+            let tipe;
+            tipe = kelas?.kendaraan.tipe_kendaraan;
+            if (!kelas){
+                responseData = new ResponseData("error", "Can't read data", null);
+                console.log(responseData);
+                return res.status(404).json(responseData);
+            }
+            else{
+                responseData = new ResponseData("success", 'data retreived', tipe)
+            }
+            console.log(responseData);
+            return res.status(200).json(responseData);
+        }catch(e: any){
+            responseData =  new ResponseData("error", e.message, null);
+            console.log(responseData);
+            return res.status(500).json(responseData);
+        }   
+    }
 }
 
 export default KelasController;
