@@ -97,7 +97,7 @@ const KendaraanList:React.FC = () => {
         <div style={{ maxHeight: '500px', overflowY: 'auto' }}>
             <h1>Kendaraan List</h1>
             {kendaraans.map((kendaraan)=> (
-                <div key={kendaraan.id}>
+                <div key={kendaraan.id} className='mb-3'>
                     <InformationCard
                     key={kendaraan.id}
                     data={

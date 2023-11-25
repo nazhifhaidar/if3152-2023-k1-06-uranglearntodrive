@@ -123,9 +123,14 @@ async function main() {
 
     const toper = await prisma.pelanggan.upsert({
         where: {id: 1},
-        update: {},
+        update: {
+            nama_lengkap: "Christopher Febrian Nugraha",
+            umur: 20,
+            no_telp: '012345678901',
+            alamat: 'Gg. Guan Jiwa, Kota Bandung',
+            id_kelas: 1
+        },
         create: {
-            id: 1,
             nama_lengkap: "Christopher Febrian Nugraha",
             umur: 20,
             no_telp: '012345678901',
@@ -136,9 +141,16 @@ async function main() {
 
     const jadwal1 = await prisma.jadwal.upsert({
         where:{id: 1},
-        update: {},
+        update: {
+            tanggal: new Date('2023-11-24T00:00:00'),
+            start_sesi: new Date('2023-11-24T08:00:00'),
+            end_sesi:   new Date('2023-11-24T10:00:00'),
+            id_kelas: 1,
+            id_instruktur: 1,
+            id_pelanggan: 1,
+            id_kendaraan: 1
+        },
         create: {
-            id:1,
             tanggal: new Date('2023-11-24T00:00:00'),
             start_sesi: new Date('2023-11-24T08:00:00'),
             end_sesi:   new Date('2023-11-24T10:00:00'),
@@ -151,7 +163,15 @@ async function main() {
 
     const jadwal2 = await prisma.jadwal.upsert({
         where:{id: 2},
-        update: {},
+        update: {
+            tanggal: new Date('2023-11-24T00:00:00'),
+            start_sesi: new Date('2023-11-24T13:00:00'),
+            end_sesi:   new Date('2023-11-24T15:00:00'),
+            id_kelas: 2,
+            id_instruktur: 1,
+            id_pelanggan: 1,
+            id_kendaraan: 1
+        },
         create: {
             id:2,
             tanggal: new Date('2023-11-24T00:00:00'),
@@ -166,7 +186,15 @@ async function main() {
 
     const jadwal3 = await prisma.jadwal.upsert({
         where:{id: 3},
-        update: {},
+        update: {
+            tanggal: new Date('2023-11-24T00:00:00'),
+            start_sesi: new Date('2023-11-24T15:00:00'),
+            end_sesi:   new Date('2023-11-24T17:00:00'),
+            id_kelas: 2,
+            id_instruktur: 1,
+            id_pelanggan: 1,
+            id_kendaraan: 1
+        },
         create: {
             id:3,
             tanggal: new Date('2023-11-24T00:00:00'),
@@ -185,7 +213,7 @@ async function main() {
 
     const pelanggan = [toper]
 
-    console.log({ owner, hugo, kendaraan, instruktur, kelas, jadwal, toper });
+    console.log({ owner, hugo, kendaraan, instruktur, kelas, jadwal, pelanggan });
 }
 main()
     .then(async () => {
