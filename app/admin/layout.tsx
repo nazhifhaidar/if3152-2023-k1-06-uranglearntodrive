@@ -2,6 +2,7 @@ import { getServerSession } from 'next-auth'
 import React from 'react'
 import { options } from '../api/auth/[...nextauth]/options'
 import { redirect } from 'next/navigation';
+import Toast from '../components/Toast/Toast';
 
 export default async function adminLayout({children,}: {children: React.ReactNode})
 {
@@ -11,7 +12,10 @@ export default async function adminLayout({children,}: {children: React.ReactNod
         redirect("/");
     }
     return (
-        <>{children}</>
+        <>
+        {children}
+        <Toast/>
+        </>
         
     )
 }

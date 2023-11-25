@@ -3,6 +3,7 @@
 // "app/owner/manage-admin/create"
 
 import Button1 from "@/app/components/Buttons/Button1";
+import { useMessageContext } from "@/app/components/Providers/MessageProvider";
 import PasswordField from "@/app/components/TextField/PasswordField";
 import TextField1 from "@/app/components/TextField/TextField1";
 import TextField2 from "@/app/components/TextField/TextField2";
@@ -15,6 +16,7 @@ const url = process.env.NEXTAUTH_URL;
 
 const CreateInstrukturForm:React.FC = () => {
   const router = useRouter();
+  const {showMessage} = useMessageContext();
   const [nama_lengkap, setNamaLengkap] = useState<string>('');
   const [nik, setNIK] = useState<string>('');
   const [alamat, setAlamat] = useState<string>('');
@@ -60,9 +62,11 @@ const CreateInstrukturForm:React.FC = () => {
   if (response.ok){
       const data= await response.json();
       console.log(data);
+      showMessage(data.message, "success");
       router.push('/owner/manage-instruktur');
   } else{
       const data= await response.json();
+      showMessage(data.message, "error");
       console.error(data);
   }
   };

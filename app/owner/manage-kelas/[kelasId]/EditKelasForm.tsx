@@ -13,6 +13,7 @@ import { useState, ChangeEvent } from "react";
 import React, { useEffect } from 'react';
 import DropdownInputInstruktur from "@/app/components/Dropdown/DropdownInputInstruktur";
 import DropdownInputKendaraan from "@/app/components/Dropdown/DropdownInputKendaraan";
+import { useMessageContext } from "@/app/components/Providers/MessageProvider";
 
 const url = process.env.NEXTAUTH_URL;
 
@@ -36,6 +37,7 @@ const EditKelasForm:React.FC<EditKelasFormProps> = (params) => {
     const [kelas, setKelas] = useState<Record<string, any>>([]);
     const [loading,setLoading] = useState(true);
     const [disable,setDisable] = useState(true);
+    const {showMessage} = useMessageContext();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,6 +81,7 @@ const EditKelasForm:React.FC<EditKelasFormProps> = (params) => {
             setLoading(false);
         // Assuming data is an array of objects
       } catch (error) {
+        showMessage(error as string, "error");
         console.log('Error fetching data:', error);
         console.error('Error fetching data:', error);
       }
@@ -147,10 +150,12 @@ const handleSelectKendaraan = (event: ChangeEvent<HTMLSelectElement>) =>{
   })
   if (response.ok){
       const data= await response.json();
+      showMessage(`${data.message}`, "success");
       console.log(data);
       router.push('/owner/manage-kelas');
   } else{
       const data= await response.json();
+      showMessage(`${data.message}`, "error")
       console.error(data);
   }
   };
