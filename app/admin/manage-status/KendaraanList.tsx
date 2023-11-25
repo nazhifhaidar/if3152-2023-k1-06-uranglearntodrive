@@ -6,6 +6,8 @@ import Button2 from '@/app/components/Buttons/Button2';
 import DateTimePicker from '@/app/components/DateTimePicker';
 import ConfirmationPopUp from '@/app/components/pop-ups/ConfirmationPopUp';
 import { useRouter } from "next/navigation";
+import DeleteButton from '@/app/components/Buttons/DeleteButton';
+import EditButton from '@/app/components/Buttons/EditButton';
 
 
 const KendaraanList:React.FC = () => {
@@ -106,8 +108,8 @@ const KendaraanList:React.FC = () => {
                     }
                     buttons={
                         <div style={{flexDirection : 'column' , display: 'flex'}}>
-                            <Button2 text='Delete' onClick={() => handleDeleteClick(kendaraan.id)}></Button2>
-                            <Button2 text='Edit' onClick={() => handleEditClick(kendaraan)}></Button2>
+                            <DeleteButton onClick={() => handleDeleteClick(kendaraan.id)}></DeleteButton>
+                            <EditButton onClick={() => handleEditClick(kendaraan)}></EditButton>
                         </div>
                     }
                     />
