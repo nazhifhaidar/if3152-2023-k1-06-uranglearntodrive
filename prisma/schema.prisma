@@ -30,6 +30,7 @@ model Pelanggan {
   tipe_kendaraan  String
   id_kelas        Int
   status          StatusPelanggan   @default(Calon)
+  jadwal          Jadwal[]
 }
 
 model Kendaraan {
@@ -40,6 +41,7 @@ model Kendaraan {
   kelas           Kelas?
   status_kendaraan  StatusKendaraan   @default(Siap)
   tanggal_servis  DateTime?     @db.Date
+  jadwal          Jadwal[]
 }
 
 model TipeKendaraan {
@@ -69,6 +71,7 @@ model Instruktur {
   alamat          String
   no_telp         String
   kelas           Kelas[]
+  jadwal          Jadwal[]
 }
 
 model Jadwal  {
@@ -78,6 +81,12 @@ model Jadwal  {
   start_sesi      DateTime      @db.Time
   end_sesi        DateTime      @db.Time
   id_kelas        Int
+  kendaraan       Kendaraan @relation(fields: [id_kendaraan], references: [id]) 
+  id_kendaraan    Int
+  instruktur      Instruktur @relation(fields: [id_instruktur], references: [id])       
+  id_instruktur   Int
+  pelanggan       Pelanggan @relation(fields: [id_pelanggan], references: [id])
+  id_pelanggan    Int
 }
 
 enum Role {

@@ -177,6 +177,7 @@ class KendaraanController{
                 idKendaraan = await prisma.kendaraan.findMany({
                     select:{
                         id:true,
+                        nama:true,
                     }
                 });
             }else{
