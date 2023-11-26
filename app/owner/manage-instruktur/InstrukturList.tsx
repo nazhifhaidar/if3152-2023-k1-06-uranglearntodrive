@@ -7,6 +7,7 @@ import ConfirmationPopUp from '@/app/components/pop-ups/ConfirmationPopUp';
 import { useRouter } from "next/navigation";
 import DeleteButton from '@/app/components/Buttons/DeleteButton';
 import { useMessageContext } from '@/app/components/Providers/MessageProvider';
+import EditButton from '@/app/components/Buttons/EditButton';
 
 const InstrukturList:React.FC = () => {
     const router = useRouter();
@@ -109,7 +110,7 @@ const InstrukturList:React.FC = () => {
                     buttons={
                         <div style={{flexDirection : 'column' , display: 'flex'}}>
                             <DeleteButton onClick={() => handleDeleteClick(instruktur.id)}></DeleteButton>
-                            <Button2 text='Edit' onClick={() => handleEditClick(instruktur)}></Button2>
+                            <EditButton onClick={() => handleEditClick(instruktur)}></EditButton>
                         </div>
                     }
                     />

@@ -7,6 +7,7 @@ import ConfirmationPopUp from '@/app/components/pop-ups/ConfirmationPopUp';
 import { useRouter } from "next/navigation";
 import DeleteButton from '@/app/components/Buttons/DeleteButton';
 import { useMessageContext } from '@/app/components/Providers/MessageProvider';
+import EditButton from '@/app/components/Buttons/EditButton';
 
 const KelasList:React.FC = () => {
     const router = useRouter();
@@ -102,14 +103,13 @@ const KelasList:React.FC = () => {
                             <p>Harga: {kelas.harga}</p>
                             <p>Total Jam: {kelas.total_jam}</p>
                             <p>Jumlah Sesi: {kelas.jumlah_sesi}</p>
-                            <p>Nama Kendaraan: {kelas.kendaraan.nama}</p>
-                            <p>Nama kelas: {kelas.instruktur.nama_lengkap}</p>
+                            <p>Tipe Kendaraan: {kelas.tipe_kendaraan}</p>
                         </div>
                     }
                     buttons={
                         <div style={{flexDirection : 'column' , display: 'flex'}}>
                             <DeleteButton onClick={() => handleDeleteClick(kelas.id)}></DeleteButton>
-                            <Button2 text='Edit' onClick={() => handleEditClick(kelas.id)}></Button2>
+                            <EditButton onClick={() => handleEditClick(kelas.id)}></EditButton>
                         </div>
                     }
                     />

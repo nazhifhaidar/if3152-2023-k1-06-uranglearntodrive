@@ -6,6 +6,8 @@ import Button2 from '@/app/components/Buttons/Button2';
 import DateTimePicker from '@/app/components/DateTimePicker';
 import ConfirmationPopUp from '@/app/components/pop-ups/ConfirmationPopUp';
 import { useRouter } from "next/navigation";
+import DeleteButton from '@/app/components/Buttons/DeleteButton';
+import EditButton from '@/app/components/Buttons/EditButton';
 
 
 const KendaraanList:React.FC = () => {
@@ -39,31 +41,12 @@ const KendaraanList:React.FC = () => {
         fetchData();
       },[]);
 
-      const handleDeleteClick = (kendaraanId: number) => {
-        setSelectedKendaraanId(kendaraanId);
-        setConfirmationOpen(true);
-      };
-
       const handleEditClick = (kendaraan: Record<string,any>) => {
         setSelectedKendaraan(kendaraan);
         setSelectedKendaraanId(kendaraan.id);
         router.push(`/admin/manage-status/${kendaraan.id}`);
       };
     
-      const handleConfirmDelete = () => {
-        if (selectedKendaraanId !== null) {
-          // Call your delete function here
-          handleDelete(selectedKendaraanId);
-          setConfirmationOpen(false);
-          setSelectedKendaraanId(null);
-        }
-      };
-    
-      const handleCancelDelete = () => {
-        setConfirmationOpen(false);
-        setSelectedKendaraanId(null);
-      };
-
       const handleDelete = async (kendaraanId: number) => {
         try {
           const response = await fetch(`/api/kendaraan/${kendaraanId}`, {
@@ -87,7 +70,7 @@ const KendaraanList:React.FC = () => {
         <div style={{ maxHeight: '500px', overflowY: 'auto' }}>
             <h1>Kendaraan List</h1>
             {kendaraans.map((kendaraan)=> (
-                <div key={kendaraan.id}>
+                <div key={kendaraan.id} className='mb-2'>
                     <InformationCard
                     key={kendaraan.id}
                     data={
@@ -106,8 +89,7 @@ const KendaraanList:React.FC = () => {
                     }
                     buttons={
                         <div style={{flexDirection : 'column' , display: 'flex'}}>
-                            <Button2 text='Delete' onClick={() => handleDeleteClick(kendaraan.id)}></Button2>
-                            <Button2 text='Edit' onClick={() => handleEditClick(kendaraan)}></Button2>
+                            <EditButton onClick={() => handleEditClick(kendaraan)}></EditButton>
                         </div>
                     }
                     />
@@ -116,11 +98,6 @@ const KendaraanList:React.FC = () => {
                 
                         
             ))}
-            <ConfirmationPopUp
-                isOpen={isConfirmationOpen}
-                onCancel={handleCancelDelete}
-                onConfirm={handleConfirmDelete}
-            />
         </div>
       );
 };

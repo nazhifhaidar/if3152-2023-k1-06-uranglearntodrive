@@ -10,20 +10,7 @@ class KelasController{
             const {query} = req.body;
             let classes;
             if (!query){
-                classes = await prisma.kelas.findMany({
-                    include:{
-                        kendaraan:{
-                            select:{
-                                nama:true
-                            }
-                        },
-                        instruktur:{
-                            select:{
-                                nama_lengkap:true
-                            }
-                        }
-                    }
-                });
+                classes = await prisma.kelas.findMany();
             }else{
                 classes = await prisma.kelas.findMany({
                     where:{
@@ -54,8 +41,8 @@ class KelasController{
     static async handleCreateKelas(req: NextApiRequest, res:NextApiResponse){
         let responseData: ResponseData<any>;
         try{
-            const {nama, harga, total_jam, jumlah_sesi, id_kendaraan, id_instruktur} = req.body;
-            if (!nama || !harga || !total_jam || !jumlah_sesi || !id_kendaraan|| !id_instruktur){
+            const {nama, harga, total_jam, jumlah_sesi, tipe_kendaraan} = req.body;
+            if (!nama || !harga || !total_jam || !jumlah_sesi || !tipe_kendaraan){
                 responseData = new ResponseData("error", "Every attribute must be filled", null);
                 return res.status(400).json(responseData)
             }
@@ -65,8 +52,8 @@ class KelasController{
                     harga:parseInt(harga as string, 10),
                     total_jam: parseInt(total_jam as string, 10),
                     jumlah_sesi:parseInt(jumlah_sesi as string, 10),
-                    id_kendaraan:parseInt(id_kendaraan as string, 10),
-                    id_instruktur:parseInt(id_instruktur as string, 10),
+                    tipe_kendaraan: tipe_kendaraan
+                    
                 },
             })
             responseData = new ResponseData('success', 'Instructure created successfully', newKelas);
@@ -102,18 +89,6 @@ class KelasController{
             const {id} = req.query;
             let kelas;
             kelas = await prisma.kelas.findUnique({
-                include:{
-                    kendaraan:{
-                        select:{
-                            nama: true,
-                        }
-                    },
-                    instruktur:{
-                        select:{
-                            nama_lengkap: true,
-                        }
-                    },
-                },
                 where:{
                     id: parseInt(id as string, 10)
                 },
@@ -139,8 +114,8 @@ class KelasController{
         let responseData: ResponseData<any>;
         try{
             const {id} = req.query;
-            const {nama, harga, total_jam, jumlah_sesi, id_kendaraan, id_instruktur} = req.body;
-            if (!nama || !harga || !total_jam || !jumlah_sesi || !id_kendaraan|| !id_instruktur){
+            const {nama, harga, total_jam, jumlah_sesi, tipe_kendaraan} = req.body;
+            if (!nama || !harga || !total_jam || !jumlah_sesi || !tipe_kendaraan){
                 responseData = new ResponseData("error", "Every attribute must be filled", null);
                 return res.status(400).json(responseData)
             }
@@ -153,8 +128,7 @@ class KelasController{
                     harga:parseInt(harga as string, 10),
                     total_jam: parseInt(total_jam as string, 10),
                     jumlah_sesi:parseInt(jumlah_sesi as string, 10),
-                    id_kendaraan:parseInt(id_kendaraan as string, 10),
-                    id_instruktur:parseInt(id_instruktur as string, 10),
+                    tipe_kendaraan: tipe_kendaraan
                 },
             })
             responseData = new ResponseData('success', 'kelas created successfully', newkelas);
@@ -207,42 +181,6 @@ class KelasController{
             return res.status(500).json(responseData);
         }
         
-    }
-
-    static async getTipebyId(req: NextApiRequest, res:NextApiResponse){
-        let responseData: ResponseData<any>;
-        try{
-            const {id} = req.query;
-            let kelas;
-            kelas = await prisma.kelas.findUnique({
-                include:{
-                    kendaraan:{
-                        select:{
-                            tipe_kendaraan: true,
-                        }
-                    }
-                },
-                where:{
-                    id: parseInt(id as string, 10)
-                },
-            });
-            let tipe;
-            tipe = kelas?.kendaraan.tipe_kendaraan;
-            if (!kelas){
-                responseData = new ResponseData("error", "Can't read data", null);
-                console.log(responseData);
-                return res.status(404).json(responseData);
-            }
-            else{
-                responseData = new ResponseData("success", 'data retreived', tipe)
-            }
-            console.log(responseData);
-            return res.status(200).json(responseData);
-        }catch(e: any){
-            responseData =  new ResponseData("error", e.message, null);
-            console.log(responseData);
-            return res.status(500).json(responseData);
-        }   
     }
 }
 

@@ -9,9 +9,10 @@ interface DatePickerProps {
   selectedDate?:Date | null;
   onDateChange: (date: Date | null, event: React.SyntheticEvent<any,Event>|undefined) => void;
   label:string;
+  loading:boolean
 }
 
-const DatePickerInput:React.FC<DatePickerProps> = ({name, selectedDate, onDateChange, label}) => {
+const DatePickerInput:React.FC<DatePickerProps> = ({name, selectedDate, onDateChange, label, loading}) => {
   // const [selectedDate, setSelectedDate] = useState<Date|null>();
   return (
     <div>
@@ -23,16 +24,12 @@ const DatePickerInput:React.FC<DatePickerProps> = ({name, selectedDate, onDateCh
       onChange= {onDateChange}
       // {(date) => setSelectedDate(date)}
       dateFormat="yyyy-MM-dd"
-      customInput = {<CustomInput/>}
+      customInput = {<input type="text" readOnly style={{width:'450px',border: '2px solid #ccc', height:'30px'}}/>}
       minDate={new Date()}
-      isClearable
+      readOnly={loading}
     />
     </div>
   );
 };
-
-const CustomInput: React.FC<any> = ({ value, onClick }) => (
-  <input type="text" value={value} onClick={onClick} readOnly style={{width:'450px',border: '2px solid #ccc', height:'30px'}}/>
-);
 
 export default DatePickerInput;

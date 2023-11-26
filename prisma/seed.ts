@@ -28,18 +28,6 @@ async function main() {
             role: 'ADMIN'
         }
     })
-
-    const tipe_kendaraan = await prisma.tipeKendaraan.createMany({
-        data: [
-            {
-                tipe: "Matic"
-            },
-            {
-                tipe: "Manual"
-            }
-        ]
-    });
-
     const rubicon = await prisma.kendaraan.upsert({
         where: { id: 1 },
         update: {
@@ -100,8 +88,7 @@ async function main() {
             harga: 500000,
             total_jam: 6,
             jumlah_sesi: 3,
-            id_kendaraan: 1,
-            id_instruktur: 1
+            tipe_kendaraan: "Matic"
         },
         create: {
             id: 1,
@@ -109,8 +96,7 @@ async function main() {
             harga: 500000,
             total_jam: 6,
             jumlah_sesi: 3,
-            id_kendaraan: 1,
-            id_instruktur: 1
+            tipe_kendaraan: "Matic"
         }
     });
 
@@ -122,8 +108,7 @@ async function main() {
             harga: 69000,
             total_jam: 23,
             jumlah_sesi: 8,
-            id_kendaraan: 1,
-            id_instruktur: 1
+            tipe_kendaraan: "Manual"
         },
         create: {
             id: 2,
@@ -131,67 +116,104 @@ async function main() {
             harga: 69000,
             total_jam: 23,
             jumlah_sesi: 8,
-            id_kendaraan: 2,
-            id_instruktur: 1
+            tipe_kendaraan: "Manual"
         }
     });
     const kelas = [kelas1, kelas2]
 
+    const toper = await prisma.pelanggan.upsert({
+        where: {id: 1},
+        update: {
+            nama_lengkap: "Christopher Febrian Nugraha",
+            umur: 20,
+            no_telp: '012345678901',
+            alamat: 'Gg. Guan Jiwa, Kota Bandung',
+            id_kelas: 1
+        },
+        create: {
+            nama_lengkap: "Christopher Febrian Nugraha",
+            umur: 20,
+            no_telp: '012345678901',
+            alamat: 'Gg. Guan Jiwa, Kota Bandung',
+            id_kelas: 1
+        }
+    });
+
     const jadwal1 = await prisma.jadwal.upsert({
         where:{id: 1},
-        update: {},
+        update: {
+            tanggal: new Date('2023-11-24T00:00:00'),
+            start_sesi: new Date('2023-11-24T08:00:00'),
+            end_sesi:   new Date('2023-11-24T10:00:00'),
+            id_kelas: 1,
+            id_instruktur: 1,
+            id_pelanggan: 1,
+            id_kendaraan: 2
+        },
         create: {
-            id:1,
-            tanggal: new Date().toDateString(),
-            start_sesi: '08:00',
-            end_sesi:   '10:00',
-            id_kelas: 1
+            tanggal: new Date('2023-11-24T00:00:00'),
+            start_sesi: new Date('2023-11-24T08:00:00'),
+            end_sesi:   new Date('2023-11-24T10:00:00'),
+            id_kelas: 1,
+            id_instruktur: 1,
+            id_pelanggan: 1,
+            id_kendaraan: 2
         }
     });
 
     const jadwal2 = await prisma.jadwal.upsert({
         where:{id: 2},
-        update: {},
+        update: {
+            tanggal: new Date('2023-11-24T00:00:00'),
+            start_sesi: new Date('2023-11-24T13:00:00'),
+            end_sesi:   new Date('2023-11-24T15:00:00'),
+            id_kelas: 2,
+            id_instruktur: 1,
+            id_pelanggan: 1,
+            id_kendaraan: 1
+        },
         create: {
             id:2,
-            tanggal: new Date().toDateString(),
-            start_sesi: '13:00',
-            end_sesi:   '15:00',
-            id_kelas: 2
+            tanggal: new Date('2023-11-24T00:00:00'),
+            start_sesi: new Date('2023-11-24T13:00:00'),
+            end_sesi:   new Date('2023-11-24T15:00:00'),
+            id_kelas: 2,
+            id_instruktur: 1,
+            id_pelanggan: 1,
+            id_kendaraan: 1
         }
     });
 
     const jadwal3 = await prisma.jadwal.upsert({
         where:{id: 3},
-        update: {},
+        update: {
+            tanggal: new Date('2023-11-24T00:00:00'),
+            start_sesi: new Date('2023-11-24T15:00:00'),
+            end_sesi:   new Date('2023-11-24T17:00:00'),
+            id_kelas: 2,
+            id_instruktur: 1,
+            id_pelanggan: 1,
+            id_kendaraan: 1
+        },
         create: {
             id:3,
-            tanggal: new Date().toDateString(),
-            start_sesi: '15:00',
-            end_sesi:   '17:00',
-            id_kelas: 2
+            tanggal: new Date('2023-11-24T00:00:00'),
+            start_sesi: new Date('2023-11-24T15:00:00'),
+            end_sesi:   new Date('2023-11-24T17:00:00'),
+            id_kelas: 2,
+            id_instruktur: 1,
+            id_pelanggan: 1,
+            id_kendaraan: 1
         }
     });
 
     const jadwal = [jadwal1, jadwal2, jadwal3];
 
-    const toper = await prisma.pelanggan.upsert({
-        where: {id: 1},
-        update: {},
-        create: {
-            id: 1,
-            nama_lengkap: "Christopher Febrian Nugraha",
-            umur: 20,
-            no_telp: '012345678901',
-            alamat: 'Gg. Guan Jiwa, Kota Bandung',
-            tipe_kendaraan: "Matic",
-            id_kelas: 1
-        }
-    });
+    
 
     const pelanggan = [toper]
 
-    console.log({ owner, hugo, tipe_kendaraan, kendaraan, instruktur, kelas, toper });
+    console.log({ owner, hugo, kendaraan, instruktur, kelas, jadwal, pelanggan });
 }
 main()
     .then(async () => {

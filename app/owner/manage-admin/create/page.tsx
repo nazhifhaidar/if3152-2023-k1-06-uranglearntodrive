@@ -10,7 +10,6 @@ import {useContext} from 'react';
 import Toast from '@/app/components/Toast/Toast'
 import { useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
-import { getServerSession } from 'next-auth'
 
 const CreatePage:React.FC = () => {
   return (

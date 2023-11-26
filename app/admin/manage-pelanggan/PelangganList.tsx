@@ -3,21 +3,25 @@
 import React, { useEffect, useState } from 'react';
 import InformationCard from '@/app/components/Cards/InformationCard';
 import Button2 from '@/app/components/Buttons/Button2';
+import DateTimePicker from '@/app/components/DateTimePicker';
 import ConfirmationPopUp from '@/app/components/pop-ups/ConfirmationPopUp';
 import { useRouter } from "next/navigation";
 import DeleteButton from '@/app/components/Buttons/DeleteButton';
 import EditButton from '@/app/components/Buttons/EditButton';
 
-const JadwalList:React.FC = () => {
+
+const PelangganList:React.FC = () => {
     const router = useRouter();
-    const [jadwal, setjadwal] = useState<Record<string, any>[]>([]);
-    const [selectedjadwalId, setSelectedjadwalId] = useState<number | null>(null);
+    const [pelanggans, setPelanggans] = useState<Record<string, any>[]>([]);
+    const [selectedPelanggan, setSelectedPelanggan] = useState<Record<string, any>>([]);
+    const [selectedPelangganId, setSelectedPelangganId] = useState<number | null>(null);
     const [isConfirmationOpen, setConfirmationOpen] = useState(false);
+
 
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await fetch(`/api/jadwal`,
+            const response = await fetch(`/api/pelanggan/`,
                 {
                     method: 'GET',
                     body: null,
@@ -25,7 +29,7 @@ const JadwalList:React.FC = () => {
                 }
             );
             const data = await response.json();
-            setjadwal(data?.data)
+            setPelanggans(data?.data)
 
             // Assuming data is an array of objects
           } catch (error) {
@@ -33,79 +37,82 @@ const JadwalList:React.FC = () => {
             console.error('Error fetching data:', error);
           }
         };
+    
         fetchData();
       },[]);
 
-      const handleDeleteClick = (jadwalId: number) => {
-        setSelectedjadwalId(jadwalId);
+      const handleDeleteClick = (pelangganId: number) => {
+        setSelectedPelangganId(pelangganId);
         setConfirmationOpen(true);
       };
 
-      const handleEditClick = (jadwalId: number) => {
-        setSelectedjadwalId(jadwalId);
-        router.push(`/admin/manage-jadwal/${jadwalId}`);
+      const handleEditClick = (pelanggan: Record<string,any>) => {
+        setSelectedPelanggan(pelanggan);
+        setSelectedPelangganId(pelanggan.id);
+        router.push(`/admin/manage-pelanggan/${pelanggan.id}`);
       };
     
       const handleConfirmDelete = () => {
-        if (selectedjadwalId !== null) {
+        if (selectedPelangganId !== null) {
           // Call your delete function here
-          handleDelete(selectedjadwalId);
+          handleDelete(selectedPelangganId);
           setConfirmationOpen(false);
-          setSelectedjadwalId(null);
+          setSelectedPelangganId(null);
         }
       };
     
       const handleCancelDelete = () => {
         setConfirmationOpen(false);
-        setSelectedjadwalId(null);
+        setSelectedPelangganId(null);
       };
 
-      const handleDelete = async (jadwalId: number) => {
+      const handleDelete = async (pelangganId: number) => {
         try {
-          const response = await fetch(`/api/jadwal/${jadwalId}`, {
+          const response = await fetch(`/api/pelanggan/${pelangganId}`, {
             method: 'DELETE',
             headers: { "Content-Type": "application/json" }
           });
     
           if (response.ok) {
             // If the deletion is successful, update the state to reflect the changes
-            setjadwal((prevjadwal) => prevjadwal.filter((jadwal) => jadwal.id !== jadwalId));
+            setPelanggans((prevPelanggans) => prevPelanggans.filter((pelanggan) => pelanggan.id !== pelangganId));
           } else {
             // Handle error response
-            console.error('Error deleting jadwal:', response.statusText);
+            console.error('Error deleting pelanggan:', response.statusText);
           }
         } catch (error) {
-          console.error('Error deleting jadwal:', error);
+          console.error('Error deleting pelanggan:', error);
         }
       };
       
       return (
-        <div style={{ maxHeight: '450px', overflowY: 'auto', paddingRight:'12px'}}>
-            {jadwal && jadwal.map((jadwal)=> (
-                <div key={jadwal.id}>
+        <div style={{ maxHeight: '500px', overflowY: 'auto' }}>
+            <h1>Pelanggan List</h1>
+            {pelanggans.map((pelanggan)=> (
+                <div key={pelanggan.id}>
                     <InformationCard
-                    margin='mb-4'
-                    key={jadwal.id}
+                    key={pelanggan.id}
                     data={
                         <div>
-                            <p>ID: {jadwal.id}</p>
-                            <p>Nama Kelas: {jadwal.kelas.nama}</p>
-                            <p>Nama Pelanggan: {jadwal.pelanggan.nama_lengkap}</p>
-                            <p>Nama Kendaraan: {jadwal.kendaraan.nama}</p>
-                            <p>Nama Instruktur: {jadwal.instruktur.nama_lengkap}</p>
-                            <p>Tanggal: {new Date(jadwal.tanggal).toISOString().split("T")[0]}</p>
-                            <p>Start Sesi: {new Date(jadwal.start_sesi).toISOString().split("T")[1].split(".")[0]}</p>
-                            <p>End Sesi: {new Date(jadwal.end_sesi).toISOString().split("T")[1].split(".")[0]}</p>
-                        </div>
+                            <p>ID Pelanggan: {pelanggan.id}</p>
+                            <p>Nama: {pelanggan.nama_lengkap}</p>
+                            <p>ID Kelas: {pelanggan.id_kelas}</p>
+                            <p>Umur: {pelanggan.umur}</p>
+                            <p>Nomor Telepon: {pelanggan.no_telp}</p>
+                            <p>Alamat: {pelanggan.alamat}</p>
+                            <p>Status: {pelanggan.status}</p>
+                   </div>
                     }
                     buttons={
                         <div style={{flexDirection : 'column' , display: 'flex'}}>
-                            <DeleteButton onClick={() => handleDeleteClick(jadwal.id)}></DeleteButton>
-                            <EditButton onClick={() => handleEditClick(jadwal.id)}></EditButton>
+                            <EditButton onClick={() => handleEditClick(pelanggan)}></EditButton>
                         </div>
                     }
                     />
-                </div>       
+
+                </div>
+                
+                        
             ))}
             <ConfirmationPopUp
                 isOpen={isConfirmationOpen}
@@ -116,4 +123,4 @@ const JadwalList:React.FC = () => {
       );
 };
 
-export default JadwalList;
+export default PelangganList;
