@@ -29,8 +29,10 @@ const AdminPage: React.FC = async () => {
       <Row>
         <OpenClosedSideBar width='240px' background_color='rgba(113, 251, 111, 0.1)' border_color='black' margin='0px 0px 0px 0px'>
           <h2 style={CurrentPageStyle} >Homepage</h2>
-          <Link style={{paddingLeft:'8px'}} href={"/admin/manage-status"}>Manage Status Kendaraan</Link> 
-          <Link style={{paddingLeft:'8px'}} href={"/admin/manage-pelanggan"}>Manage Pelanggan</Link> 
+          <Link href={"/admin/manage-status"}><h2 style={{paddingLeft:'8px'}}>
+                Manage Status Kendaraan
+              </h2></Link> 
+          <Link  href={"/admin/manage-pelanggan"}><h2 style={{paddingLeft:'8px'}}>Manage Pelanggan</h2></Link> 
           <Link href={"/admin/manage-jadwal"}><h2 style={{paddingLeft:'8px'}}>Manage Jadwal Kelas</h2></Link>
           
         </OpenClosedSideBar>
