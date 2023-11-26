@@ -25,7 +25,7 @@ const ManagePelangganPage: React.FC = async () => {
     <div className='admin-content'>
       <AppBar > <LoginLogout></LoginLogout></AppBar> 
       <Row>
-        <OpenClosedSideBar width='300px' background_color='rgba(113, 251, 111, 0.1)' border_color='black' margin='0px 0px 0px 0px'>
+        <OpenClosedSideBar width='240px' background_color='rgba(113, 251, 111, 0.1)' border_color='black' margin='0px 0px 0px 0px'>
             <Link href={"/admin"} >
                 <h2 style={{paddingLeft:'8px'}}>
                     Homepage
@@ -39,6 +39,11 @@ const ManagePelangganPage: React.FC = async () => {
             <Link href={"/admin/manage-pelanggan"}>
               <h2 style={CurrentPageStyle}>
                   Manage Pelanggan
+              </h2>
+            </Link>
+            <Link href={"/admin/manage-jadwal"}>
+              <h2 style={{paddingLeft:'8px'}}>
+                  Manage Jadwal
               </h2>
             </Link>
         </OpenClosedSideBar>

@@ -95,7 +95,7 @@ const PelangganList:React.FC = () => {
             <h1>Pelanggan List</h1>
             <OurLoader state={isLoading}/>
             {pelanggans && (pelanggans.map((pelanggan)=> (
-                <div key={pelanggan.id}>
+                <div key={pelanggan.id} className='mb-2'>
                     <InformationCard
                     key={pelanggan.id}
                     data={
