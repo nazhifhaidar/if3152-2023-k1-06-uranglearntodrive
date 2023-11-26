@@ -14,6 +14,7 @@ import React, { useEffect } from 'react';
 import DropdownInputInstruktur from "@/app/components/Dropdown/DropdownInputInstruktur";
 import DropdownInputKendaraan from "@/app/components/Dropdown/DropdownInputKendaraan";
 import { useMessageContext } from "@/app/components/Providers/MessageProvider";
+import Dropdown from "@/app/components/Dropdown/Dropdown";
 
 const url = process.env.NEXTAUTH_URL;
 
@@ -33,6 +34,7 @@ const EditKelasForm:React.FC<EditKelasFormProps> = (params) => {
     const [id_kendaraan, setIdKendaraan] = useState<string>('');
     const [nama_kendaraan, setNamaKendaraan] = useState<string>('');
     const [nama_instruktur, setNamaInstruktur] = useState<string>('');
+    const [tipe_kendaraan, setTipeKendaraan] = useState<string>('');
     const [id_instruktur, setIdInstruktur] = useState<string>('');
     const [kelas, setKelas] = useState<Record<string, any>>([]);
     const [loading,setLoading] = useState(true);
@@ -51,43 +53,46 @@ const EditKelasForm:React.FC<EditKelasFormProps> = (params) => {
         );
         const data = await response.json();
         setKelas(data?.data);
-        setNama(kelas.nama);
-        setHarga(kelas.harga);
-        setTotalJam(kelas.total_jam);
-        setJumlahSesi(kelas.jumlah_sesi);
-        setIdKendaraan(kelas.id_kendaraan);
-        setIdInstruktur(kelas.id_instruktur);
+        if(data){
+          setNama(data.data.nama);
+          setHarga(data.data.harga);
+          setTotalJam(data.data.total_jam);
+          setJumlahSesi(data.data.jumlah_sesi);
+          setTipeKendaraan(data.data.tipe_kendaraan);
+        }
+        
         // setNamaKendaraan(kelas.kendaraan.nama);
         // setNamaInstruktur(kelas.instruktur.nama_lengkap);
-        const fetchedOptionsInstruktur = await fetch(`/api/getIdInstruktur/`,
-            {
-                method: 'GET',
-                body: null,
-                headers: { "Content-Type": "application/json" }
-            });
-            const dataInstruktur = await fetchedOptionsInstruktur.json();
-            // setDataIdNama(data?.data);
-            setOptionsInstruktur(dataInstruktur?.data);
+        // const fetchedOptionsInstruktur = await fetch(`/api/getIdInstruktur/`,
+        //     {
+        //         method: 'GET',
+        //         body: null,
+        //         headers: { "Content-Type": "application/json" }
+        //     });
+        //     const dataInstruktur = await fetchedOptionsInstruktur.json();
+        //     // setDataIdNama(data?.data);
+        //     setOptionsInstruktur(dataInstruktur?.data);
 
-        const fetchedOptionsKendaraan = await fetch(`/api/getIdKendaraan/`,
-            {
-                  method: 'GET',
-                  body: null,
-                  headers: { "Content-Type": "application/json" }
-            });
-            const dataKendaraan = await fetchedOptionsKendaraan.json();
-            // setDataIdNama(data?.data);
-            setOptionsKendaraan(dataKendaraan?.data);
+        // const fetchedOptionsKendaraan = await fetch(`/api/getIdKendaraan/`,
+        //     {
+        //           method: 'GET',
+        //           body: null,
+        //           headers: { "Content-Type": "application/json" }
+        //     });
+        //     const dataKendaraan = await fetchedOptionsKendaraan.json();
+        //     // setDataIdNama(data?.data);
+        //     setOptionsKendaraan(dataKendaraan?.data);
             setLoading(false);
-        // Assuming data is an array of objects
+        // // Assuming data is an array of objects
       } catch (error) {
         showMessage(error as string, "error");
         console.log('Error fetching data:', error);
         console.error('Error fetching data:', error);
+        setLoading(false);
       }
     };
     fetchData();
-  },[kelas.nama, kelas.harga, kelas.id_instruktur, kelas.id_kendaraan, kelas.jumlah_sesi, kelas.total_jam, params.id]);
+  },[params.id]);
 
   const handleNamaChange = (event: ChangeEvent<HTMLInputElement>) => {
     setNama(event.target.value);
@@ -98,7 +103,15 @@ const EditKelasForm:React.FC<EditKelasFormProps> = (params) => {
   }; 
 
   const handleTotalJamChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setTotalJam(event.target.value);
+    const newValue = event.target.value; 
+    setTotalJam(newValue);
+    const jam = parseInt(newValue as string,10);
+    if(jam !== 0 && jam % 2 === 0){
+        setJumlahSesi((parseInt(newValue as string,10) / 2).toString());
+    }
+    else{
+        setJumlahSesi('')
+    }
   };
 
   const handleJumlahSesiChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -125,6 +138,11 @@ const handleSelectKendaraan = (event: ChangeEvent<HTMLSelectElement>) =>{
     setNamaKendaraan(newValue);
 }
 
+const handleSelectTipe = (event: ChangeEvent<HTMLSelectElement>) =>{
+  const newValue = event.target.value;
+  setTipeKendaraan(newValue);
+}
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -134,30 +152,43 @@ const handleSelectKendaraan = (event: ChangeEvent<HTMLSelectElement>) =>{
     const harga = formData.get("harga");
     const total_jam = formData.get("total_jam");
     const jumlah_sesi = formData.get("jumlah_sesi");
-    const id_kendaraan = formData.get("id_kendaraan");
-    const id_instruktur = formData.get("id_instruktur"); 
-    const response = await fetch(`/api/kelas/${params.id}`, {
-      method:'PUT',
-      body: JSON.stringify({
-        nama:nama,
-        harga:harga,
-        total_jam: total_jam,
-        jumlah_sesi:jumlah_sesi,
-        id_kendaraan:id_kendaraan,
-        id_instruktur:id_instruktur
-      }),
-      headers: { "Content-Type": "application/json" }
-  })
-  if (response.ok){
-      const data= await response.json();
-      showMessage(`${data.message}`, "success");
-      console.log(data);
-      router.push('/owner/manage-kelas');
-  } else{
-      const data= await response.json();
-      showMessage(`${data.message}`, "error")
-      console.error(data);
-  }
+    const tipe_kendaraan = formData.get("tipe_kendaraan")
+    const jam = parseInt(total_jam as string,10);
+        //cek apakah passwordnya sama
+    if(jam !== 0 && jam % 2 === 0){ 
+      const response = await fetch(`/api/kelas/${params.id}`, {
+        method:'PUT',
+        body: JSON.stringify({
+          nama:nama,
+          harga:harga,
+          total_jam: total_jam,
+          jumlah_sesi:jumlah_sesi,
+          tipe_kendaraan: tipe_kendaraan,
+        }),
+        headers: { "Content-Type": "application/json" }
+      })
+      if (response.ok){
+          const data= await response.json();
+          showMessage(`${data.message}`, "success");
+          console.log(data);
+          router.push('/owner/manage-kelas');
+      } else{
+          const data= await response.json();
+          showMessage(`${data.message}`, "error")
+          console.error(data);
+      }
+    }
+    else{
+      if(total_jam===''){
+        showMessage("Total Jam Harus diisi", "error");  
+      }
+      else if(jam === 0){
+        showMessage("Total Jam tidak boleh 0", "error");
+      }
+      else{
+        showMessage("Total Jam Harus kelipatan 2", "error");
+      }
+    }
   };
 
   // const [nama_lengkap, setNamaLengkap] = useState<string>(`${instrukturs.nama_lengkap}`);
@@ -172,10 +203,9 @@ const handleSelectKendaraan = (event: ChangeEvent<HTMLSelectElement>) =>{
         <TextField2 label="Nama" name='nama' value={nama} type="text" onChange={handleNamaChange} loading={loading}/>
                 <TextField2 label="Harga" name='harga' value={harga} type="text" onChange={handleHargaChange} loading={loading}/>
                 <TextField2 label="Total Jam" name='total_jam' value={total_jam} type="text" onChange={handleTotalJamChange} loading={loading}/>
-                <TextField2 label="Jumlah Sesi" name='jumlah_sesi' value={jumlah_sesi} type="text" onChange={handleJumlahSesiChange} loading={loading}/>
+                <TextField2 label="Jumlah Sesi" name='jumlah_sesi' value={jumlah_sesi} type="text" onChange={handleJumlahSesiChange} loading={true}/>
                 {/* <Dropdown2 apiLink="/api/getIdKendaraan/" label="Id Kendaraan" name='id_kendaraan'></Dropdown2> */}
-                <DropdownInputKendaraan Dropdownlabel="Nama Kendaraan" Dropdownname="id_kendaraan" DropdownValue = {id_kendaraan} TextLabel="" TextName="idkendaraan" TextValue={id_kendaraan} Loading = {loading} Options={optionsKendaraan} onSelect={handleSelectKendaraan} ></DropdownInputKendaraan>
-                <DropdownInputInstruktur Dropdownlabel="Nama Instruktur" Dropdownname="id_instruktur" DropdownValue={id_instruktur} TextLabel="" TextName="idinstruktur" TextValue={id_instruktur} Loading = {loading} Options={optionsInstruktur} onSelect={handleSelectInstruktur}></DropdownInputInstruktur>
+                <Dropdown label='Tipe Kendaraan' name='tipe_kendaraan' options={["Matic", "Manual"]} value={tipe_kendaraan} loading={false} onSelect={handleSelectTipe}></Dropdown>
             <div style={{ maxWidth: '100%', display: 'flex', justifyContent: 'center', flexDirection:'row' }}>
               <Button1 id="submit-button" text="Save Kelas" textColor="black" bgColor="yellow" type='submit' style={{margin:'8px'}}/>
               <Link href={"/owner/manage-kelas"}>
