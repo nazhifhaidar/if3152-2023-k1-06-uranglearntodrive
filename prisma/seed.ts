@@ -41,7 +41,7 @@ async function main() {
             nama: "Rubicon",
             tipe_kendaraan: "Manual",
             status_kendaraan: "Siap",
-            tanggal_servis: new Date('2023-11-24T00:00:00')
+            tanggal_servis: new Date().toISOString()
         }
     });
 
@@ -58,7 +58,7 @@ async function main() {
             nama: "Brio",
             tipe_kendaraan: "Matic",
             status_kendaraan: "Diperbaiki",
-            tanggal_servis: new Date('2023-11-24T00:00:00')
+            tanggal_servis: new Date().toDateString()
         }
     });
 
