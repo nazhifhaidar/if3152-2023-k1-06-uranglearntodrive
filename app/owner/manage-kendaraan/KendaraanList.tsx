@@ -7,8 +7,8 @@ import DateTimePicker from '@/app/components/DateTimePicker';
 import ConfirmationPopUp from '@/app/components/pop-ups/ConfirmationPopUp';
 import { useRouter } from "next/navigation";
 import { useMessageContext } from '@/app/components/Providers/MessageProvider';
-import DeleteButton from '@/app/components/Buttons/DeleteButton';
 import EditButton from '@/app/components/Buttons/EditButton';
+import DeleteButton from '@/app/components/Buttons/DeleteButton';
 
 
 const KendaraanList:React.FC = () => {
@@ -97,7 +97,7 @@ const KendaraanList:React.FC = () => {
         <div style={{ maxHeight: '500px', overflowY: 'auto' }}>
             <h1>Kendaraan List</h1>
             {kendaraans.map((kendaraan)=> (
-                <div key={kendaraan.id}>
+                <div key={kendaraan.id} className='mb-3'>
                     <InformationCard
                     key={kendaraan.id}
                     data={
@@ -116,8 +116,8 @@ const KendaraanList:React.FC = () => {
                     }
                     buttons={
                         <div style={{flexDirection : 'column' , display: 'flex'}}>
-                            <DeleteButton  onClick={() => handleDeleteClick(kendaraan.id)}></DeleteButton>
-                            <EditButton  onClick={() => handleEditClick(kendaraan)}></EditButton>
+                            <DeleteButton onClick={() => handleDeleteClick(kendaraan.id)}></DeleteButton>
+                            <EditButton onClick={() => handleEditClick(kendaraan)}></EditButton>
                         </div>
                     }
                     />

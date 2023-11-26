@@ -8,9 +8,9 @@ import { getServerSession } from 'next-auth'
 import Link from 'next/link'
 import React from 'react'
 import Button1 from '@/app/components/Buttons/Button1'
-import CreateKelasForm from './createKelasForm'
 import { Montserrat } from 'next/font/google'
 import OpenClosedSideBar from '@/app/components/SideBar/OpenClosedSideBar'
+import EditPelangganForm from './EditPelangganForm'
 
 const montserrat = Montserrat({
     weight: '400',
@@ -26,40 +26,35 @@ const montserratBold = Montserrat({
   variable: '--font montserrat'
 })
 
-const CreateKelasPage:React.FC = () => {
+export default function EditPelangganPage({
+    params,
+}:{params: {pelangganId: string};
+}) {
   return (
     <div>
 <AppBar > <LoginLogout></LoginLogout></AppBar> 
       <Row>
         <OpenClosedSideBar width='240px' background_color='rgba(113, 251, 111, 0.1)' border_color='black' margin='0px 0px 0px 0px'>
-            <Link href={"/owner"} >
+        <Link href={"/admin"} >
                 <h2 style={{paddingLeft:'8px'}}>
                     Homepage
                 </h2>
             </Link>
-            <Link href={"/owner/manage-admin"}>
-                <h2 style={{paddingLeft:'8px'}}>
-                    Manage Admin
-                </h2>
+            <Link href={"/admin/manage-status"}>
+              <h2 style={{paddingLeft:'8px'}}>
+                Manage Status Pelanggan
+              </h2>
             </Link>
-            <h2 style={{paddingLeft:'8px'}}>Manage Kendaraan</h2>
-            <Link href={"/owner/manage-instruktur"}>
-                <h2 style={{paddingLeft:'8px'}}>
-                    Manage Instruktur
-                </h2>
-            </Link>
-            <Link href={"/owner/manage-kelas"}>
-                <h2 style={CurrentPageStyle}>
-                    Manage Kelas
-                </h2>
+            <Link href={"/admin/manage-pelanggan"}>
+              <h2 style={CurrentPageStyle}>
+                  Manage Pelanggan
+              </h2>
             </Link>
         </OpenClosedSideBar>
           <div className='pl-4'>
-            <CreateKelasForm/>
+            <EditPelangganForm id={params.pelangganId}/>
           </div>
       </Row>
     </div>
   )
 }
-
-export default CreateKelasPage

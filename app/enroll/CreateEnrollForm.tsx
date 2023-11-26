@@ -1,10 +1,13 @@
 'use client'
 
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import TextField2 from '../components/TextField/TextField2';
 import Button1 from '../components/Buttons/Button1';
+import prisma from '@/lib/prisma';
+import Dropdown from '../components/Dropdown/Dropdown';
+import { useMessageContext } from '../components/Providers/MessageProvider';
 
 const CreateEnrollForm:React.FC = () => {
     const param = useSearchParams();
@@ -15,7 +18,23 @@ const CreateEnrollForm:React.FC = () => {
     const [telp, setTelp] = useState<string>('');
     const [alamat, setAlamat] = useState<string>('');
     const [tipe, setTipe] = useState<string>('');
+    const [tipeKendaraan, setTipeKendaraan] = useState<String[]>([]);
+    const {showMessage} = useMessageContext();
 
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const fetchedTipe = await prisma.tipeKendaraan.findMany();
+            // Jika tipe adalah atribut dalam objek hasil, ambil hanya atribut tipe
+            const tipeAttributes = fetchedTipe.map((item) => item.tipe);
+            setTipeKendaraan(tipeAttributes);
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        };
+    
+        fetchData();
+      }, []); //
     const handleNama = (event: ChangeEvent<HTMLInputElement>) => {
         setNama(event.target.value);
     };
@@ -46,8 +65,6 @@ const CreateEnrollForm:React.FC = () => {
         const umur = formData.get("umur");
         const telp = formData.get("telp");
         const alamat = formData.get("alamat");
-        const tipe = formData.get("tipe");
-
         const response = await fetch(`/api/dashboard`, {
             method: 'POST',
             body: JSON.stringify({
@@ -56,7 +73,6 @@ const CreateEnrollForm:React.FC = () => {
                 umur:parseInt(umur as string, 10),
                 no_telp:telp,
                 alamat:alamat,
-                tipe_kendaraan:tipe
             }),
             headers: { "Content-Type": "application/json" }
         });
@@ -69,7 +85,12 @@ const CreateEnrollForm:React.FC = () => {
             console.error(data);
         }   
     }
+
+    
     return (
+
+
+
         <>
           <h1 style={{textAlign:'center', fontWeight:'bolder'}}>Daftar Kelas</h1>
             <div style={{maxWidth: '100%', display: 'flex', justifyContent: 'center', flexDirection:'row'}}>
@@ -78,7 +99,6 @@ const CreateEnrollForm:React.FC = () => {
                 <TextField2 label="Umur" name='umur' value={umur} type="text" onChange={handleUmur} loading={false} />
                 <TextField2 label="No. Telpon" name='telp' value={telp} type="text" onChange={handleTelp} loading={false} />
                 <TextField2 label="Alamat" name='alamat' value={alamat} type="text" onChange={handleAlamat} loading={false} />
-                <TextField2 label="Tipe Kendaraan" name='tipe' value={tipe} onChange={handleTipe} loading={false} />
                 <div style={{ maxWidth: '100%', display: 'flex', justifyContent: 'center', flexDirection:'row' }}>
                     <Button1 id="enroll" text="Enroll!" textColor="black" bgColor="yellow" type='submit' style={{margin:'8px'}}/>
                     <Link href={"/classlist"}>
