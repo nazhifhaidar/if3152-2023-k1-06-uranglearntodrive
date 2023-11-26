@@ -11,6 +11,7 @@ import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState, ChangeEvent } from "react";
 import React, { useEffect } from 'react';
+import { useMessageContext } from "@/app/components/Providers/MessageProvider";
 
 const url = process.env.NEXTAUTH_URL;
 
@@ -21,6 +22,7 @@ interface EditInstrukturFormProps {
 
 const EditInstrukturForm:React.FC<EditInstrukturFormProps> = (params) => {
   const router = useRouter();
+  const {showMessage} = useMessageContext();
   const [nama_lengkap, setNamaLengkap] = useState<string>('');
   const [nik, setNIK] = useState<string>('');
   const [alamat, setAlamat] = useState<string>('');
@@ -94,9 +96,11 @@ const EditInstrukturForm:React.FC<EditInstrukturFormProps> = (params) => {
       const data= await response.json();
       console.log(data);
       router.push('/owner/manage-instruktur');
+      showMessage("Instruktur Updated successfully", "success");
   } else{
       const data= await response.json();
       console.error(data);
+      showMessage(data.message, "error");
   }
   };
 

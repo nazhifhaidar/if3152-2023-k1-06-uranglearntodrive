@@ -80,9 +80,11 @@ const CreateEnrollForm:React.FC = () => {
         if (response.ok) {
             console.log(data);
             router.push('/classlist');
+            showMessage("Pelanggan created successfully", "success");
         }
         else{
             console.error(data);
+            showMessage("Error creating pelanggan", "error");
         }   
     }
 

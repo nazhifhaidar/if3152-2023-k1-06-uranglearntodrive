@@ -11,6 +11,7 @@ import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState, ChangeEvent } from "react";
 import React, { useEffect } from 'react';
+import { useMessageContext } from '@/app/components/Providers/MessageProvider';
 
 const url = process.env.NEXTAUTH_URL;
 
@@ -21,6 +22,7 @@ interface EditKendaraanFormProps {
 
 const EditKendaraanForm:React.FC<EditKendaraanFormProps> = (params) => {
     const router = useRouter();
+    const {showMessage} = useMessageContext();
     const [nama, setNama] = useState<string>('');
     const [tipe_kendaraan, setTipe] = useState<string>('');
     const [tanggal_servis, setTanggal] = useState<string>('');
@@ -46,6 +48,12 @@ const EditKendaraanForm:React.FC<EditKendaraanFormProps> = (params) => {
         );
         const data = await response.json();
         setKendaraans(data?.data);
+        if(data){
+            setNama(data.data.nama);
+            setTipe(data.data.tipe_kendaraan);
+            setTanggal(data.data.tanggal_servis);
+            setStatus(data.data.status_kendaraan);
+        }
         setLoading(false)
         // Assuming data is an array of objects
       } catch (error) {
@@ -55,17 +63,13 @@ const EditKendaraanForm:React.FC<EditKendaraanFormProps> = (params) => {
       }
     };
     fetchData();
-    setNama(kendaraans.nama);
-    setTipe(kendaraans.tipe_kendaraan);
-    setTanggal(kendaraans.tanggal_servis);
-    setStatus(kendaraans.status_kendaraan);
-  },[kendaraans.nama,kendaraans.tipe_kendaraan,kendaraans.tanggal_servis,kendaraans.status_kendaraan,params.id]);
+  },[params.id]);
 
     const handleNamaChange = (event: ChangeEvent<HTMLInputElement>) => {
         setNama(event.target.value);
     };
 
-    const handleTipeChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const handleTipeChange = (event: ChangeEvent<HTMLInputElement>) => {
         setTipe(event.target.value);
     }; 
 
@@ -102,9 +106,12 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       const data= await response.json();
       console.log(data);
       router.push('/admin/manage-status');
+      showMessage("Status Kendaraan updated successfully!", "success");
+
   } else{
       const data= await response.json();
       console.error(data);
+      showMessage(data?.message || 'An error occurred during submission.', "error");
   }
   };
 
@@ -112,12 +119,9 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     <div style={{width:'max-content'}}>
         <h1>Edit Status Kendaraan</h1>
         <form onSubmit={handleSubmit} >
-            
             <TextField2 label="Nama Kendaraan" name='nama' value={loading?'Loading...' : nama} type="text" onChange={handleNamaChange} loading={disable}/>
             {/* <TextField2 label="Tipe" name='tipe' value={tipe_kendaraan} type="text" onChange={handleTipeChange}/> */}
-
             <TextField2 label="Tipe" name='tipe_kendaraan' value={loading?'Loading...' : tipe_kendaraan} type="text" onChange={handleTipeChange} loading={disable}/>
-            
             <div>
                 <label htmlFor="status">Status</label>
                 <div className="select-container" style={{ width: '450px', paddingLeft: '4px', position: 'relative', border: '2px solid #ccc' }}>
@@ -137,7 +141,7 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
             <TextField2 label="Tanggal Servis Terakhir" name='tanggal_servis' value={loading?'Loading...' : tanggal_servis} type="text" onChange={handleTanggalChange} loading={disable}/>
 
             <div style={{ maxWidth: '100%', display: 'flex', justifyContent: 'center', flexDirection:'row' }}>
-                <Button1 id="submit-button" text="Create Kendaraan" textColor="black" bgColor="yellow" type='submit' style={{margin:'8px'}}/>
+                <Button1 id="submit-button" text="Save Kendaraan" textColor="black" bgColor="yellow" type='submit' style={{margin:'8px'}}/>
                 <Link href={"/admin/manage-status"}>
                     <Button1 id="cancel_button" text="Cancel" textColor="black" bgColor="white" type='button' style={{margin:'8px'}}/>
                 </Link>

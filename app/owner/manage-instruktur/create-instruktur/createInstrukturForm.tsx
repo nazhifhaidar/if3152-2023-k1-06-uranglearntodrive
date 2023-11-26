@@ -48,7 +48,6 @@ const CreateInstrukturForm:React.FC = () => {
     const nik = formData.get("nik")
     const alamat = formData.get("alamat")
     const no_telp = formData.get("no_telp")
-    setLoading(true)
     const response = await fetch('/api/instruktur', {
       method:'POST',
       body: JSON.stringify({

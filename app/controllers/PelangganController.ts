@@ -46,7 +46,11 @@ class PelangganController{
         let responseData: ResponseData<any>;
         try{
             let cust;
-            const {nama_lengkap, umur, no_telp, alamat, id, tipe_kendaraan} = req.body;
+            const {nama_lengkap, umur, no_telp, alamat, id} = req.body;
+            if (!nama_lengkap || !umur || !no_telp || !alamat || !id){
+                responseData = new ResponseData("error", "Every attribute must be filled", null);
+                return res.status(400).json(responseData)
+            }
             cust = await prisma.pelanggan.create({
                     data:{
                         nama_lengkap:nama_lengkap,
@@ -54,7 +58,6 @@ class PelangganController{
                         no_telp:no_telp,
                         alamat:alamat,
                         id_kelas:id,
-                        tipe_kendaraan:tipe_kendaraan
                     }
                 }
             );
@@ -64,7 +67,7 @@ class PelangganController{
                 return res.status(409).json(responseData);
             }
             else{
-                responseData = new ResponseData("success", 'data retreived', cust)
+                responseData = new ResponseData("success", 'Pelanggan created successfully', cust)
             }
             console.log(responseData);
             return res.status(200).json(responseData);
@@ -100,6 +103,9 @@ class PelangganController{
             let pelanggan;
     
             pelanggan = await prisma.pelanggan.findUnique({
+                include:{
+                    pilihan_kelas:true
+                },
                 where: {
                     id: parseInt(id as string, 10)
                 }
@@ -110,16 +116,15 @@ class PelangganController{
                 console.log(responseData);
                 return res.status(404).json(responseData);
             } else {
-                const formattedData = {
-                    nama_lengkap: pelanggan.nama_lengkap,
-                    id_kelas: pelanggan.id_kelas,
-                    umur: pelanggan.umur,
-                    no_telp: pelanggan.no_telp,
-                    status:pelanggan.status,
-                    alamat:pelanggan.alamat,
-                };
-    
-                responseData = new ResponseData("success", 'data retrieved', formattedData);
+                // const formattedData = {
+                //     nama_lengkap: pelanggan.nama_lengkap,
+                //     id_kelas: pelanggan.id_kelas,
+                //     umur: pelanggan.umur,
+                //     no_telp: pelanggan.no_telp,
+                //     status:pelanggan.status,
+                //     alamat:pelanggan.alamat,
+                // };
+                responseData = new ResponseData("success", 'data retrieved', pelanggan);
             }
     
             console.log(responseData);

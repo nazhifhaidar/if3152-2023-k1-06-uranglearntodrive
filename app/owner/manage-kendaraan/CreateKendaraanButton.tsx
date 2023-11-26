@@ -9,7 +9,7 @@ const CreateKendaraanButton:React.FC = () => {
 
   return (
     <Link href="/owner/manage-kendaraan/create-kendaraan">
-        <Button2 text='Buat Kendaraan Baru'></Button2>  
+        <Button2 text='Buat Data Baru'></Button2>  
     </Link>
    
   )

@@ -166,7 +166,7 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 
 
             <div style={{ maxWidth: '100%', display: 'flex', justifyContent: 'center', flexDirection:'row' }}>
-                <Button1 id="submit-button" text="Create Kendaraan" textColor="black" bgColor="yellow" type='submit' style={{margin:'8px'}}/>
+                <Button1 id="submit-button" text="Save Kendaraan" textColor="black" bgColor="yellow" type='submit' style={{margin:'8px'}}/>
                 <Link href={"/owner/manage-kendaraan"}>
                     <Button1 id="cancel_button" text="Cancel" textColor="black" bgColor="white" type='button' style={{margin:'8px'}}/>
                 </Link>

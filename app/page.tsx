@@ -18,9 +18,14 @@ const montserrat = Montserrat({
 const HomePage: React.FC = async () => {
   const session = await getServerSession(options);
   return (
-    <>
+    <div>
       <AppBar>
         <Row>
+          <Link href={"/"} >
+            <h2 style={{marginRight:'10rem'}}>
+              Dashboard
+            </h2>
+          </Link>
           <Link href="/classlist" >
             <h2 style={{ marginRight: '10rem' }}>
               Daftar Kelas
@@ -45,7 +50,7 @@ const HomePage: React.FC = async () => {
         Maecenas accumsan turpis ac hendrerit euismod. Curabitur dapibus felis vitae odio congue aliquam. Morbi aliquam tellus et egestas ullamcorper. Pellentesque condimentum sapien odio, eu hendrerit odio lacinia in. Proin scelerisque lectus id aliquet blandit. Aliquam eleifend neque non nulla iaculis, a vestibulum enim sollicitudin. Integer id dolor aliquet mi posuere rhoncus.
         Morbi auctor arcu vitae tellus placerat, nec ultrices sem dignissim. Vivamus nec turpis neque. Aliquam ut maximus justo. Praesent vehicula faucibus efficitur. Quisque a sem blandit, semper turpis vitae, porta eros. Duis at cursus orci. Nullam dignissim justo metus, ac euismod nunc convallis et. Vivamus vitae nisi elit. Quisque rutrum egestas felis condimentum imperdiet.
         Duis condimentum erat vitae massa fermentum faucibus.</p>
-    </>
+    </div>
   )
 }
 

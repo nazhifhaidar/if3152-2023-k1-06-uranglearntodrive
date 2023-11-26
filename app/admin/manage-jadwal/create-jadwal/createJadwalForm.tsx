@@ -311,7 +311,6 @@ const CreateJadwalForm:React.FC = () => {
     console.log(new Date(`${tanggal}T$00:00:00`));
     console.log(new Date(`1970-01-01T${start_sesi}:00:00`));
     console.log(new Date(`1970-01-01T${end_sesi}:00:00`));
-    setLoading(true)
     const response = await fetch('/api/jadwal', {
       method:'POST',
       body: JSON.stringify({

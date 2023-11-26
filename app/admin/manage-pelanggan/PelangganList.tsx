@@ -94,13 +94,13 @@ const PelangganList:React.FC = () => {
                     key={pelanggan.id}
                     data={
                         <div>
-                            <p>ID Pelanggan: {pelanggan.id}</p>
-                            <p>Nama: {pelanggan.nama_lengkap}</p>
-                            <p>ID Kelas: {pelanggan.id_kelas}</p>
-                            <p>Umur: {pelanggan.umur}</p>
-                            <p>Nomor Telepon: {pelanggan.no_telp}</p>
-                            <p>Alamat: {pelanggan.alamat}</p>
-                            <p>Status: {pelanggan.status}</p>
+                            <p>ID : {pelanggan.id}</p>
+                            <p>Nama : {pelanggan.nama_lengkap}</p>
+                            <p>Pilihan Kelas : {pelanggan.pilihan_kelas.nama}</p>
+                            <p>Umur : {pelanggan.umur}</p>
+                            <p>Nomor Telepon : {pelanggan.no_telp}</p>
+                            <p>Alamat : {pelanggan.alamat}</p>
+                            <p>Status : {pelanggan.status}</p>
                    </div>
                     }
                     buttons={

@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { useState, ChangeEvent } from "react";
 import React, { useEffect } from "react";
 import Dropdown from "@/app/components/Dropdown/Dropdown";
+import { useMessageContext } from '@/app/components/Providers/MessageProvider';
 // import DropdownIDKelas from "@/app/components/Dropdown/DropdownIDKelas";
 
 const url = process.env.NEXTAUTH_URL;
@@ -31,8 +32,9 @@ const EditPelangganForm: React.FC<EditPelangganFormProps> = (params) => {
   // const [status_kendaraan, setStatus] = useState<string>('');
 
   const statusOptions = ["Calon", "Lulus", "Siswa"];
-
+  const {showMessage} = useMessageContext();
   const [nama_lengkap, setNama] = useState<string>("");
+  const [pilihanKelas, setPilihanKelas] = useState<string>("");
   const [id_kelas, setIDKelas] = useState<string>("");
   const [umur, setUmur] = useState<string>("");
   const [no_telp, setNomor] = useState<string>("");
@@ -53,28 +55,33 @@ const EditPelangganForm: React.FC<EditPelangganFormProps> = (params) => {
           headers: { "Content-Type": "application/json" },
         });
         const data = await response.json();
-        setPelanggans(data?.data);
-        setNama(pelanggans.nama_lengkap);
-        setIDKelas(pelanggans.id_kelas);
-        setAlamat(pelanggans.alamat);
-        setUmur(pelanggans.umur);
-        setNomor(pelanggans.no_telp);
-        setStatus(pelanggans.status);
+        if(data){
+          setPelanggans(data?.data);
+          setNama(data?.data.nama_lengkap);
+          setIDKelas(data?.data.id_kelas);
+          setPilihanKelas(data?.data.pilihan_kelas.nama);
+          setAlamat(data?.data.alamat);
+          setUmur(data?.data.umur);
+          setNomor(data?.data.no_telp);
+          setStatus(data?.data.status);
+          setLoading(false);
+        }
+        
 
-        const fetchedOptionsKelas = await fetch(`/api/getIdKelas/`, {
-          method: "GET",
-          body: null,
-          headers: { "Content-Type": "application/json" },
-        });
-        const dataKelas = await fetchedOptionsKelas.json();
+        // const fetchedOptionsKelas = await fetch(`/api/getIdKelas/`, {
+        //   method: "GET",
+        //   body: null,
+        //   headers: { "Content-Type": "application/json" },
+        // });
+        // const dataKelas = await fetchedOptionsKelas.json();
         // setDataIdNama(data?.data);
-        setOptionsKelas(dataKelas?.data);
+        // setOptionsKelas(dataKelas?.data);
 
-        setLoading(false);
         // Assuming data is an array of objects
       } catch (error) {
         console.log("Error fetching data:", error);
         console.error("Error fetching data:", error);
+        setLoading(false);
         //console.log("Error params:", params.id);
       }
     };
@@ -86,12 +93,6 @@ const EditPelangganForm: React.FC<EditPelangganFormProps> = (params) => {
     // setNomor(pelanggans.no_telp);
     // setStatus(pelanggans.status);
   }, [
-    pelanggans.nama_lengkap,
-    pelanggans.id_kelas,
-    pelanggans.umur,
-    pelanggans.no_telp,
-    pelanggans.alamat,
-    pelanggans.status,
     params.id,
   ]);
 
@@ -148,9 +149,11 @@ const EditPelangganForm: React.FC<EditPelangganFormProps> = (params) => {
       const data = await response.json();
       console.log(data);
       router.push("/admin/manage-pelanggan");
+      showMessage("Status Kendaraan updated successfully!", "success");
     } else {
       const data = await response.json();
       console.error(data);
+      showMessage(data?.message || 'An error occurred during submission.', "error");
     }
   };
 
@@ -192,10 +195,19 @@ const EditPelangganForm: React.FC<EditPelangganFormProps> = (params) => {
         />
 
         <TextField2
-          label="ID Kelas"
+          label="Pilihan Kelas"
+          name="nama_kelas"
+          value={loading ? "Loading..." : pilihanKelas}
+          type="text"
+          onChange={() => {}}
+          loading={disable}
+        />
+
+        <TextField2
+          label=""
           name="kelas"
           value={loading ? "Loading..." : id_kelas}
-          type="text"
+          type="hidden"
           onChange={() => {}}
           loading={disable}
         />

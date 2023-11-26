@@ -50,7 +50,6 @@ export default function EditKendaraanPage({
                     Manage Kendaraan
                 </h2>
             </Link>
-            <h2 style={{paddingLeft:'8px'}}>Manage Kendaraan</h2>
             <Link href={"/owner/manage-instruktur"}>
                 <h2 style={{paddingLeft:'8px'}}>
                     Manage Instruktur

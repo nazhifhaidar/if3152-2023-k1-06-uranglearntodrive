@@ -7,12 +7,14 @@ import ConfirmationPopUp from '@/app/components/pop-ups/ConfirmationPopUp';
 import { useRouter } from "next/navigation";
 import DeleteButton from '@/app/components/Buttons/DeleteButton';
 import EditButton from '@/app/components/Buttons/EditButton';
+import { useMessageContext } from '@/app/components/Providers/MessageProvider';
 
 const JadwalList:React.FC = () => {
     const router = useRouter();
     const [jadwal, setjadwal] = useState<Record<string, any>[]>([]);
     const [selectedjadwalId, setSelectedjadwalId] = useState<number | null>(null);
     const [isConfirmationOpen, setConfirmationOpen] = useState(false);
+    const {showMessage} = useMessageContext();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -70,12 +72,15 @@ const JadwalList:React.FC = () => {
           if (response.ok) {
             // If the deletion is successful, update the state to reflect the changes
             setjadwal((prevjadwal) => prevjadwal.filter((jadwal) => jadwal.id !== jadwalId));
+            showMessage("Jadwal deleted successfully", "success")
           } else {
             // Handle error response
             console.error('Error deleting jadwal:', response.statusText);
+            showMessage("Error deleting jadwal", "error")
           }
         } catch (error) {
           console.error('Error deleting jadwal:', error);
+          showMessage("Error deleting jadwal", "error")
         }
       };
       
