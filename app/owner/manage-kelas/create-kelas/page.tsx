@@ -44,12 +44,12 @@ const CreateKelasPage:React.FC = () => {
             </Link>
             <h2 style={{paddingLeft:'8px'}}>Manage Kendaraan</h2>
             <Link href={"/owner/manage-instruktur"}>
-                <h2 style={CurrentPageStyle}>
+                <h2 style={{paddingLeft:'8px'}}>
                     Manage Instruktur
                 </h2>
             </Link>
             <Link href={"/owner/manage-kelas"}>
-                <h2 style={{paddingLeft:'8px'}}>
+                <h2 style={CurrentPageStyle}>
                     Manage Kelas
                 </h2>
             </Link>
