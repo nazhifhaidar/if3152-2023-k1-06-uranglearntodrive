@@ -3,13 +3,11 @@
 // "app/owner/manage-admin/create"
 
 import Button1 from "@/app/components/Buttons/Button1";
-import PasswordField from "@/app/components/TextField/PasswordField";
-import TextField1 from "@/app/components/TextField/TextField1";
 import TextField2 from "@/app/components/TextField/TextField2";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState, ChangeEvent } from "react";
+import { useMessageContext } from "@/app/components/Providers/MessageProvider";
 
 const url = process.env.NEXTAUTH_URL;
 
@@ -21,7 +19,8 @@ const CreateKendaraanForm:React.FC = () => {
     const [tipe_kendaraan, setTipe] = useState<string>('');
     const [tanggal_servis, setTanggal] = useState<string>('');
     const [status_kendaraan, setStatus] = useState<string>('');
-    const [loading,setLoading] = useState(false)
+    const [loading,setLoading] = useState(false);
+    const {showMessage} = useMessageContext();
 
     const statusOptions = ['Dipakai', 'Diperbaiki', 'Siap'];
     const tipeOptions = ['Matic','Manual'];
@@ -67,10 +66,11 @@ const CreateKendaraanForm:React.FC = () => {
         })
         if (response.ok){
             const data= await response.json();
-            console.log(data);
+            showMessage(data.message, "success");
             router.push('/owner/manage-kendaraan');
         } else{
             const data= await response.json();
+            showMessage(data.message, "error");
             console.error(data);
         }
     };

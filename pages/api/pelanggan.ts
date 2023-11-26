@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import InstrukturController from '@/app/controllers/InstrukturController';
-import ResponseData from '@/app/utils/Response';
 import PelangganController from '@/app/controllers/PelangganController';
+import ResponseData from '@/app/utils/Response';
 
 export default async function handler(
     req: NextApiRequest,
@@ -9,5 +8,11 @@ export default async function handler(
   ) {
     if (req.method === "GET"){
         return PelangganController.handlePelangganManager(req, res);
+    }
+    // else if (req.method === 'POST'){
+    //     return PelangganController.handleCreatePelanggan(req, res);
+    // }
+    else{
+      return res.status(405).json(new ResponseData("error", "Method Not Available", null));
     }
   }

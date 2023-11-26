@@ -14,10 +14,12 @@ import Dropdown from "@/app/components/Dropdown/Dropdown";
 import Dropdown2 from "@/app/components/Dropdown/Dropdown";
 import DropdownInputKendaraan from "@/app/components/Dropdown/DropdownInputKendaraan";
 import DropdownInputInstruktur from "@/app/components/Dropdown/DropdownInputInstruktur";
+import { useMessageContext } from "@/app/components/Providers/MessageProvider";
 
 const url = process.env.NEXTAUTH_URL;
 
 const CreateKelasForm:React.FC = () => {
+    const {showMessage} = useMessageContext();
     const router = useRouter();
     const [nama, setNama] = useState<string>('');
     const [harga, setHarga] = useState<string>('');
@@ -56,6 +58,7 @@ const CreateKelasForm:React.FC = () => {
               setLoading(false);
             } catch (error) {
                 console.error('Error fetching options:', error);
+                showMessage(`${error as string}`, "error");
                 setLoading(false);
             }
         };
@@ -109,9 +112,7 @@ const CreateKelasForm:React.FC = () => {
         const harga = formData.get("harga");
         const total_jam = formData.get("total_jam");
         const jumlah_sesi = formData.get("jumlah_sesi");
-        const id_kendaraan = formData.get("id_kendaraan");
-        const id_instruktur = formData.get("id_instruktur"); 
-
+        const tipe_kendaraan = formData.get("tipe_kendaraan");
         //cek apakah passwordnya sama
         const response = await fetch('/api/kelas', {
             method:'POST',
@@ -120,17 +121,18 @@ const CreateKelasForm:React.FC = () => {
               harga:harga,
               total_jam: total_jam,
               jumlah_sesi:jumlah_sesi,
-              id_kendaraan:id_kendaraan,
-              id_instruktur:id_instruktur
+              tipe_kendaraan: tipe_kendaraan
             }),
             headers: { "Content-Type": "application/json" }
         })
         if (response.ok){
             const data= await response.json();
+            showMessage(data.message as string, "success");
             console.log(data);
             router.push('/owner/manage-kelas');
         } else{
             const data= await response.json();
+            showMessage(data.message as string, "error");
             console.error(data);
         }
     };
@@ -143,8 +145,7 @@ const CreateKelasForm:React.FC = () => {
                 <TextField2 label="Total Jam" name='total_jam' value={total_jam} type="text" onChange={handleTotalJamChange} loading={loading}/>
                 <TextField2 label="Jumlah Sesi" name='jumlah_sesi' value={jumlah_sesi} type="text" onChange={handleJumlahSesiChange} loading={loading}/>
                 {/* <Dropdown2 apiLink="/api/getIdKendaraan/" label="Id Kendaraan" name='id_kendaraan'></Dropdown2> */}
-                <DropdownInputKendaraan Dropdownlabel="Nama Kendaraan" Dropdownname="id_kendaraan" DropdownValue = {nama_kendaraan} TextLabel="Id Kendaraan" TextName="idkendaraan" TextValue={id_kendaraan} Loading = {loading} Options={optionsKendaraan} onSelect={handleSelectKendaraan} ></DropdownInputKendaraan>
-                <DropdownInputInstruktur Dropdownlabel="Nama Instruktur" Dropdownname="id_instruktur" DropdownValue={nama_instruktur} TextLabel="Id Instruktur" TextName="idinstruktur" TextValue={id_instruktur} Loading = {loading} Options={optionsInstruktur} onSelect={handleSelectInstruktur}></DropdownInputInstruktur>
+                <Dropdown label="Tipe Kendaraan" name="tipe_kendaraan" options={["Matic", "Manual"]}/>
                 {/* <Dropdown2 apiLink="/api/getIdInstruktur/" label="Id Instruktur" name='id_instruktur'></Dropdown2> */}
                 <div style={{ maxWidth: '100%', display: 'flex', justifyContent: 'center', flexDirection:'row' }}>
                     <Button1 id="submit-button" text="Create Kelas" textColor="black" bgColor="yellow" type='submit' style={{margin:'8px'}}/>

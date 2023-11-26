@@ -11,6 +11,7 @@ import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState, ChangeEvent } from "react";
 import React, { useEffect } from 'react';
+import { useMessageContext } from "@/app/components/Providers/MessageProvider";
 
 const url = process.env.NEXTAUTH_URL;
 
@@ -25,6 +26,7 @@ const EditKendaraanForm:React.FC<EditKendaraanFormProps> = (params) => {
     const [tipe_kendaraan, setTipe] = useState<string>('');
     const [tanggal_servis, setTanggal] = useState<string>('');
     const [status_kendaraan, setStatus] = useState<string>('');
+    const {showMessage} = useMessageContext();
 
     const statusOptions = ['Dipakai', 'Diperbaiki', 'Siap'];
     const tipeOptions = ['Matic','Manual'];
@@ -49,7 +51,7 @@ const EditKendaraanForm:React.FC<EditKendaraanFormProps> = (params) => {
         setLoading(false)
         // Assuming data is an array of objects
       } catch (error) {
-        console.log('Error fetching data:', error);
+        showMessage(error as string, "error");
         console.error('Error fetching data:', error);
         console.log('Error params:', params.id);
       }
@@ -100,10 +102,11 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
   })
   if (response.ok){
       const data= await response.json();
-      console.log(data);
+      showMessage(data.message, "success");
       router.push('/owner/manage-kendaraan');
   } else{
       const data= await response.json();
+      showMessage(data.message, "error");
       console.error(data);
   }
   };

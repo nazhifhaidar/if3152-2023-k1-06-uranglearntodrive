@@ -47,9 +47,6 @@ const ManageAdminPage: React.FC = async () => {
           <div className='mt-2'>
             <CreateAdminButton></CreateAdminButton>
           </div>
-
-            <Toast
-            />
         </div>
       </Row>
     </div>

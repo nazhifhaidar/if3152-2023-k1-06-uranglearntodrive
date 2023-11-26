@@ -6,12 +6,16 @@ import Button2 from '@/app/components/Buttons/Button2';
 import ConfirmationPopUp from '@/app/components/pop-ups/ConfirmationPopUp';
 import { useRouter } from "next/navigation";
 import DeleteButton from '@/app/components/Buttons/DeleteButton';
+import { useMessageContext } from '@/app/components/Providers/MessageProvider';
+import EditButton from '@/app/components/Buttons/EditButton';
 
 const KelasList:React.FC = () => {
     const router = useRouter();
     const [kelas, setkelas] = useState<Record<string, any>[]>([]);
     const [selectedkelasId, setSelectedkelasId] = useState<number | null>(null);
     const [isConfirmationOpen, setConfirmationOpen] = useState(false);
+
+    const {showMessage} = useMessageContext();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -28,7 +32,7 @@ const KelasList:React.FC = () => {
 
             // Assuming data is an array of objects
           } catch (error) {
-            console.log('Error fetching data:', error);
+           showMessage(`Error fetching data: ${error}`, "error");
             console.error('Error fetching data:', error);
           }
         };
@@ -66,15 +70,21 @@ const KelasList:React.FC = () => {
             method: 'DELETE',
             headers: { "Content-Type": "application/json" }
           });
-    
+          
+          const result = await response.json();
+
           if (response.ok) {
             // If the deletion is successful, update the state to reflect the changes
+            showMessage(`${result.message}`, 'success')
             setkelas((prevkelas) => prevkelas.filter((kelas) => kelas.id !== kelasId));
+            
           } else {
             // Handle error response
-            console.error('Error deleting kelas:', response.statusText);
+            showMessage(`Error deleting kelas: ${result.message}`, "error");
+            console.error('Error deleting kelas:', result.message);
           }
         } catch (error) {
+          showMessage(`Error deleting kelas: ${error}`, "error");
           console.error('Error deleting kelas:', error);
         }
       };
@@ -93,14 +103,13 @@ const KelasList:React.FC = () => {
                             <p>Harga: {kelas.harga}</p>
                             <p>Total Jam: {kelas.total_jam}</p>
                             <p>Jumlah Sesi: {kelas.jumlah_sesi}</p>
-                            <p>Nama Kendaraan: {kelas.kendaraan.nama}</p>
-                            <p>Nama kelas: {kelas.instruktur.nama_lengkap}</p>
+                            <p>Tipe Kendaraan: {kelas.tipe_kendaraan}</p>
                         </div>
                     }
                     buttons={
                         <div style={{flexDirection : 'column' , display: 'flex'}}>
                             <DeleteButton onClick={() => handleDeleteClick(kelas.id)}></DeleteButton>
-                            <Button2 text='Edit' onClick={() => handleEditClick(kelas.id)}></Button2>
+                            <EditButton onClick={() => handleEditClick(kelas.id)}></EditButton>
                         </div>
                     }
                     />
