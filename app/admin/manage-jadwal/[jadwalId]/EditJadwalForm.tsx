@@ -14,6 +14,7 @@ import Dropdown from "@/app/components/Dropdown/Dropdown";
 import DropdownInputKendaraan from "@/app/components/Dropdown/DropdownInputKendaraan";
 import DatePickerInput from "@/app/components/DatePickerInput/DatePickerInput";
 import DropdownInputInstruktur from "@/app/components/Dropdown/DropdownInputInstruktur";
+import { useMessageContext } from '@/app/components/Providers/MessageProvider';
 
 const url = process.env.NEXTAUTH_URL;
 
@@ -57,6 +58,7 @@ const EditJadwalForm:React.FC<EditJadwalFormProps> = (params) => {
   const [jadwal, setJadwal] = useState<Record<string, any>>([]);
   const [loadingJamSesi, setLoadingJamSesi] = useState(true);
   const [loadingTanggal, setLoadingTanggal] = useState(true);
+  const {showMessage} = useMessageContext();
   
   useEffect(() => {
     const fetchOptions = async () => {
@@ -128,10 +130,10 @@ const EditJadwalForm:React.FC<EditJadwalFormProps> = (params) => {
             };
             const reserved = dataJadwal.data.filter((item:Record<string,any>) => new Date(`${item.tanggal}`).getTime() === new Date(`${data.data.tanggal}`).getTime() && areTimesEqual(new Date(`${item.start_sesi}`), data.data.start_sesi) && item.id !== data.data.id);
             if (reserved.length !== 0){
-              const checkIdKelas = reserved.find((item:Record<string,any>) => item.kelas.id === data.data.id_kelas);
+              const checkedIdPelanggan = reserved.find((item:Record<string,any>) => item.pelanggan.id.toString() === data.data.id_pelanggan.toString());
               // console.log(`Check Kelas ${checkIdKelas}`)
               // console.log(reserved);
-              if(!checkIdKelas){
+              if(!checkedIdPelanggan){
                 setOptionInstruktur(dataInstruktur.data.filter((item:Record<string,any>) => reserved.some((reserved:Record<string,any>) => !item.nama_lengkap.includes(reserved.instruktur.nama_lengkap))));
                 setOptionKendaraan(dataKendaraan.data.filter((item:Record<string,any>) => reserved.some((reserved:Record<string,any>) => !item.nama.includes(reserved.kendaraan.nama)) && item.tipe_kendaraan === data.data.kendaraan.tipe_kendaraan));
               }
@@ -142,7 +144,7 @@ const EditJadwalForm:React.FC<EditJadwalFormProps> = (params) => {
             }
             else{
               setOptionInstruktur(dataInstruktur.data);
-              setOptionKendaraan(dataKendaraan.data.filter((item:Record<string,any>) => item.tipe_kendaraan === data.data.kendaraan.tipe_kendaraan));
+              setOptionKendaraan(dataKendaraan.data.filter((item:Record<string,any>) => item.tipe_kendaraan.toString() === data.data.kendaraan.tipe_kendaraan.toString()));
             }
           }
           // setOptionInstruktur(instruktur.filter((item) => item.id === jadwal.id_instruktur));
@@ -152,6 +154,7 @@ const EditJadwalForm:React.FC<EditJadwalFormProps> = (params) => {
             setLoadingTanggal(false);
             } catch (error) {
                 console.error('Error fetching options:', error);
+                showMessage(`Error fetching data: ${error}`, "error");
                 setLoading(false);
                 setLoading2(false);
                 setLoadingJamSesi(false);
@@ -209,23 +212,51 @@ const EditJadwalForm:React.FC<EditJadwalFormProps> = (params) => {
       );
     };
     if(listJadwal){
-      const reserved = listJadwal.filter((item) => new Date(`${item.tanggal}`).getTime() === new Date(`${tanggal}`).getTime() && areTimesEqual(new Date(`${item.start_sesi}`), newValue) && item.id !== jadwal.id)
+      const reserved = listJadwal.filter((item) => new Date(`${item.tanggal}`).getTime() === new Date(`${tanggal}`).getTime() && areTimesEqual(new Date(`${item.start_sesi}`), newValue) && item.id.toString() !== jadwal.id.toString())
+      console.log(reserved);
       if (reserved.length !== 0){
-        const checkIdPelanggan = reserved.find((item) => item.pelanggan.id.toString() === id_pelanggan);
-        // console.log(`Check Kelas ${checkIdKelas}`)
+        const checkIdPelanggan = reserved.find((item) => item.pelanggan.id.toString() === id_pelanggan.toString());
+        console.log(`Check Pelanggan ${checkIdPelanggan}`)
+        console.log(id_pelanggan)
         // console.log(reserved);
         if(!checkIdPelanggan){
-          setOptionInstruktur(instruktur.filter(item => reserved.some(reserved => !item.nama_lengkap.includes(reserved.instruktur.nama_lengkap))));
-          setOptionKendaraan(kendaraan.filter(item => reserved.some(reserved => !item.nama.includes(reserved.kendaraan.nama)) && item.tipe_kendaraan === tipe_kendaraan));
+          const filteredOptionInstruktur = instruktur.filter(item => reserved.some(reserved => !item.nama_lengkap.includes(reserved.instruktur.nama_lengkap)));
+          const filteredOptionKendaraan = kendaraan.filter(item => reserved.some(reserved => !item.nama.includes(reserved.kendaraan.nama)) && item.tipe_kendaraan === tipe_kendaraan);
+          setOptionInstruktur(filteredOptionInstruktur);
+          setOptionKendaraan(filteredOptionKendaraan);
+          if(filteredOptionInstruktur.length === 0 && filteredOptionKendaraan.length === 0){
+            showMessage(`Tidak ada Kendaraan dan Instruktur yang tersedia:`, "error");
+          }
+          else{
+            if(filteredOptionInstruktur.length === 0){
+              showMessage(`Tidak ada Instruktur yang tersedia:`, "error");
+            }
+            else if(filteredOptionKendaraan.length === 0){
+              showMessage(`Tidak ada Kendaraan yang tersedia:`, "error");
+            }
+          }
         }
         else{
+          showMessage(`Pelanggan sudah memiliki jadwal pada tanggal dan jam tersebut:`, "error");
           setOptionKendaraan([])
           setOptionInstruktur([])
         }
       }
       else{
+        const filteredOptionKendaraan = kendaraan.filter(item => item.tipe_kendaraan === tipe_kendaraan) 
         setOptionInstruktur(instruktur);
-        setOptionKendaraan(kendaraan.filter(item => item.tipe_kendaraan === tipe_kendaraan));
+        setOptionKendaraan(filteredOptionKendaraan);
+        if(instruktur.length === 0 && filteredOptionKendaraan.length === 0){
+          showMessage(`Tidak ada Kendaraan dan Instruktur yang tersedia:`, "error");
+        }
+        else{
+          if(instruktur.length === 0){
+            showMessage(`Tidak ada Instruktur yang tersedia:`, "error");
+          }
+          else if(filteredOptionKendaraan.length === 0){
+            showMessage(`Tidak ada Kendaraan yang tersedia:`, "error");
+          }
+        }
       }
     }
     setLoading2(false);
@@ -325,10 +356,12 @@ const EditJadwalForm:React.FC<EditJadwalFormProps> = (params) => {
   if (response.ok){
       const data= await response.json();
       console.log(data);
+      showMessage("Jadwal updated successfully!", "success");
       router.push('/admin/manage-jadwal');
   } else{
       const data= await response.json();
       console.error(data);
+      showMessage(data?.message || 'An error occurred during submission.', "error");
   }
   };
 

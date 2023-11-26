@@ -14,6 +14,7 @@ import Dropdown from "@/app/components/Dropdown/Dropdown";
 import DropdownInputKendaraan from "@/app/components/Dropdown/DropdownInputKendaraan";
 import DatePickerInput from "@/app/components/DatePickerInput/DatePickerInput";
 import DropdownInputInstruktur from "@/app/components/Dropdown/DropdownInputInstruktur";
+import { useMessageContext } from '@/app/components/Providers/MessageProvider';
 
 const url = process.env.NEXTAUTH_URL;
 
@@ -41,6 +42,7 @@ const CreateJadwalForm:React.FC = () => {
   const [loading2, setLoading2] = useState(true);
   const [tipe_kendaraan, setTipeKendaraan] = useState('');
   const [jadwal, setJadwal] = useState<Record<string, any>[]>([]);
+  const {showMessage} = useMessageContext();
 
   useEffect(() => {
     const fetchOptions = async () => {
@@ -86,6 +88,7 @@ const CreateJadwalForm:React.FC = () => {
             setLoading(false);
         } catch (error) {
             console.error('Error fetching options:', error);
+            showMessage(`Error fetching data: ${error}`, "error");
             setLoading(false);
         }
     };
@@ -125,22 +128,48 @@ const CreateJadwalForm:React.FC = () => {
     };
     if(jadwal){
       const reserved = jadwal.filter((item) => new Date(`${item.tanggal}`).getTime() === new Date(`${tanggal}`).getTime() && areTimesEqual(new Date(`${item.start_sesi}`), newValue))
+      console.log(reserved);
       if (reserved.length !== 0){
         const checkIdPelanggan = reserved.find((item) => item.pelanggan.id.toString() === id_pelanggan);
         console.log(`Check Kelas ${checkIdPelanggan}`)
-        console.log(reserved);
         if(!checkIdPelanggan){
-          setOptionInstruktur(instruktur.filter(item => reserved.some(reserved => !item.nama_lengkap.includes(reserved.instruktur.nama_lengkap))));
-          setOptionKendaraan(kendaraan.filter(item => reserved.some(reserved => !item.nama.includes(reserved.kendaraan.nama)) && item.tipe_kendaraan === tipe_kendaraan));
+          const filteredOptionInstruktur = instruktur.filter(item => reserved.some(reserved => !item.nama_lengkap.includes(reserved.instruktur.nama_lengkap)));
+          const filteredOptionKendaraan = kendaraan.filter(item => reserved.some(reserved => !item.nama.includes(reserved.kendaraan.nama)) && item.tipe_kendaraan === tipe_kendaraan);
+          setOptionInstruktur(filteredOptionInstruktur);
+          setOptionKendaraan(filteredOptionKendaraan);
+          if(filteredOptionInstruktur.length === 0 && filteredOptionKendaraan.length ===0){
+            showMessage(`Tidak ada Kendaraan dan Instruktur yang tersedia:`, "error");
+          }
+          else{
+            if(filteredOptionInstruktur.length === 0){
+              showMessage(`Tidak ada Instruktur yang tersedia:`, "error");
+            }
+            else if(filteredOptionKendaraan.length === 0){
+              showMessage(`Tidak ada Kendaraan yang tersedia:`, "error");
+            }
+          }
         }
         else{
+          showMessage(`Pelanggan sudah memiliki jadwal pada tanggal dan jam tersebut:`, "error");
           setOptionKendaraan([])
           setOptionInstruktur([])
         }
       }
       else{
+        const filteredOptionKendaraan = kendaraan.filter(item => item.tipe_kendaraan === tipe_kendaraan);
         setOptionInstruktur(instruktur);
-        setOptionKendaraan(kendaraan.filter(item => item.tipe_kendaraan === tipe_kendaraan));
+        setOptionKendaraan(filteredOptionKendaraan);
+        if(instruktur.length === 0 && filteredOptionKendaraan.length === 0){
+          showMessage(`Tidak ada Kendaraan dan Instruktur yang tersedia:`, "error");
+        }
+        else{
+          if(instruktur.length === 0){
+            showMessage(`Tidak ada Instruktur yang tersedia:`, "error");
+          }
+          else if(filteredOptionKendaraan.length === 0){
+            showMessage(`Tidak ada Kendaraan yang tersedia:`, "error");
+          }
+        }
       }
       // const ins = instruktur.filter(item => reserved.some(reserved => !item.nama_lengkap.includes(reserved.instruktur.nama_lengkap)))
       // const ken = kendaraan.filter(item => reserved.some(reserved => !item.nama.includes(reserved.kendaraan.nama)))
@@ -152,6 +181,22 @@ const CreateJadwalForm:React.FC = () => {
       // console.log(newValue);
       // console.log(`instruktur: ${ins}`);
       // console.log(`kendaraan: ${ken}`);
+    }
+    else{
+      const filteredOptionKendaraan = kendaraan.filter(item => item.tipe_kendaraan === tipe_kendaraan);
+      setOptionInstruktur(instruktur);
+      setOptionKendaraan(filteredOptionKendaraan);
+      if(instruktur.length === 0 && filteredOptionKendaraan.length === 0){
+        showMessage(`Tidak ada Kendaraan dan Instruktur yang tersedia:`, "error");
+      }
+      else{
+        if(instruktur.length === 0){
+          showMessage(`Tidak ada Instruktur yang tersedia:`, "error");
+        }
+        else if(filteredOptionKendaraan.length === 0){
+          showMessage(`Tidak ada Kendaraan yang tersedia:`, "error");
+        }
+      }
     }
     setLoading2(false);
     // const selectedPelanggan = optionsPelanggan.find((item) => item.id == newValue);
@@ -284,9 +329,11 @@ const CreateJadwalForm:React.FC = () => {
       const data= await response.json();
       console.log(data);
       router.push('/admin/manage-jadwal');
+      showMessage("Jadwal created successfully!", "success");
   } else{
       const data= await response.json();
       console.error(data);
+      showMessage(data?.message || 'An error occurred during submission.', "error");
   }
   };
 
