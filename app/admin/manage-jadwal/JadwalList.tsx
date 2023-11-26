@@ -79,7 +79,7 @@ const JadwalList:React.FC = () => {
       
       return (
         <div style={{ maxHeight: '450px', overflowY: 'auto', paddingRight:'12px'}}>
-            {jadwal.map((jadwal)=> (
+            {jadwal && jadwal.map((jadwal)=> (
                 <div key={jadwal.id}>
                     <InformationCard
                     margin='mb-4'

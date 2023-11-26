@@ -211,10 +211,10 @@ const EditJadwalForm:React.FC<EditJadwalFormProps> = (params) => {
     if(listJadwal){
       const reserved = listJadwal.filter((item) => new Date(`${item.tanggal}`).getTime() === new Date(`${tanggal}`).getTime() && areTimesEqual(new Date(`${item.start_sesi}`), newValue) && item.id !== jadwal.id)
       if (reserved.length !== 0){
-        const checkIdKelas = reserved.find((item) => item.kelas.id === id_kelas);
+        const checkIdPelanggan = reserved.find((item) => item.pelanggan.id.toString() === id_pelanggan);
         // console.log(`Check Kelas ${checkIdKelas}`)
         // console.log(reserved);
-        if(!checkIdKelas){
+        if(!checkIdPelanggan){
           setOptionInstruktur(instruktur.filter(item => reserved.some(reserved => !item.nama_lengkap.includes(reserved.instruktur.nama_lengkap))));
           setOptionKendaraan(kendaraan.filter(item => reserved.some(reserved => !item.nama.includes(reserved.kendaraan.nama)) && item.tipe_kendaraan === tipe_kendaraan));
         }

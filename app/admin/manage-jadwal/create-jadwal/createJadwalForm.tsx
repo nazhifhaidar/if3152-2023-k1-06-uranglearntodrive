@@ -126,10 +126,10 @@ const CreateJadwalForm:React.FC = () => {
     if(jadwal){
       const reserved = jadwal.filter((item) => new Date(`${item.tanggal}`).getTime() === new Date(`${tanggal}`).getTime() && areTimesEqual(new Date(`${item.start_sesi}`), newValue))
       if (reserved.length !== 0){
-        const checkIdKelas = reserved.find((item) => item.kelas.id === id_kelas);
-        console.log(`Check Kelas ${checkIdKelas}`)
+        const checkIdPelanggan = reserved.find((item) => item.pelanggan.id.toString() === id_pelanggan);
+        console.log(`Check Kelas ${checkIdPelanggan}`)
         console.log(reserved);
-        if(!checkIdKelas){
+        if(!checkIdPelanggan){
           setOptionInstruktur(instruktur.filter(item => reserved.some(reserved => !item.nama_lengkap.includes(reserved.instruktur.nama_lengkap))));
           setOptionKendaraan(kendaraan.filter(item => reserved.some(reserved => !item.nama.includes(reserved.kendaraan.nama)) && item.tipe_kendaraan === tipe_kendaraan));
         }
@@ -178,7 +178,7 @@ const CreateJadwalForm:React.FC = () => {
     setIdKendaraan('')
     const selectedPelanggan = optionsPelanggan.find((item) => item.id == newValue);
     if(selectedPelanggan){
-      setTipeKendaraan(selectedPelanggan.tipe_kendaraan);
+      setTipeKendaraan(selectedPelanggan.pilihan_kelas.tipe_kendaraan);
       setIdKelas(selectedPelanggan.id_kelas);
       setNamaKelas(selectedPelanggan.pilihan_kelas.nama);
     }
