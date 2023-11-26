@@ -191,19 +191,14 @@ const EditPelangganForm: React.FC<EditPelangganFormProps> = (params) => {
           loading={loading}
         />
 
-        <div>
-          <DropdownIDKelas
-            Dropdownlabel="Pilihan Kelas"
-            Dropdownname="id_kelas"
-            DropdownValue={id_kelas}
-            TextLabel="Id Kelas"
-            TextName="idkelas"
-            TextValue={id_kelas}
-            Loading={loading}
-            Options={optionsKelas}
-            onSelect={handleIDKelasChange}
-          ></DropdownIDKelas>
-        </div>
+        <TextField2
+          label="ID Kelas"
+          name="kelas"
+          value={loading ? "Loading..." : id_kelas}
+          type="text"
+          onChange={() => {}}
+          loading={disable}
+        />
 
         <div>
           <label htmlFor="status">Status</label>
