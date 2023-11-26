@@ -8,6 +8,7 @@ import ConfirmationPopUp from '@/app/components/pop-ups/ConfirmationPopUp';
 import { useRouter } from "next/navigation";
 import DeleteButton from '@/app/components/Buttons/DeleteButton';
 import EditButton from '@/app/components/Buttons/EditButton';
+import OurLoader from '@/app/components/Loader/OurLoader';
 
 
 const KendaraanList:React.FC = () => {
@@ -16,10 +17,12 @@ const KendaraanList:React.FC = () => {
     const [selectedKendaraan, setSelectedKendaraan] = useState<Record<string, any>>([]);
     const [selectedKendaraanId, setSelectedKendaraanId] = useState<number | null>(null);
     const [isConfirmationOpen, setConfirmationOpen] = useState(false);
+    const [isLoading, setLoading] = useState<boolean>(false);
 
 
     useEffect(() => {
         const fetchData = async () => {
+          setLoading(true);
           try {
             const response = await fetch(`/api/kendaraan/`,
                 {
@@ -35,6 +38,8 @@ const KendaraanList:React.FC = () => {
           } catch (error) {
             console.log('Error fetching data:', error);
             console.error('Error fetching data:', error);
+          }finally{
+            setLoading(false);
           }
         };
     
@@ -69,6 +74,7 @@ const KendaraanList:React.FC = () => {
       return (
         <div style={{ maxHeight: '500px', overflowY: 'auto' }}>
             <h1>Kendaraan List</h1>
+            <OurLoader state={isLoading}/>
             {kendaraans.map((kendaraan)=> (
                 <div key={kendaraan.id} className='mb-2'>
                     <InformationCard
