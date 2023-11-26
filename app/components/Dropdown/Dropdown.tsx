@@ -1,3 +1,5 @@
+'use client'
+
 import React, { ChangeEvent, useState, useEffect } from 'react';
 
 interface DropdownProps {
@@ -6,10 +8,11 @@ interface DropdownProps {
     options:number[] | string[] | any[];
     value?:string;
     onSelect?: (event: ChangeEvent<HTMLSelectElement>) => void,
+    loading: boolean;
 //   onSelect: (selectedValue: string) => void;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({options, value, label, name, onSelect}) => {
+const Dropdown: React.FC<DropdownProps> = ({options, value, label, name, onSelect, loading}) => {
   // const [options, setOptions] = useState<Record<string, any>[]>([]);;
   // const [loading, setLoading] = useState(true);
   // const [selectedValue, setSelectedValue] = useState<string>('');
@@ -43,7 +46,7 @@ const Dropdown: React.FC<DropdownProps> = ({options, value, label, name, onSelec
   return (
     <div style={{paddingBottom:'4px'}}>
       <label className='pb[8px]' style={{display: 'flex'}}>{label}</label>
-      <select name={name} value={value} onChange={onSelect} disabled={options===null} style={{paddingBottom:'4px', width:'450px', paddingLeft: '4px', border: options!== null?'2px solid #ccc': '2px solid red'}}>
+      <select name={name} value={value} onChange={onSelect} disabled={loading || options === null} style={{paddingBottom:'4px', width:'450px', paddingLeft: '4px', border: options!== null?'2px solid #ccc': '2px solid red'}}>
         <option value="" disabled >
           {options!== null? 'Select an option':'Data tidak tersedia'}
         </option>

@@ -81,7 +81,7 @@ const JadwalList:React.FC = () => {
       
       return (
         <div style={{ maxHeight: '450px', overflowY: 'auto', paddingRight:'12px'}}>
-            {jadwal.map((jadwal)=> (
+            {jadwal && jadwal.map((jadwal)=> (
                 <div key={jadwal.id}>
                     <InformationCard
                     margin='mb-4'
@@ -90,6 +90,9 @@ const JadwalList:React.FC = () => {
                         <div>
                             <p>ID: {jadwal.id}</p>
                             <p>Nama Kelas: {jadwal.kelas.nama}</p>
+                            <p>Nama Pelanggan: {jadwal.pelanggan.nama_lengkap}</p>
+                            <p>Nama Kendaraan: {jadwal.kendaraan.nama}</p>
+                            <p>Nama Instruktur: {jadwal.instruktur.nama_lengkap}</p>
                             <p>Tanggal: {new Date(jadwal.tanggal).toISOString().split("T")[0]}</p>
                             <p>Start Sesi: {new Date(jadwal.start_sesi).toISOString().split("T")[1].split(".")[0]}</p>
                             <p>End Sesi: {new Date(jadwal.end_sesi).toISOString().split("T")[1].split(".")[0]}</p>

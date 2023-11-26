@@ -148,7 +148,7 @@ async function main() {
             id_kelas: 1,
             id_instruktur: 1,
             id_pelanggan: 1,
-            id_kendaraan: 1
+            id_kendaraan: 2
         },
         create: {
             tanggal: new Date('2023-11-24T00:00:00'),
@@ -157,7 +157,7 @@ async function main() {
             id_kelas: 1,
             id_instruktur: 1,
             id_pelanggan: 1,
-            id_kendaraan: 1
+            id_kendaraan: 2
         }
     });
 

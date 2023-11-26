@@ -11,7 +11,11 @@ class PelangganController{
             let customer;
             const {query} = req.body;
             if (!query){
-                customer = await prisma.pelanggan.findMany();
+                customer = await prisma.pelanggan.findMany({
+                    include:{
+                        pilihan_kelas:true,
+                    }
+                });
             }else{
                 customer = await prisma.pelanggan.findMany({
                     where:{
