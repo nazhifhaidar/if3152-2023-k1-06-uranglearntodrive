@@ -75,7 +75,7 @@ const KendaraanList:React.FC = () => {
         <div style={{ maxHeight: '500px', overflowY: 'auto' }}>
             <h1>Kendaraan List</h1>
             <OurLoader state={isLoading}/>
-            {kendaraans.map((kendaraan)=> (
+            {kendaraans && kendaraans.map((kendaraan)=> (
                 <div key={kendaraan.id} className='mb-2'>
                     <InformationCard
                     key={kendaraan.id}

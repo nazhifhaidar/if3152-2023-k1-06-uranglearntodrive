@@ -94,7 +94,7 @@ const PelangganList:React.FC = () => {
         <div style={{ maxHeight: '500px', overflowY: 'auto' }}>
             <h1>Pelanggan List</h1>
             <OurLoader state={isLoading}/>
-            {pelanggans.map((pelanggan)=> (
+            {pelanggans && (pelanggans.map((pelanggan)=> (
                 <div key={pelanggan.id}>
                     <InformationCard
                     key={pelanggan.id}
@@ -119,7 +119,7 @@ const PelangganList:React.FC = () => {
                 </div>
                 
                         
-            ))}
+            )))}
             <ConfirmationPopUp
                 isOpen={isConfirmationOpen}
                 onCancel={handleCancelDelete}
