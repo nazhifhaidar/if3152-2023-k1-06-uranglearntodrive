@@ -4,6 +4,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import InformationCard from '@/app/components/Cards/InformationCard';
 import ConfirmationPopUp from '@/app/components/pop-ups/ConfirmationPopUp';
 import DeleteButton from '@/app/components/Buttons/DeleteButton';
+import { ClipLoader, RotateLoader } from 'react-spinners';
 import { useMessageContext } from '@/app/components/Providers/MessageProvider';
 
 const AdminList: React.FC = () => {
@@ -14,6 +15,7 @@ const AdminList: React.FC = () => {
   const {showMessage} = useMessageContext();
 
   const fetchData = async () => {
+    setLoading(true);
     try {
       const response = await fetch(`/api/admin/`,
         {
@@ -29,14 +31,14 @@ const AdminList: React.FC = () => {
         showMessage(data?.message, "error");
         setAdmins([]);
       }
-
-
       // Assuming data is an array of objects
     } catch (error) {
       console.log('Error fetching data:', error);
       console.error('Error fetching data:', error);
       showMessage(`Error fetching admin: ${error}`, "error");
       setAdmins([]);
+    }finally{
+      setLoading(false);
     }
   };
 
@@ -64,7 +66,6 @@ const AdminList: React.FC = () => {
   };
 
   const handleDelete = async (adminId: number) => {
-    setLoading(true);
     try {
       const response = await fetch(`/api/admin/${adminId}`, {
         method: 'DELETE',
@@ -83,13 +84,16 @@ const AdminList: React.FC = () => {
     } catch (error) {
       console.error('Error deleting admin:', error);
       showMessage(`Error deleting admin: ${error}`, "error");
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
     <div style={{ maxHeight: '360px', overflowY: 'auto', paddingRight: '12px', width: '100%', maxWidth: '720px' }}>
+      {loading && (
+        <div style={{width:'300px', height:'300px'}}>
+          <ClipLoader color="grey" loading={loading} size={200} />
+        </div>
+      )}
       {admins && (admins.map((admin) => (
         <div key={admin.id}>
           <InformationCard

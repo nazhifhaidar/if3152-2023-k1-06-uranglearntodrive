@@ -101,7 +101,7 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
   if (response.ok){
       const data= await response.json();
       console.log(data);
-      router.push('/owner/manage-kendaraan');
+      router.push('/admin/manage-status');
   } else{
       const data= await response.json();
       console.error(data);

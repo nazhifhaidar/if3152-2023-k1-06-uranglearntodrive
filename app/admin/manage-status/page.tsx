@@ -41,6 +41,11 @@ const ManageAdminPage: React.FC = async () => {
                   Manage Pelanggan
               </h2>
             </Link>
+            <Link href={"/admin/manage-jadwal"}>
+              <h2 style={{paddingLeft:'8px'}}>
+                  Manage Jadwal
+              </h2>
+            </Link>
         </OpenClosedSideBar>
         <div style={{margin: '16px', flex:'1'}}>
           {/* <h2>Hello, {session?.user.name}</h2> */}

@@ -7,15 +7,18 @@ import ConfirmationPopUp from '@/app/components/pop-ups/ConfirmationPopUp';
 import { useRouter } from "next/navigation";
 import DeleteButton from '@/app/components/Buttons/DeleteButton';
 import EditButton from '@/app/components/Buttons/EditButton';
+import OurLoader from '@/app/components/Loader/OurLoader';
 
 const JadwalList:React.FC = () => {
     const router = useRouter();
     const [jadwal, setjadwal] = useState<Record<string, any>[]>([]);
     const [selectedjadwalId, setSelectedjadwalId] = useState<number | null>(null);
     const [isConfirmationOpen, setConfirmationOpen] = useState(false);
+    const [isLoading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchData = async () => {
+          setLoading(true);
           try {
             const response = await fetch(`/api/jadwal`,
                 {
@@ -31,6 +34,8 @@ const JadwalList:React.FC = () => {
           } catch (error) {
             console.log('Error fetching data:', error);
             console.error('Error fetching data:', error);
+          } finally{
+            setLoading(false);
           }
         };
         fetchData();
@@ -81,7 +86,8 @@ const JadwalList:React.FC = () => {
       
       return (
         <div style={{ maxHeight: '450px', overflowY: 'auto', paddingRight:'12px'}}>
-            {jadwal.map((jadwal)=> (
+          <OurLoader state={isLoading}/>
+            {jadwal && jadwal.map((jadwal)=> (
                 <div key={jadwal.id}>
                     <InformationCard
                     margin='mb-4'
@@ -90,6 +96,9 @@ const JadwalList:React.FC = () => {
                         <div>
                             <p>ID: {jadwal.id}</p>
                             <p>Nama Kelas: {jadwal.kelas.nama}</p>
+                            <p>Nama Pelanggan: {jadwal.pelanggan.nama_lengkap}</p>
+                            <p>Nama Kendaraan: {jadwal.kendaraan.nama}</p>
+                            <p>Nama Instruktur: {jadwal.instruktur.nama_lengkap}</p>
                             <p>Tanggal: {new Date(jadwal.tanggal).toISOString().split("T")[0]}</p>
                             <p>Start Sesi: {new Date(jadwal.start_sesi).toISOString().split("T")[1].split(".")[0]}</p>
                             <p>End Sesi: {new Date(jadwal.end_sesi).toISOString().split("T")[1].split(".")[0]}</p>
