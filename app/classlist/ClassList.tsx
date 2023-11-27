@@ -6,6 +6,7 @@ import Button2 from '@/app/components/Buttons/Button2';
 import Link from 'next/link';
 import Grid from '../components/Grid';
 import { useMessageContext } from '../components/Providers/MessageProvider';
+import Grid1 from '../components/Grid/Grid1';
 
 const ClassList: React.FC = () => {
     const [kelas, setKelas] = useState<Record<string, any>[]>([]);
@@ -36,7 +37,7 @@ const ClassList: React.FC = () => {
     }, []);
     return (
         <div>
-            <Grid rows={4} columns={3}>
+            <Grid1 rows={4} columns={3}>
                 {kelas &&
                     kelas.map((kelas) => (
                         <div key={kelas.id} style={{ margin: "2rem" }}>
@@ -59,7 +60,7 @@ const ClassList: React.FC = () => {
                             />
                         </div>
                     ))}
-            </Grid>
+            </Grid1>
         </div>
     );
 };
