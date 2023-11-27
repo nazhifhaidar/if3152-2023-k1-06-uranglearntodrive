@@ -46,8 +46,8 @@ class PelangganController{
         let responseData: ResponseData<any>;
         try{
             let cust;
-            const {nama_lengkap, umur, no_telp, alamat, id} = req.body;
-            if (!nama_lengkap || !umur || !no_telp || !alamat || !id){
+            const {nama_lengkap, umur, no_telp, alamat, id_kelas} = req.body;
+            if (!nama_lengkap || !umur || !no_telp || !alamat || !id_kelas){
                 responseData = new ResponseData("error", "Every attribute must be filled", null);
                 return res.status(400).json(responseData)
             }
@@ -57,7 +57,7 @@ class PelangganController{
                         umur:umur,
                         no_telp:no_telp,
                         alamat:alamat,
-                        id_kelas:id,
+                        id_kelas:id_kelas,
                     }
                 }
             );

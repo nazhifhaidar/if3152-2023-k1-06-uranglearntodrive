@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import DeleteButton from '@/app/components/Buttons/DeleteButton';
 import EditButton from '@/app/components/Buttons/EditButton';
 import { useMessageContext } from '@/app/components/Providers/MessageProvider';
+import OurLoader from '@/app/components/Loader/OurLoader';
 
 const JadwalList:React.FC = () => {
     const router = useRouter();
@@ -15,9 +16,11 @@ const JadwalList:React.FC = () => {
     const [selectedjadwalId, setSelectedjadwalId] = useState<number | null>(null);
     const [isConfirmationOpen, setConfirmationOpen] = useState(false);
     const {showMessage} = useMessageContext();
+    const [isLoading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchData = async () => {
+          setLoading(true);
           try {
             const response = await fetch(`/api/jadwal`,
                 {
@@ -33,6 +36,8 @@ const JadwalList:React.FC = () => {
           } catch (error) {
             console.log('Error fetching data:', error);
             console.error('Error fetching data:', error);
+          } finally{
+            setLoading(false);
           }
         };
         fetchData();
@@ -86,6 +91,7 @@ const JadwalList:React.FC = () => {
       
       return (
         <div style={{ maxHeight: '450px', overflowY: 'auto', paddingRight:'12px'}}>
+          <OurLoader state={isLoading}/>
             {jadwal && jadwal.map((jadwal)=> (
                 <div key={jadwal.id}>
                     <InformationCard

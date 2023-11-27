@@ -8,17 +8,20 @@ import { useRouter } from "next/navigation";
 import DeleteButton from '@/app/components/Buttons/DeleteButton';
 import { useMessageContext } from '@/app/components/Providers/MessageProvider';
 import EditButton from '@/app/components/Buttons/EditButton';
+import { ClipLoader } from 'react-spinners';
+import OurLoader from '@/app/components/Loader/OurLoader';
 
 const KelasList:React.FC = () => {
     const router = useRouter();
     const [kelas, setkelas] = useState<Record<string, any>[]>([]);
     const [selectedkelasId, setSelectedkelasId] = useState<number | null>(null);
     const [isConfirmationOpen, setConfirmationOpen] = useState(false);
-
+    const [loading, setLoading] = useState(false);
     const {showMessage} = useMessageContext();
 
     useEffect(() => {
         const fetchData = async () => {
+          setLoading(true);
           try {
             const response = await fetch(`/api/kelas/`,
                 {
@@ -34,6 +37,8 @@ const KelasList:React.FC = () => {
           } catch (error) {
            showMessage(`Error fetching data: ${error}`, "error");
             console.error('Error fetching data:', error);
+          }finally{
+            setLoading(false);
           }
         };
     
@@ -91,6 +96,7 @@ const KelasList:React.FC = () => {
       
       return (
         <div style={{ maxHeight: '450px', overflowY: 'auto', paddingRight:'12px'}}>
+          <OurLoader state={loading}/>
             {kelas.map((kelas)=> (
                 <div key={kelas.id}>
                     <InformationCard
@@ -109,7 +115,7 @@ const KelasList:React.FC = () => {
                     buttons={
                         <div style={{flexDirection : 'column' , display: 'flex'}}>
                             <DeleteButton onClick={() => handleDeleteClick(kelas.id)}></DeleteButton>
-                            <EditButton onClick={() => handleEditClick(kelas.id)}></EditButton>
+                            <Button2 text='Edit' onClick={() => handleEditClick(kelas.id)}></Button2>
                         </div>
                     }
                     />

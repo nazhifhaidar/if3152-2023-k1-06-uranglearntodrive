@@ -8,6 +8,7 @@ import ConfirmationPopUp from '@/app/components/pop-ups/ConfirmationPopUp';
 import { useRouter } from "next/navigation";
 import DeleteButton from '@/app/components/Buttons/DeleteButton';
 import EditButton from '@/app/components/Buttons/EditButton';
+import OurLoader from '@/app/components/Loader/OurLoader';
 
 
 const PelangganList:React.FC = () => {
@@ -16,10 +17,12 @@ const PelangganList:React.FC = () => {
     const [selectedPelanggan, setSelectedPelanggan] = useState<Record<string, any>>([]);
     const [selectedPelangganId, setSelectedPelangganId] = useState<number | null>(null);
     const [isConfirmationOpen, setConfirmationOpen] = useState(false);
+    const [isLoading, setLoading] = useState<boolean>(false);
 
 
     useEffect(() => {
         const fetchData = async () => {
+          setLoading(true);
           try {
             const response = await fetch(`/api/pelanggan/`,
                 {
@@ -35,6 +38,8 @@ const PelangganList:React.FC = () => {
           } catch (error) {
             console.log('Error fetching data:', error);
             console.error('Error fetching data:', error);
+          }finally{
+            setLoading(false);
           }
         };
     
@@ -88,8 +93,9 @@ const PelangganList:React.FC = () => {
       return (
         <div style={{ maxHeight: '500px', overflowY: 'auto' }}>
             <h1>Pelanggan List</h1>
-            {pelanggans.map((pelanggan)=> (
-                <div key={pelanggan.id}>
+            <OurLoader state={isLoading}/>
+            {pelanggans && (pelanggans.map((pelanggan)=> (
+                <div key={pelanggan.id} className='mb-2'>
                     <InformationCard
                     key={pelanggan.id}
                     data={
@@ -113,7 +119,7 @@ const PelangganList:React.FC = () => {
                 </div>
                 
                         
-            ))}
+            )))}
             <ConfirmationPopUp
                 isOpen={isConfirmationOpen}
                 onCancel={handleCancelDelete}
