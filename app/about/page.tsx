@@ -42,7 +42,7 @@ const About: React.FC = async () => {
           layout="fill"
           objectFit="cover"
         />
-        <div style={{ position: 'relative', zIndex: 1 }}>
+        <div style={{ position: 'relative', zIndex: 1 , marginTop:'4rem' }}>
         <SectionContainer w={100} bg_col='azure' bdr_col='' children={
           <div style={{display:'flex', flexDirection:'column'}}>
             <h1 style={{textAlign:'center', fontSize:'72px', fontWeight:'bolder'}}> Apa itu Urang Learn to Drive? </h1>
