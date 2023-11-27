@@ -6,6 +6,7 @@ import LoginPage from '@/app/login/page'
 import Provider from '@/app/Provider';
 import { MessageProvider } from '@/app/components/Providers/MessageProvider';
 
+
 jest.mock('next/navigation');
 
 describe('Login', () => {
