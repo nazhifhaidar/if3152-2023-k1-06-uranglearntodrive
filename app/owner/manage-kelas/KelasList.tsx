@@ -115,7 +115,7 @@ const KelasList:React.FC = () => {
                     buttons={
                         <div style={{flexDirection : 'column' , display: 'flex'}}>
                             <DeleteButton onClick={() => handleDeleteClick(kelas.id)}></DeleteButton>
-                            <Button2 text='Edit' onClick={() => handleEditClick(kelas.id)}></Button2>
+                            <EditButton onClick={() => handleEditClick(kelas.id)}></EditButton>
                         </div>
                     }
                     />

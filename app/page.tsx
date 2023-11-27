@@ -64,34 +64,34 @@ const HomePage: React.FC = async () => {
       <div style={{display:'flex', marginTop:'2rem', flexDirection:'row'}}>
         <div style={{marginLeft:'2rem', marginRight:'2rem', marginTop:'-4rem', display:'flex', flexDirection:'row'}}>
           <div style={{margin:'8px'}}>
-            <SectionContainer w={100} bg_col='azure' bdr_col='' children={
+            <SectionContainer w={100} bg_col='azure' bdr_col=''>
               <>
                 <div style={{display:'flex', flexDirection:'column'}}>
                   <h1> Cepat Mendapatkan SIM </h1>
                   <p style={{textAlign:'left'}}> Urang Learn to Drive unggul dalam memberikan pengajaran kemampuan mengemudi lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam purus neque, consequat nec condimentum ac, sagittis ut tortor. Nam malesuada luctus neque vitae euismod. In at scelerisque risus, in sodales mi. Pellentesque ultrices maximus consequat.</p>
                 </div>
               </>
-            }></SectionContainer>
+            </SectionContainer>
           </div>
           <div style={{margin:'8px'}}>
-            <SectionContainer w={100} bg_col='azure' bdr_col='' children={
+            <SectionContainer w={100} bg_col='azure' bdr_col=''>
               <>
                 <div style={{display:'flex', flexDirection:'column'}}>
                   <h1> Jadwal Kelas Fleksibel </h1>
                   <p style={{textAlign:'left'}}> Urang Learn to Drive unggul dalam memberikan pengajaran kemampuan mengemudi lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam purus neque, consequat nec condimentum ac, sagittis ut tortor. Nam malesuada luctus neque vitae euismod. In at scelerisque risus, in sodales mi. Pellentesque ultrices maximus consequat.</p>
                 </div>
               </>
-            }></SectionContainer>
+            </SectionContainer>
           </div>
           <div style={{margin:'8px'}}>
-            <SectionContainer w={100} bg_col='azure' bdr_col='' children={
+            <SectionContainer w={100} bg_col='azure' bdr_col=''>
               <>
                 <div style={{display:'flex', flexDirection:'column'}}>
                   <h1> Harga Lebih Murah </h1>
                   <p style={{textAlign:'left'}}> Urang Learn to Drive unggul dalam memberikan pengajaran kemampuan mengemudi lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam purus neque, consequat nec condimentum ac, sagittis ut tortor. Nam malesuada luctus neque vitae euismod. In at scelerisque risus, in sodales mi. Pellentesque ultrices maximus consequat.</p>
                 </div>
               </>
-            }></SectionContainer>
+            </SectionContainer>
           </div>
         </div>
       </div>

@@ -43,7 +43,7 @@ const About: React.FC = async () => {
           objectFit="cover"
         />
         <div style={{ position: 'relative', zIndex: 1 , marginTop:'4rem' }}>
-        <SectionContainer w={100} bg_col='azure' bdr_col='' children={
+        <SectionContainer w={100} bg_col='azure' bdr_col=''>
           <div style={{display:'flex', flexDirection:'column'}}>
             <h1 style={{textAlign:'center', fontSize:'72px', fontWeight:'bolder'}}> Apa itu Urang Learn to Drive? </h1>
             <br/>
@@ -55,7 +55,7 @@ const About: React.FC = async () => {
                 Duis condimentum erat vitae massa fermentum faucibus.
             </p>
           </div>
-        }></SectionContainer>
+        </SectionContainer>
         </div>
       </div>
     </>

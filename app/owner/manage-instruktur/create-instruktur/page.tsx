@@ -42,7 +42,9 @@ const CreateInstrukturPage:React.FC = () => {
                     Manage Admin
                 </h2>
             </Link>
-            <h2 style={{paddingLeft:'8px'}}>Manage Kendaraan</h2>
+            <Link href={"/owner/manage-kendaraan"}>
+              <h2 style={{paddingLeft:'8px'}}>Manage Kendaraan</h2>
+            </Link>
             <Link href={"/owner/manage-instruktur"}>
                 <h2 style={CurrentPageStyle}>
                     Manage Instruktur

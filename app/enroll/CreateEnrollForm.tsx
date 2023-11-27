@@ -5,6 +5,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import TextField2 from '../components/TextField/TextField2';
 import Button1 from '../components/Buttons/Button1';
+import {useMessageContext } from '@/app/components/Providers/MessageProvider';
+
 
 const CreateEnrollForm:React.FC = () => {
     const param = useSearchParams();
@@ -14,6 +16,8 @@ const CreateEnrollForm:React.FC = () => {
     const [umur, setUmur] = useState<string>('');
     const [telp, setTelp] = useState<string>('');
     const [alamat, setAlamat] = useState<string>('');
+    const {showMessage} = useMessageContext();
+    
 
     const handleNama = (event: ChangeEvent<HTMLInputElement>) => {
         setNama(event.target.value);
