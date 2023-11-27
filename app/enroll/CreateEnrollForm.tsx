@@ -14,27 +14,6 @@ const CreateEnrollForm:React.FC = () => {
     const [umur, setUmur] = useState<string>('');
     const [telp, setTelp] = useState<string>('');
     const [alamat, setAlamat] = useState<string>('');
-    const [tipe, setTipe] = useState<string>('');
-    const [loading,setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchOptions = async () => {
-            try {
-            const fetchedOptionsTipe = await fetch(`/api/dashboard/${id}`,
-              {
-                  method: 'GET',
-                  body: null,
-                  headers: { "Content-Type": "application/json" }
-              });
-              const dataTipe = await fetchedOptionsTipe.json();
-              setTipe(dataTipe.data);
-            } catch (error) {
-                console.error('Error fetching options:', error);
-                setLoading(false);
-            }
-        };
-        fetchOptions();
-      }, []);
 
     const handleNama = (event: ChangeEvent<HTMLInputElement>) => {
         setNama(event.target.value);
@@ -47,9 +26,6 @@ const CreateEnrollForm:React.FC = () => {
     }; 
     const handleAlamat = (event: ChangeEvent<HTMLInputElement>) => {
         setAlamat(event.target.value);
-    }; 
-    const handleTipe = (event: ChangeEvent<HTMLInputElement>) => {
-        setTipe(event.target.value);
     }; 
 
     const handleEnroll = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -69,8 +45,7 @@ const CreateEnrollForm:React.FC = () => {
                 id_kelas:parseInt(id as string, 10),
                 umur:parseInt(umur as string, 10),
                 no_telp:telp,
-                alamat:alamat,
-                tipe_kendaraan:tipe
+                alamat:alamat
             }),
             headers: { "Content-Type": "application/json" }
         });
@@ -92,7 +67,6 @@ const CreateEnrollForm:React.FC = () => {
                 <TextField2 label="Umur" name='umur' value={umur} type="text" onChange={handleUmur} loading={false} />
                 <TextField2 label="No. Telpon" name='telp' value={telp} type="text" onChange={handleTelp} loading={false} />
                 <TextField2 label="Alamat" name='alamat' value={alamat} type="text" onChange={handleAlamat} loading={false} />
-                <TextField2 label="Tipe Kendaraan" name='tipe' value={tipe} type="text" onChange={handleTipe} loading={true} />
                 <div style={{ maxWidth: '100%', display: 'flex', justifyContent: 'center', flexDirection:'row' }}>
                     <Button1 id="enroll" text="Enroll!" textColor="black" bgColor="yellow" type='submit' style={{margin:'8px'}}/>
                     <Link href={"/classlist"}>
