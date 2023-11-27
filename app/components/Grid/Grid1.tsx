@@ -11,9 +11,10 @@ interface GridProps {
 const Grid1: React.FC<GridProps> = ({ rows, columns, children }) => {
    const gridStyle = {
        display: 'grid',
-       gridTemplateRows: `repeat(${rows}, 1fr)`,
        gridTemplateColumns: `repeat(${columns}, 1fr)`,
-       gap: '8px',
+       gap: '16px',
+       justifyContent: 'space-between',
+       width: '100%'
    };
 
    return (

@@ -36,7 +36,7 @@ const ClassList: React.FC = () => {
         fetchData();
     }, []);
     return (
-        <div>
+        <div className='w-full' style={{maxHeight:'500px', overflowY:"auto"}}>
             <Grid1 rows={4} columns={3}>
                 {kelas &&
                     kelas.map((kelas) => (
